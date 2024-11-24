@@ -22,13 +22,13 @@ export default function Home() {
             <a href="/projects" className="flex items-center">
               <FaUpRightFromSquare />
               <span className="ml-2">View Projects</span>
-            </a>
+            </a> 
           </span>
         </div>
         <div className="mt-4 flex space-x-4 text-gray-400">
           <a href="https://github.com/CDX-1" target="_blank" className="hover:text-white duration-300"><FaGithub className="h-6 w-6"></FaGithub></a>
-          <a href="#x" target="_blank" className="hover:text-white duration-300"><FaXTwitter className="h-6 w-6"></FaXTwitter></a>
-          <a href="#discord" target="_blank" className="hover:text-white duration-300"><FaDiscord className="h-6 w-6"></FaDiscord></a>
+          <a href="https://x.com/cdxdev" target="_blank" className="hover:text-white duration-300"><FaXTwitter className="h-6 w-6"></FaXTwitter></a>
+          <a href="https://discord.gg/W8ssCC5QBC" target="_blank" className="hover:text-white duration-300"><FaDiscord className="h-6 w-6"></FaDiscord></a>
         </div>
       </div >
 
