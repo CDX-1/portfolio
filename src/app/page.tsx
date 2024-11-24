@@ -13,7 +13,7 @@ export default function Home() {
         <p className="text-l text-gray-400">using unique toolsets</p>
         <div className="flex flex-col space-y-2 pt-2">
           <span className="inline-flex items-center text-gray-300 hover:text-white duration-300">
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cdxlol.dev@gmail.com&su=Development Proposal" className="flex items-center">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cdxlol.dev@gmail.com&su=Development Proposal" target="_blank" className="flex items-center">
               <FaAt />
               <span className="ml-2">cdxlol.dev@gmail.com</span>
             </a>
