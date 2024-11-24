@@ -41,5 +41,4 @@ const Experience: React.FC<ExperienceProps> = ({
     );
 };
 
-
 export default Experience;

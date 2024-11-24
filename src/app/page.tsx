@@ -26,9 +26,9 @@ export default function Home() {
           </span>
         </div>
         <div className="mt-4 flex space-x-4 text-gray-400">
-          <a href="https://github.com/CDX-1" className="hover:text-white duration-300"><FaGithub className="h-6 w-6"></FaGithub></a>
-          <a href="#x" className="hover:text-white duration-300"><FaXTwitter className="h-6 w-6"></FaXTwitter></a>
-          <a href="#discord" className="hover:text-white duration-300"><FaDiscord className="h-6 w-6"></FaDiscord></a>
+          <a href="https://github.com/CDX-1" target="_blank" className="hover:text-white duration-300"><FaGithub className="h-6 w-6"></FaGithub></a>
+          <a href="#x" target="_blank" className="hover:text-white duration-300"><FaXTwitter className="h-6 w-6"></FaXTwitter></a>
+          <a href="#discord" target="_blank" className="hover:text-white duration-300"><FaDiscord className="h-6 w-6"></FaDiscord></a>
         </div>
       </div >
 
