@@ -4,58 +4,119 @@ import { FaUpRightFromSquare, FaXTwitter } from 'react-icons/fa6';
 
 export default function Home() {
   return (
-    <main className="flex items-start justify-center min-h-screen text-gray-100 p-8 pt-16 z-[-1] backdrop-blur-[200px]">
+    <main className="flex flex-col sm:flex-row items-center sm:items-start justify-center min-h-screen text-gray-100 p-4 sm:p-8 pt-12 sm:pt-16 z-[-1] backdrop-blur-[200px]">
       {/* Left Column */}
-      <div className="w-full sm:w-1/4 md:w-1/6 flex flex-col justify-start items-start group hover">
-        <h1 className="text-4xl sm:text-8xl font-bold text-transparent text-white">CDX</h1>
-        <p className="text-2xl text-gray-300">Software Engineer</p>
-        <p className="text-l text-gray-400 pt-2">Builder of various projects</p>
-        <p className="text-l text-gray-400">using unique toolsets</p>
-        <div className="flex flex-col space-y-2 pt-2">
+      <div className="w-full sm:w-1/4 md:w-1/6 flex flex-col justify-start items-center sm:items-start group">
+        <h1 className="text-4xl sm:text-8xl font-bold text-transparent text-white text-center sm:text-left">
+          CDX
+        </h1>
+        <p className="text-2xl text-gray-300 text-center sm:text-left">
+          Software Engineer
+        </p>
+        <p className="text-base text-gray-400 pt-2 text-center sm:text-left">
+          Builder of various projects
+        </p>
+        <p className="text-base text-gray-400 text-center sm:text-left">
+          using unique toolsets
+        </p>
+        <div className="flex flex-col space-y-2 pt-4">
           <span className="inline-flex items-center text-gray-300 hover:text-white duration-300">
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cdxlol.dev@gmail.com&su=Development Proposal" target="_blank" className="flex items-center">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=cdxlol.dev@gmail.com&su=Development Proposal"
+              target="_blank"
+              className="flex items-center"
+            >
               <FaAt />
-              <span className="ml-2">cdxlol.dev@gmail.com</span>
+              <span className="ml-2 text-sm">cdxlol.dev@gmail.com</span>
             </a>
           </span>
           <span className="inline-flex items-center text-gray-300 hover:text-white duration-300">
             <a href="/projects" className="flex items-center">
               <FaUpRightFromSquare />
-              <span className="ml-2">View Projects</span>
-            </a> 
+              <span className="ml-2 text-sm">View Projects</span>
+            </a>
           </span>
         </div>
-        <div className="mt-4 flex space-x-4 text-gray-400">
-          <a href="https://github.com/CDX-1" target="_blank" className="hover:text-white duration-300"><FaGithub className="h-6 w-6"></FaGithub></a>
-          <a href="https://x.com/cdxdev" target="_blank" className="hover:text-white duration-300"><FaXTwitter className="h-6 w-6"></FaXTwitter></a>
-          <a href="https://discord.gg/W8ssCC5QBC" target="_blank" className="hover:text-white duration-300"><FaDiscord className="h-6 w-6"></FaDiscord></a>
+        <div className="mt-4 flex space-x-4 text-gray-400 justify-center sm:justify-start">
+          <a
+            href="https://github.com/CDX-1"
+            target="_blank"
+            className="hover:text-white duration-300"
+          >
+            <FaGithub className="h-6 w-6" />
+          </a>
+          <a
+            href="https://x.com/cdxdev"
+            target="_blank"
+            className="hover:text-white duration-300"
+          >
+            <FaXTwitter className="h-6 w-6" />
+          </a>
+          <a
+            href="https://discord.gg/W8ssCC5QBC"
+            target="_blank"
+            className="hover:text-white duration-300"
+          >
+            <FaDiscord className="h-6 w-6" />
+          </a>
         </div>
-      </div >
+      </div>
 
       {/* Right Column */}
-      < div className="w-full sm:w-3/4 max-w-full sm:max-w-2xl space-y-6 pl-8 text-gray-300" >
-        <h1 className="text-lg leading-relaxed font-bold text-white">About Me</h1>
-        <p className="text-lg leading-relaxed break-words">
-          Hi, I&apos;m <b className="text-white">CDX</b>, a passionate developer specializing in creating immersive experiences and robust solutions across various platforms. My expertise includes:
+      <div className="w-full sm:w-3/4 max-w-full sm:max-w-2xl space-y-6 pl-0 sm:pl-8 text-gray-300 mt-8 sm:mt-0">
+        <h1 className="text-lg leading-relaxed font-bold text-white text-center sm:text-left">
+          About Me
+        </h1>
+        <p className="text-base leading-relaxed break-words text-center sm:text-left">
+          Hi, I&apos;m <b className="text-white">CDX</b>, a passionate developer
+          specializing in creating immersive experiences and robust solutions
+          across various platforms. My expertise includes:
         </p>
-        <ul className="list-disc pl-5 mt-4 space-y-4 sm:space-y-2">
-          <li><b className="text-white">Minecraft Server Plugins:</b> Skilled in Bukkit/Spigot/Paper/Velocity plugin development, including NMS and packet handling, to craft powerful and unique gameplay mechanics.</li>
-          <li><b className="text-white">Roblox Scripting:</b> Proficient in Luau and tools like Rojo and Knit to build powerful Roblox experiences.</li>
-          <li><b className="text-white">Discord Bots:</b> Experienced in building feature-rich bots using discord.js</li>
+        <ul className="list-disc pl-5 mt-4 space-y-4 sm:space-y-2 text-center sm:text-left">
+          <li>
+            <b className="text-white">Minecraft Server Plugins:</b> Skilled in
+            Bukkit/Spigot/Paper/Velocity plugin development, including NMS and
+            packet handling, to craft powerful and unique gameplay mechanics.
+          </li>
+          <li>
+            <b className="text-white">Roblox Scripting:</b> Proficient in Luau
+            and tools like Rojo and Knit to build powerful Roblox experiences.
+          </li>
+          <li>
+            <b className="text-white">Discord Bots:</b> Experienced in building
+            feature-rich bots using discord.js
+          </li>
         </ul>
-        <h1 className="text-lg leading-relaxed font-bold break-words">Skills & Tools</h1>
-        <ul className="list-disc pl-5 mt-4 space-y-4 sm:space-y-2">
-          <li><b className="text-white">Languages:</b> Java, Kotlin, JavaScript/TypeScript, Python, Lua(u)</li>
-          <li><b className="text-white">Software:</b> Visual Studio, Visual Studio Code, IntelliJ IDEA, PyCharm, Roblox Studio, Unity Engine, Unreal Engine, Godot, Blender, Davinci Resolve</li>
-          <li><b className="text-white">Databases:</b> SQL, MongoDB</li>
-          <li><b className="text-white">Version Control:</b> GitHub</li>
+        <h1 className="text-lg leading-relaxed font-bold break-words text-center sm:text-left">
+          Skills & Tools
+        </h1>
+        <ul className="list-disc pl-5 mt-4 space-y-4 sm:space-y-2 text-center sm:text-left">
+          <li>
+            <b className="text-white">Languages:</b> Java, Kotlin,
+            JavaScript/TypeScript, Python, Lua(u)
+          </li>
+          <li>
+            <b className="text-white">Software:</b> Visual Studio, Visual Studio
+            Code, IntelliJ IDEA, PyCharm, Roblox Studio, Unity Engine, Unreal
+            Engine, Godot, Blender, Davinci Resolve
+          </li>
+          <li>
+            <b className="text-white">Databases:</b> SQL, MongoDB
+          </li>
+          <li>
+            <b className="text-white">Version Control:</b> GitHub
+          </li>
         </ul>
-        <p className="text-lg leading-relaxed break-words">
-          Whether it&apos;s designing unique gameplay mechanics, creating automation scripts, or creating user-focused applications, I thrive on bringing ideas to life with clean and efficient code.
+        <p className="text-base leading-relaxed break-words text-center sm:text-left">
+          Whether it&apos;s designing unique gameplay mechanics, creating
+          automation scripts, or creating user-focused applications, I thrive
+          on bringing ideas to life with clean and efficient code.
         </p>
 
         {/* Past Work Experiences */}
-        <h1 className="text-lg leading-relaxed font-bold break-words">Experiences</h1>
+        <h1 className="text-lg leading-relaxed font-bold break-words text-center sm:text-left">
+          Experiences
+        </h1>
         <div>
           <Experience
             title="Lead Software Engineer"
@@ -94,7 +155,7 @@ export default function Home() {
             discontinued={true}
           />
         </div>
-      </div >
-    </main >
+      </div>
+    </main>
   );
 }
