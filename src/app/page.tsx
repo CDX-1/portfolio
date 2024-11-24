@@ -91,6 +91,7 @@ export default function Home() {
             company="ServerSetup"
             dateRange="2020 - 2021"
             description="ServerSetup is a Discord bot I developed using the discord.js library, designed to simplify server management. It empowers users to create and save templates for Discord servers and reuse them across new servers. It features an interactive setup prompt in order to customize any template to your given specifications"
+            discontinued={true}
           />
         </div>
       </div >
