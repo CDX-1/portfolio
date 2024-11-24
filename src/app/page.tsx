@@ -1,101 +1,99 @@
-import Image from "next/image";
+import { FaAt, FaDiscord, FaGithub } from 'react-icons/fa';
+import Experience from './components/Experience';
+import { FaUpRightFromSquare, FaXTwitter } from 'react-icons/fa6';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="flex items-start justify-center min-h-screen text-gray-100 p-8 pt-16 z-[-1] backdrop-blur-[200px]">
+      {/* Left Column */}
+      <div className="w-full sm:w-1/4 md:w-1/6 flex flex-col justify-start items-start group hover">
+        <h1 className="text-4xl sm:text-8xl font-bold text-transparent text-white">CDX</h1>
+        <p className="text-2xl text-gray-300">Software Engineer</p>
+        <p className="text-l text-gray-400 pt-2">Builder of various projects</p>
+        <p className="text-l text-gray-400">using unique toolsets</p>
+        <div className="flex flex-col space-y-2 pt-2">
+          <span className="inline-flex items-center text-gray-300 hover:text-white duration-300">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cdxlol.dev@gmail.com&su=Development Proposal" className="flex items-center">
+              <FaAt />
+              <span className="ml-2">cdxlol.dev@gmail.com</span>
+            </a>
+          </span>
+          <span className="inline-flex items-center text-gray-300 hover:text-white duration-300">
+            <a href="/projects" className="flex items-center">
+              <FaUpRightFromSquare />
+              <span className="ml-2">View Projects</span>
+            </a>
+          </span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <div className="mt-4 flex space-x-4 text-gray-400">
+          <a href="https://github.com/CDX-1" className="hover:text-white duration-300"><FaGithub className="h-6 w-6"></FaGithub></a>
+          <a href="#x" className="hover:text-white duration-300"><FaXTwitter className="h-6 w-6"></FaXTwitter></a>
+          <a href="#discord" className="hover:text-white duration-300"><FaDiscord className="h-6 w-6"></FaDiscord></a>
+        </div>
+      </div >
+
+      {/* Right Column */}
+      < div className="w-full sm:w-3/4 max-w-full sm:max-w-2xl space-y-6 pl-8 text-gray-300" >
+        <h1 className="text-lg leading-relaxed font-bold text-white">About Me</h1>
+        <p className="text-lg leading-relaxed break-words">
+          Hi, I&apos;m <b className="text-white">CDX</b>, a passionate developer specializing in creating immersive experiences and robust solutions across various platforms. My expertise includes:
+        </p>
+        <ul className="list-disc pl-5 mt-4 space-y-4 sm:space-y-2">
+          <li><b className="text-white">Minecraft Server Plugins:</b> Skilled in Bukkit/Spigot/Paper/Velocity plugin development, including NMS and packet handling, to craft powerful and unique gameplay mechanics.</li>
+          <li><b className="text-white">Roblox Scripting:</b> Proficient in Luau and tools like Rojo and Knit to build powerful Roblox experiences.</li>
+          <li><b className="text-white">Discord Bots:</b> Experienced in building feature-rich bots using discord.js</li>
+        </ul>
+        <h1 className="text-lg leading-relaxed font-bold break-words">Skills & Tools</h1>
+        <ul className="list-disc pl-5 mt-4 space-y-4 sm:space-y-2">
+          <li><b className="text-white">Languages:</b> Java, Kotlin, JavaScript/TypeScript, Python, Lua(u)</li>
+          <li><b className="text-white">Software:</b> Visual Studio, Visual Studio Code, IntelliJ IDEA, PyCharm, Roblox Studio, Unity Engine, Unreal Engine, Godot, Blender, Davinci Resolve</li>
+          <li><b className="text-white">Databases:</b> SQL, MongoDB</li>
+          <li><b className="text-white">Version Control:</b> GitHub</li>
+        </ul>
+        <p className="text-lg leading-relaxed break-words">
+          Whether it&apos;s designing unique gameplay mechanics, creating automation scripts, or creating user-focused applications, I thrive on bringing ideas to life with clean and efficient code.
+        </p>
+
+        {/* Past Work Experiences */}
+        <h1 className="text-lg leading-relaxed font-bold break-words">Experiences</h1>
+        <div>
+          <Experience
+            title="Lead Software Engineer"
+            company="MineSprawl"
+            dateRange="2024 - Present"
+            description="MineSprawl is a Minecraft server I developed from the ground up using Minestom, a lightweight and flexible Java library for creating custom Minecraft servers. Designed as a city-building minigame, Minesprawl allows players to craft, expand, and manage their own virtual cities within a dynamic and engaging environment."
+            link="https://minesprawl.net"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <Experience
+            title="Software Engineer"
+            company="Occulto Studios"
+            dateRange="2024"
+            description="Occulto is a feature-rich MMORPG Minecraft server built with Minestom, designed to push the boundaries of gameplay customization. Supporting cross-play between Java and Bedrock editions, Occulto unites players across platforms in a shared world of mystery and adventure."
+            link="https://occulto.quest"
+            discontinued={true}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <Experience
+            title="Lead Developer"
+            company="Valoria Studios"
+            dateRange="2023 - 2024"
+            description="Valoria is an open-world, adventure-driven RPG on Roblox, inspired by the anime The Vinland Saga. The game features a sprawling Viking-era landscape where players engage in dynamic combat, explore rich environments, and immerse themselves in a story of survival, conquest, and legacy. With a focus on skill-based mechanics, character progression, and a reactive world, Valoria combines thrilling battles with a deep, narrative-driven experience."
+            discontinued={true}
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <Experience
+            title="Lead Software Engineer"
+            company="SkySplit (Formerly Axolotl Gen)"
+            dateRange="2021 - 2023"
+            description="Skysplit is a dynamic Minecraft server where players embark on an exhilarating adventure across a network of floating islands suspended in the sky. Resource generators scattered across the islands provide essential materials, challenging players to venture out, harvest loot, and strategize their progression."
+            discontinued={true}
+          />
+          <Experience
+            title="Lead Software Engineer"
+            company="ServerSetup"
+            dateRange="2020 - 2021"
+            description="ServerSetup is a Discord bot I developed using the discord.js library, designed to simplify server management. It empowers users to create and save templates for Discord servers and reuse them across new servers. It features an interactive setup prompt in order to customize any template to your given specifications"
+          />
+        </div>
+      </div >
+    </main >
   );
 }
