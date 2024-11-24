@@ -54,7 +54,7 @@ const minecraftCards = [
     }
 ]
 
-const robloxCards = []
+{/* const robloxCards = [] */}
 
 export default function Showcase() {
     return (
@@ -91,7 +91,7 @@ export default function Showcase() {
                 <h2 className="text-3xl font-bold text-center">Minecraft</h2>
                 <LayoutGrid cards={minecraftCards} />
                 <h2 className="text-3xl font-bold text-center">ROBLOX</h2>
-                <LayoutGrid cards={robloxCards} />
+                {/* <LayoutGrid cards={robloxCards} /> */}
             </div>
         </div >
     );
