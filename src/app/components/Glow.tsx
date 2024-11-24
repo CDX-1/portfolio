@@ -6,21 +6,22 @@ const Glow = () => {
     useEffect(() => {
         const glow = document.getElementById("glow");
 
-        document.body.onpointermove = event => {
-            const { pageX, pageY } = event;
-
+        document.body.onpointermove = (event) => {
+            const { clientX, clientY } = event;
+        
             if (glow) {
-                glow.animate({
-                    left: `${pageX - window.scrollX}px`,
-                    top: `${pageY - window.scrollY}px`
-                }, { duration: 2000, fill: 'forwards' });
+                const glowSize = 500;
+                glow.style.left = `${clientX - glowSize / 2}px`;
+                glow.style.top = `${clientY - glowSize / 2}px`;
             }
-        }; 
+        };
+        
     });
 
     return (
         <div className="pointer-events-none">
-            <div id="glow" className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[500px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.8] rounded-full aspect-square absolute animate-rotate blur-[200px] z-[-2]"></div>
+            <div id="glow" className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[500px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.8] rounded-full aspect-square animate-rotate blur-[200px] z-[-2]"></div>
+
         </div>
     )
 }
