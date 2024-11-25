@@ -138,6 +138,6 @@ export default function Showcase() {
                 <h2 className="text-3xl font-bold text-center">ROBLOX</h2>
                 <LayoutGrid cards={robloxCards} />
             </div>
-        </div >
+        </div>
     );
 }

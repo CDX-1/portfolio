@@ -6,10 +6,9 @@ import Particles from "@/components/ui/particles";
 import { FadeText } from "@/components/ui/fade-text";
 import TypingAnimation from "@/components/ui/typing-animation";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightFromSquare } from "lucide-react";
 import IconCloud from "@/components/ui/icon-cloud";
 import { Button } from "@/components/ui/button";
-import Glow from "@/components/glow";
 import { Navbar } from "@/components/navbar";
 
 const toolSlugs = [
@@ -34,7 +33,8 @@ const toolSlugs = [
   "mysql",
   "mongodb",
   "blender",
-  "minecraft"
+  "minecraft",
+  "tailwindcss",
 ];
 
 export default function Home() {
@@ -69,7 +69,7 @@ export default function Home() {
         />
         <a href="/projects">
           <Button className="mt-2 text-lg" variant="ghost">
-            <ArrowUpRight />Take a look!
+            <ArrowUpRightFromSquare />Take a look!
           </Button>
         </a>
       </div>
