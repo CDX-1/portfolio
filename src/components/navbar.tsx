@@ -20,25 +20,25 @@ export function Navbar() {
             <Link href="/">
                 <Button variant="link" className="text-silent hover:text-gray-600 hover:dark:text-white">
                     <FaHouse />
-                    Home
+                    <p className="hidden sm:block">Home</p>
                 </Button>
             </Link>
             <Link href="/projects">
                 <Button variant="link" className="text-silent hover:text-gray-600 hover:dark:text-white">
                     <FaBriefcase />
-                    Projects
+                    <p className="hidden sm:block">Projects</p>
                 </Button>
             </Link>
             <Link href="/showcase">
                 <Button variant="link" className="text-silent hover:text-gray-600 hover:dark:text-white">
                     <FaWandMagicSparkles />
-                    Showcase
+                    <p className="hidden sm:block">Showcase</p>
                 </Button>
             </Link>
             <Link href="/contact">
                 <Button variant="link" className="text-silent hover:text-gray-600 hover:dark:text-white">
                     <FaEnvelope />
-                    Contact
+                    <p className="hidden sm:block">Contact</p>
                 </Button>
             </Link>
             <Button variant="ghost" onClick={() => { if (theme == "dark") { setTheme("light") } else { setTheme("dark") } }}>

@@ -9,6 +9,52 @@ import { FaBriefcase, FaDiscord, FaEnvelope, FaGithub, FaHouse, FaWandMagicSpark
 export function Footer() {
     const { theme } = useTheme();
 
+    const links = [
+        {
+            name: "Home",
+            icon: <FaHouse />,
+            href: "/"
+        },
+        {
+            name: "Projects",
+            icon: <FaBriefcase />,
+            href: "/projects"
+        },
+        {
+            name: "Showcase",
+            icon: <FaWandMagicSparkles />,
+            href: "/showcase"
+        },
+        {
+            name: "Contact",
+            icon: <FaEnvelope />,
+            href: "/contact"
+        }
+    ];
+
+    const socials = [
+        {
+            name: "GitHub",
+            icon: <FaGithub />,
+            href: "https://github.com/CDX-1"
+        },
+        {
+            name: "YouTube",
+            icon: <FaYoutube />,
+            href: "https://www.youtube.com/@rarecdx"
+        },
+        {
+            name: "Twitter",
+            icon: <FaXTwitter />,
+            href: "https://www.youtube.com/@rarecdx"
+        },
+        {
+            name: "Discord",
+            icon: <FaDiscord />,
+            href: "https://discord.gg/invite/W8ssCC5QBC"
+        }
+    ];
+
     return (
         <footer className="bg-background py-6">
             <div className="container mx-auto px-4">
@@ -28,65 +74,49 @@ export function Footer() {
                         }
                     </div>
 
-
-                    <div className="flex flex-col">
-                        <Link href="/">
-                            <Button variant="link">
-                                <FaHouse />
-                                Home
-                            </Button>
-                        </Link>
-
-                        <Link href="/projects">
-                            <Button variant="link">
-                                <FaBriefcase />
-                                Projects
-                            </Button>
-                        </Link>
-
-                        <Link href="/showcase">
-                            <Button variant="link">
-                                <FaWandMagicSparkles />
-                                Showcase
-                            </Button>
-                        </Link>
-
-                        <Link href="/contact">
-                            <Button variant="link">
-                                <FaEnvelope />
-                                Contact
-                            </Button>
-                        </Link>
+                    <div className="hidden sm:flex flex-col">
+                        {links.map((item) => (
+                            <Link href={item.href} key={item.name}>
+                                <Button variant="link">
+                                    {item.icon}
+                                    {item.name}
+                                </Button>
+                            </Link>
+                        ))}
                     </div>
 
-                    <div className="flex flex-col">
-                        <Link href="https://github.com/CDX-1">
-                            <Button variant="link">
-                                <FaGithub />
-                                GitHub
-                            </Button>
-                        </Link>
+                    <div className="hidden sm:flex flex-col">
+                        {socials.map((item) => (
+                            <Link href={item.href} key={item.name}>
+                                <Button variant="link">
+                                    {item.icon}
+                                    {item.name}
+                                </Button>
+                            </Link>
+                        ))}
+                    </div>
 
-                        <Link href="https://www.youtube.com/@rarecdx">
-                            <Button variant="link">
-                                <FaYoutube />
-                                YouTube
-                            </Button>
-                        </Link>
-
-                        <Link href="https://x.com/cdxdev">
-                            <Button variant="link">
-                                <FaXTwitter />
-                                Twitter
-                            </Button>
-                        </Link>
-
-                        <Link href="https://discord.gg/invite/W8ssCC5QBC">
-                            <Button variant="link">
-                                <FaDiscord />
-                                Discord
-                            </Button>
-                        </Link>
+                    <div className="flex sm:hidden">
+                        <div>
+                            {links.map((item) => (
+                                <Link href={item.href} key={item.name}>
+                                    <Button variant="link">
+                                        {item.icon}
+                                        {item.name}
+                                    </Button>
+                                </Link>
+                            ))}
+                        </div>
+                        <div>
+                            {socials.map((item) => (
+                                <Link href={item.href} key={item.name}>
+                                    <Button variant="link">
+                                        {item.icon}
+                                        {item.name}
+                                    </Button>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

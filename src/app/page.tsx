@@ -63,7 +63,7 @@ export default function Home() {
           }}
         />
         <TypingAnimation
-          className="text-xl font-normal text-silent"
+          className="text-xl font-normal text-silent px-6"
           duration={10}
           text="Builder of various projects using unique toolsets"
         />
