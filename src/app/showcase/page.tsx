@@ -121,7 +121,7 @@ export default function Showcase() {
                 <div className="pt-2">
                     <FadeText
                         className="text-l text-silent"
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin varius aliquam nisi, vel cursus ex cursus vitae. Nunc consectetur gravida enim eu gravida. Cras sed eleifend erat. Curabitur tincidunt est et ullamcorper faucibus. Pellentesque sagittis dictum leo, vel facilisis leo tincidunt nec. Donec hendrerit urna dignissim libero tempus lobortis. Integer tincidunt tristiq"
+                        text="Many difference cool things I've made"
                         direction="left"
                         framerProps={{
                             show: { transition: { delay: 0.2 } },
