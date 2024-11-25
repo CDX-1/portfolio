@@ -69,24 +69,24 @@ const robloxCards = [
     {
         id: 2,
         content: <ShowcaseContent
-            id="valoria"
-            title="Valoria"
-            description="A loading scene and a combat system"
+            id="bleach"
+            title="Bleach In ROBLOX"
+            description="A Bleach attack in ROBLOX"
             tools={["Luau", "Roblox Studio"]}
         />,
         className: "col-span-1",
-        thumbnail: "/showcase/roblox/valoria/header.png"
+        thumbnail: "/showcase/roblox/bleach/header.png"
     },
     {
         id: 3,
         content: <ShowcaseContent
-            id="valoria"
-            title="Valoria"
-            description="A loading scene and a combat system"
+            id="lockon"
+            title="Lock On System"
+            description="A simple enemy lock on system"
             tools={["Luau", "Roblox Studio"]}
         />,
         className: "col-span-1",
-        thumbnail: "/showcase/roblox/valoria/header.png"
+        thumbnail: "/showcase/roblox/lockon/header.png"
     },
     {
         id: 4,
