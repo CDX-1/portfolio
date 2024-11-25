@@ -42,7 +42,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center overflow-hidden h-screen mx-auto z-[-1] backdrop-blur-[200px] bg-gradient-to-b ${if (theme == 'dark) 'from-[#1a191b] to-[#0A0A0A]'}">
-      <Glow />
       <Particles
         className="absolute inset-0"
         quantity={100}

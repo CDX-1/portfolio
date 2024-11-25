@@ -54,7 +54,52 @@ const minecraftCards = [
     }
 ]
 
-{/* const robloxCards = [] */}
+const robloxCards = [
+    {
+        id: 1,
+        content: <ShowcaseContent
+            id="valoria"
+            title="Valoria"
+            description="A loading scene and a combat system"
+            tools={["Luau", "Roblox Studio"]}
+        />,
+        className: "col-span-2",
+        thumbnail: "/showcase/roblox/valoria/header.png"
+    },
+    {
+        id: 2,
+        content: <ShowcaseContent
+            id="valoria"
+            title="Valoria"
+            description="A loading scene and a combat system"
+            tools={["Luau", "Roblox Studio"]}
+        />,
+        className: "col-span-1",
+        thumbnail: "/showcase/roblox/valoria/header.png"
+    },
+    {
+        id: 3,
+        content: <ShowcaseContent
+            id="valoria"
+            title="Valoria"
+            description="A loading scene and a combat system"
+            tools={["Luau", "Roblox Studio"]}
+        />,
+        className: "col-span-1",
+        thumbnail: "/showcase/roblox/valoria/header.png"
+    },
+    {
+        id: 4,
+        content: <ShowcaseContent
+            id="valoria"
+            title="Valoria"
+            description="A loading scene and a combat system"
+            tools={["Luau", "Roblox Studio"]}
+        />,
+        className: "col-span-2",
+        thumbnail: "/showcase/roblox/valoria/header.png"
+    }
+]
 
 export default function Showcase() {
     return (
@@ -91,7 +136,7 @@ export default function Showcase() {
                 <h2 className="text-3xl font-bold text-center">Minecraft</h2>
                 <LayoutGrid cards={minecraftCards} />
                 <h2 className="text-3xl font-bold text-center">ROBLOX</h2>
-                {/* <LayoutGrid cards={robloxCards} /> */}
+                <LayoutGrid cards={robloxCards} />
             </div>
         </div >
     );
