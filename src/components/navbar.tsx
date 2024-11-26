@@ -16,7 +16,7 @@ export function Navbar() {
     }, [theme]);
 
     return (
-        <nav className="absolute top-10 left-1/2 transform -translate-x-1/2 bg-background bg-opacity-50 w-auto rounded-lg p-2 flex items-center justify-center drop-shadow-lg">
+        <nav className="absolute top-10 left-1/2 transform -translate-x-1/2 bg-background bg-opacity-50 w-auto rounded-lg p-2 flex items-center justify-center drop-shadow-lg shadow-[0_0_15px_rgba(255,255,255,0.2)]">
             <Link href="/">
                 <Button variant="link" className="text-silent hover:text-gray-600 hover:dark:text-white">
                     <FaHouse />
