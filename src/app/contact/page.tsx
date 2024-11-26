@@ -10,7 +10,7 @@ export default function Contact() {
         <div className="mx-auto mb-16 max-w-5xl px-5 py-24 sm:px-8">
             <Navbar/>
 
-            <div className="mb-16 mt-6 sm:mb-8 sm:mt-12 w-full relative">
+            <div className="mb-16 mt-6 sm:mb-8 sm:mt-12 w-full relative text-center">
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
                     <RetroGrid />
                 </div>

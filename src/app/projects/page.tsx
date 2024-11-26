@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import RetroGrid from "@/components/ui/retro-grid";
 import { Navbar } from "@/components/navbar";
 import { FaLink, FaStar } from "react-icons/fa";
+import { FaAt } from "react-icons/fa6";
 
 const experiences = [
     {
@@ -85,10 +86,10 @@ export default function Projects() {
     };
 
     return (
-        <div className="mx-auto mb-16 max-w-5xl px-5 py-24 sm:px-8">
-            <Navbar/>
+        <div className="mx-auto max-w-5xl px-5 py-24 sm:px-8">
+            <Navbar />
 
-            <div className="mb-16 mt-6 sm:mb-8 sm:mt-12 w-full relative">
+            <div className="mb-16 mt-6 sm:mb-8 sm:mt-12 w-full relative text-center">
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
                     <RetroGrid />
                 </div>
@@ -117,22 +118,33 @@ export default function Projects() {
             <div className="flex-wrap">
                 {experiences.map(item => (
                     <motion.div key={item.company} className="p-10" {...{ initial: animation.hide, animate: animation.show }}>
-                        <div className="flex items-baseline space-x-2">
-                            {item.pinned && <FaStar />}
+                        <div className="hidden md:flex items-baseline space-x-2">
+                            {item.pinned && <FaStar/>}
                             <h1 className="font-bold text-2xl">{item.title}</h1>
                             <p className="text-silent">at {item.company}</p>
                         </div>
-                        <div className="flex items-baseline space-x-2">
+                        <div className="block md:hidden">
+                            <div className="flex items-baseline space-x-2">
+                            <FaStar/>
+                            <h1 className="font-bold text-xl">{item.title}</h1>
+                            </div>
+                            <div className="flex space-x-2 items-baseline">
+                                <FaAt/>
+                                <p className="text-silent">{item.company}</p>
+                                <p className="mb-2 text-silent px-2">{item.dateRange}</p>
+                            </div>
+                        </div>
+                        <div className="hidden md:flex items-baseline space-x-2">
                             <p className="mb-2 text-silent">{item.dateRange}</p>
                             {item.current && <Badge variant="outline">Current</Badge>}
                             {item.discontinued && <Badge variant="outline">Discontinued</Badge>}
                         </div>
-                        <p className="text-silent mb-2">{item.description}</p>
+                        <p className="text-silent mb-3 md:mb-2">{item.description}</p>
                         <div className="space-x-2 flex items-baseline">
                             {item.link &&
-                                <><FaLink /><Link href={item.link} target="_blank" className="hover:underline">Learn more</Link></>
+                                <Link href={item.link} target="_blank" className="flex space-x-2 items-baseline hover:underline"><FaLink/><p className="hidden md:block">Learn more</p></Link>
                             }
-                            {item.link && item.tools && <p>|</p>}
+                            {item.link && item.tools && <p className="hidden md:block">|</p>}
                             {item.tools?.map((tool) => (
                                 <Badge variant="outline" key={tool}>{tool}</Badge>
                             ))}
