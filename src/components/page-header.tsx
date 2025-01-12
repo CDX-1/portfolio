@@ -12,7 +12,7 @@ interface PageHeaderProps {
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, description }) => {
     return (
         <>
-            <div className="mb-16 mt-6 sm:mb-8 sm:mt-12 w-full relative text-center">
+            <div className="mb-16 mt-6 sm:mb-8 sm:mt-12 w-full relative text-center py-2">
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
                     <RetroGrid />
                 </div>
