@@ -33,13 +33,13 @@ export default function Showcase() {
                             <h2 className="font-semibold text-2xl pb-4">{project.title}</h2>
                             <p className="pb-2">{project.description}</p>
                             {project.source && <a href={project.source} target="_blank"><Badge variant="outline">Open Source</Badge></a>}
-                        </div><iframe width="560" height="315" src={project.video} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="allowfullscreen"
+                        </div><iframe width="560" height="315" src={project.video} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowfullscreen="allowfullscreen"
                             mozallowfullscreen="mozallowfullscreen"
                             msallowfullscreen="msallowfullscreen"
                             oallowfullscreen="oallowfullscreen"
                             webkitallowfullscreen="webkitallowfullscreen"></iframe>
                         </>}
-                        {i % 2 != 1 && <><iframe width="560" height="315" src={project.video} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="allowfullscreen"
+                        {i % 2 != 1 && <><iframe width="560" height="315" src={project.video} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowfullscreen="allowfullscreen"
                             mozallowfullscreen="mozallowfullscreen"
                             msallowfullscreen="msallowfullscreen"
                             oallowfullscreen="oallowfullscreen"
