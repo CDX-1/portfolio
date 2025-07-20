@@ -26,8 +26,7 @@ export default function Navbar() {
         },
         {
             label: "projects",
-            icon: <IconHammer />,
-            path: "/projects"
+            icon: <IconHammer />
         },
         {
             label: "contact",
@@ -93,7 +92,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-10 py-2 md:py-4">
                 {directory.map((d) => (
                     <Button key={d.label} variant="ghost" className="hover:bg-transparent hover:text-accent hover:cursor-pointer dark:hover:bg-transparent dark:hover:text-accent dark:hover:cursor-pointer px-2 md:px-3"
-                        onClick={() => router.push(d.path)}
+                        onClick={() => { if (d.path !== null) router.push(d.path as string) }}
                         onMouseEnter={() => {
                             if (d.label === "projects") handleProjectsMouseEnter()
                         }}
@@ -113,13 +112,13 @@ export default function Navbar() {
             {/* Projects Dropdown - positioned outside the flex container */}
             {showProjects && (
                 <div
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-120 bg-card p-2 rounded-2xl z-50"
+                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-120 bg-card p-2 rounded-2xl z-50 shadow-xs"
                     onMouseEnter={handleDropdownMouseEnter}
                     onMouseLeave={handleDropdownMouseLeave}
                 >
                     <div className="grid grid-cols-2 gap-3">
                         {projects.map((project) => (
-                            <div key={project.name} className="flex flex-col space-y-2 px-4 py-3 rounded-md hover:bg-background hover:cursor-pointer">
+                            <div key={project.name} className="flex flex-col space-y-2 px-4 py-3 rounded-md hover:bg-background hover:cursor-pointer hover:shadow-xs">
                                 <div className="flex items-center justify-between w-full" onClick={() => router.push(project.path)}>
                                     <h3 className="font-mono font-bold text-sm">
                                         {project.name}
