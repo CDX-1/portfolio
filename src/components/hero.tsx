@@ -27,7 +27,8 @@ export default function Hero() {
             "sv7/151",
             "xy7/98",
             "sma/SV47",
-            "sv4pt5/233"
+            "sv4pt5/233",
+            "sv6/214"
         ];
 
         setCard(cards[Math.floor(Math.random() * cards.length)]);
