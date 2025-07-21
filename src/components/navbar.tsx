@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
-import { IconArrowRight, IconBrain, IconFolderHeart, IconHammer, IconHome, IconMail, IconMoon, IconSun } from "@tabler/icons-react";
+import { IconArrowRight, IconBrain, IconHammer, IconHome, IconMail, IconMoon, IconSun } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 
