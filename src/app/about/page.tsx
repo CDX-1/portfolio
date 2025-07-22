@@ -1,12 +1,15 @@
 'use client';
 
-import { RetroGrid } from "@/components/magicui/retro-grid";
+import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function About() {
+    const router = useRouter();
+
     const languages = [
         "typescript",
         "java",
@@ -43,14 +46,81 @@ export default function About() {
         },
     ]
 
+    const equipment = [
+        {
+            name: "Intel Core i7-12700F",
+            image: "https://m.media-amazon.com/images/I/51mEsN-NruL._AC_SL1500_.jpg",
+            link: "https://www.intel.com/content/www/us/en/products/sku/134592/intel-core-i712700f-processor-25m-cache-up-to-4-90-ghz/specifications.html"
+        },
+        {
+            name: "Deepcool AK620 CPU Cooler",
+            image: "https://cdn.deepcool.com/public/ProductFile/DEEPCOOL/Cooling/CPUAirCoolers/AK620/Gallery/800X800/01.jpg?fm=webp&q=60",
+            link: "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-High-Performance-CPU-Cooler-1700-AM5/2021/13067.shtml"
+        },
+        {
+            name: "MSI PRO B660M-A DDR4 Micro ATX LGA1700 Motherboard",
+            image: "https://asset.msi.com/resize/image/global/product/product_16412866848150e8e3fa86eb419993456c944d949b.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+            link: "https://www.msi.com/Motherboard/PRO-B660M-A-DDR4"
+        },
+        {
+            name: "TEAMGROUP T-Force Vulcan Z 32 GB (2 x 16 GB) DDR4-3200 Memory",
+            image: "https://m.media-amazon.com/images/I/71QYVWwXVlL._UF894,1000_QL80_.jpg",
+            link: "https://www.teamgroupinc.com/en/product-detail/memory/T-FORCE/vulcan-z-ddr4-gray/vulcan-z-ddr4-gray-TLZGD432G3600HC18JDC01/"
+        },
+        {
+            name: "Silicon Power A60 2 TB M.2 NVMe SSD",
+            image: "https://m.media-amazon.com/images/I/61tLhffzr2L._UF894,1000_QL80_.jpg",
+            link: "https://www.silicon-power.com/web/product-p34a60"
+        },
+        {
+            name: "Asus TUF GAMING OC GeForce RTX 3080 12GB LHR 12 GB Graphics Card",
+            image: "https://m.media-amazon.com/images/I/8133xv4pJ7S._UF894,1000_QL80_.jpg",
+            link: "https://www.asus.com/ca-en/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx3080-o12g-gaming/"
+        },
+        {
+            name: "Fractal Design Focus 2 ATX Mid Tower Case",
+            image: "https://www.fractal-design.com/app/uploads/2020/08/Focus_2_RGB_Black_TGC_1-Left-Front.jpg",
+            link: "https://www.fractal-design.com/products/cases/focus/focus-2/rgb-black-tg-clear-tint/"
+        },
+        {
+            name: "Corsair RM850 850 W 80+ Gold Certified Fully Modular ATX PSU",
+            image: "https://m.media-amazon.com/images/I/71fiKD2ckCL._UF894,1000_QL80_.jpg",
+            link: "https://www.corsair.com/ca/en/p/psu/cp-9020196-na/rm-series-rm850-850-watt-80-plus-gold-certified-fully-modular-psu-cp-9020196-na"
+        },
+        {
+            name: "Pixio PX277\" 2560 x 1440 165 Hz Monitor (2x)",
+            image: "https://m.media-amazon.com/images/I/81Fqig7XTZL._UF894,1000_QL80_.jpg",
+            link: "https://pixiogaming.com/products/px277-pro"
+        },
+        {
+            name: "Tecware Phantom RGB Wired 87 Key Mechanical Keyboard",
+            image: "https://m.media-amazon.com/images/I/71h45LTINwL.jpg",
+            link: "https://www.tecware.co/phantom"
+        },
+        {
+            name: "Razer Seiren X USB Microphone",
+            image: "https://m.media-amazon.com/images/I/61xQtBsBNgL._UF894,1000_QL80_.jpg",
+            link: "https://www.razer.com/mena-en/streaming-microphones/razer-seiren-x"
+        },
+        {
+            name: "Microsoft Windows 11 Home (64 Bit)",
+            image: "https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/PT_RGB_Windows11_Home_EN_1555x1555-1",
+            link: "https://www.microsoft.com/en-us/software-download/windows11"
+        },
+        {
+            name: "MacBook Pro (12-inch, M1, 2020)",
+            image: "https://m.media-amazon.com/images/I/81Aty4Ef1WL.jpg",
+            link: "https://www.apple.com/ca/macbook-pro/"
+        }
+    ]
+
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-8 lg:pb-0">
-            <RetroGrid />
             <div className="w-full max-w-7xl mx-auto">
                 <div className="flex flex-col xl:flex-row items-center xl:items-start gap-8 lg:gap-12 xl:gap-16">
-                    {/* Content Section */}
+                    {/* About Me Section */}
                     <div className="flex-1 max-w-2xl xl:max-w-3xl">
                         <div className="space-y-6 md:space-y-8 text-center xl:text-left">
                             <motion.h1
@@ -204,16 +274,27 @@ export default function About() {
                     </div>
                 </div>
 
-                {/* My Interests Section */}
+                {/* My Equipment Section */}
                 <div className="mt-12 md:mt-16 lg:mt-20 xl:mt-24 text-center">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut", delay: 1.5 }}
-                        className="font-mono font-bold text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+                        className="font-mono font-bold text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-10"
                     >
-                        my interests
+                        my equipment
                     </motion.h2>
+                </div>
+
+                <div className="grid grid-cols-5">
+                    {equipment.map((item) => (
+                        <div key={item.name} onClick={() => router.push(item.link)}>
+                            <DirectionAwareHover imageUrl={item.image} className="hover:cursor-pointer">
+                                <p className="font-bold font-mono">{item.name}</p>
+                                <p>Click to view</p>
+                            </DirectionAwareHover>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
