@@ -28,7 +28,7 @@ export default function Statement() {
     return (
         <div className="space-y-6 font-mono">
             <h1 className="text-5xl font-semibold">
-                Heyo! I'm{' '}
+                Heyo! I&apos;m{' '}
                 <span className="text-6xl font-bold text-accent">CDX</span>
             </h1>
 
