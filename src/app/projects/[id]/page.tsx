@@ -14,11 +14,7 @@ export default async function ProjectOverview({
     params: { id: string };
 }) {
     const { id } = params;
-    const filePath = path.join(
-        process.cwd(),
-        'content/projects',
-        id + '.mdx'
-    );
+    const filePath = path.join(process.cwd(), 'content/projects', id + '.mdx');
     const rawFile = fs.readFileSync(filePath, 'utf-8');
     const { content, data } = matter(rawFile);
     const mdxSource = await serialize(content);
@@ -65,10 +61,7 @@ export default async function ProjectOverview({
 
                 <div>
                     {data.github && (
-                        <Link
-                            href={data.github}
-                            target="_blank"
-                        >
+                        <Link href={data.github} target="_blank">
                             <Button variant="link" className="!px-0 !py-0">
                                 <FaGithub />
                                 <span>github</span>

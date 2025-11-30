@@ -14,4 +14,4 @@ export const Header = ({ children }: { children: ReactNode }) => {
             {children}
         </motion.h1>
     );
-}
+};

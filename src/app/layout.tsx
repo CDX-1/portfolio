@@ -78,9 +78,7 @@ export default function RootLayout({
                             },
                         ]}
                     />
-                    <div className="min-h-screen">
-                        {children}
-                    </div>
+                    <div className="min-h-screen">{children}</div>
                 </ThemeProvider>
                 <Footer />
             </body>

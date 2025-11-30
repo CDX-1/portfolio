@@ -33,11 +33,11 @@ export default function ContactBar() {
                     });
                 }}
             >
-                {
-                    copied
-                        ? (<FaCheck className="size-6" />)
-                        : (<FaCopy className="size-6" />)
-                }
+                {copied ? (
+                    <FaCheck className="size-6" />
+                ) : (
+                    <FaCopy className="size-6" />
+                )}
                 <span className="text-2xl">Copy Email</span>
             </Button>
         </div>

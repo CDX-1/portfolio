@@ -82,9 +82,7 @@ export const ProjectCard = ({
                 <Link href={`/projects/${id}`}>
                     <div className="flex items-baseline justify-between">
                         <h1 className="font-bold text-lg">{title}</h1>
-                        <p className="font-mono">
-                            {description}
-                        </p>
+                        <p className="font-mono">{description}</p>
                     </div>
                 </Link>
 

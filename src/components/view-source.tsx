@@ -6,7 +6,7 @@ import { FaCodePullRequest } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
 
 export default function ViewSourceButton() {
-    const [hash, setHash] = useState("View Source");
+    const [hash, setHash] = useState('View Source');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,11 +27,14 @@ export default function ViewSourceButton() {
     }, []);
 
     return (
-       <Link href="https://github.com/CDX-1/portfolio" target="_blank">
-           <Button className="flex items-center hover:no-underline hover:text-accent-foreground" variant="link">
-               <FaCodePullRequest />
+        <Link href="https://github.com/CDX-1/portfolio" target="_blank">
+            <Button
+                className="flex items-center hover:no-underline hover:text-accent-foreground"
+                variant="link"
+            >
+                <FaCodePullRequest />
                 <span>{hash}</span>
-           </Button>
-       </Link>
+            </Button>
+        </Link>
     );
 }

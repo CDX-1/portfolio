@@ -88,9 +88,10 @@ export default function Navbar({ items }: { items: NavItem[] }) {
         }
     }, [pathname]);
 
-    const lastIndex = exitingStart !== null
-        ? exitingStart + (exitingPaths.length - 1)
-        : paths.length - 1;
+    const lastIndex =
+        exitingStart !== null
+            ? exitingStart + (exitingPaths.length - 1)
+            : paths.length - 1;
 
     return (
         <div className="fixed left-0 right-0 backdrop-blur-xs w-11/12 flex items-center justify-between font-mono mx-auto mt-6 z-10">
@@ -118,7 +119,9 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                         return (
                             <>
                                 {commonPrefix.map((segment, i) => {
-                                    const href = '/' + commonSource.slice(0, i + 1).join('/');
+                                    const href =
+                                        '/' +
+                                        commonSource.slice(0, i + 1).join('/');
                                     const showSlash = i < lastIndex;
                                     return (
                                         <motion.div
@@ -129,7 +132,8 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                                             <span
                                                 className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out"
                                                 onClick={() => {
-                                                    if (href === pathname) return;
+                                                    if (href === pathname)
+                                                        return;
                                                     router.push(href);
                                                 }}
                                             >
@@ -151,7 +155,9 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                                 {exitingStart !== null &&
                                     exitingPaths.map((segment, j) => {
                                         const idx = exitingStart + j;
-                                        const href = '/' + paths.slice(0, idx + 1).join('/');
+                                        const href =
+                                            '/' +
+                                            paths.slice(0, idx + 1).join('/');
                                         const isLast = idx === lastIndex;
                                         return (
                                             <motion.div
@@ -161,13 +167,18 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                                                 transition={{
                                                     duration: 0.2,
                                                     // stagger exit so tail disappears last-first
-                                                    delay: (exitingPaths.length - j - 1) * 0.05,
+                                                    delay:
+                                                        (exitingPaths.length -
+                                                            j -
+                                                            1) *
+                                                        0.05,
                                                 }}
                                             >
                                                 <span
                                                     className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out"
                                                     onClick={() => {
-                                                        if (href === pathname) return;
+                                                        if (href === pathname)
+                                                            return;
                                                         router.push(href);
                                                     }}
                                                 >

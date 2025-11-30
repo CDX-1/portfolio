@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from 'motion/react';
 
 export function Blinker() {
     return (
@@ -12,16 +12,14 @@ export function Blinker() {
         >
             <motion.span
                 style={{ display: 'inline-block' }}
-                animate={
-                    {
-                        y: [0, -2, 0],
-                        transition: {
-                            duration: 0.6,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        },
-                    }
-                }
+                animate={{
+                    y: [0, -2, 0],
+                    transition: {
+                        duration: 0.6,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                    },
+                }}
             >
                 _
             </motion.span>
