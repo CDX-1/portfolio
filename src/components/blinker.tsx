@@ -20,7 +20,7 @@ export function Blinker() {
                             repeat: Infinity,
                             ease: 'easeInOut',
                         },
-                    } as any
+                    }
                 }
             >
                 _

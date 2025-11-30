@@ -38,7 +38,7 @@ export default function Home() {
                 </Header>
 
                 <p className="font-mono text-4xl w-3/5">
-                    I'm open to freelance projects, shoot me an email so we can
+                    I&apos;sm open to freelance projects, shoot me an email so we can
                     start collaborating.
                 </p>
 
