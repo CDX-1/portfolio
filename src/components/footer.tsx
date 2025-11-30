@@ -1,11 +1,45 @@
-export default function Footer() {
-    return (
-        <div className="flex sticky bottom-0 justify-between bg-card px-50 py-10 border-t-1">
-            <h1 className="text-4xl">CDX</h1>
+import { FaGithub, FaYoutube } from 'react-icons/fa6';
+import { TbBrandFiverr } from 'react-icons/tb';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import ViewSourceButton from '@/components/view-source';
+import ContactButton from '@/components/contact-button';
 
-            <p>
-                Contact me @ <b>contact@cdx.rip</b>
-            </p>
-        </div>
+export default function Footer() {
+    const links = [
+        {
+            icon: <FaGithub />,
+            href: "https://github.com/CDX-1"
+        },
+        {
+            icon: <FaYoutube />,
+            href: "https://www.youtube.com/@rarecdx"
+        },
+        {
+            icon: <TbBrandFiverr />,
+            href: "https://www.fiverr.com/cdxdev_"
+        }
+    ];
+
+    return (
+        <footer className="flex justify-between items-center w-5/12 bg-card dark:bg-primary-foreground py-4 px-6 mx-auto mb-6 rounded-lg text-sm text-primary">
+            <span>
+                © {new Date().getFullYear()} CDX. All rights reserved.
+            </span>
+
+            <div className="flex items-center divide-x divide-foreground/10">
+                <ViewSourceButton />
+
+                {links.map((link) => (
+                    <Link key={link.href} href={link.href} className="px-2">
+                        <Button className="hover:text-accent-foreground transition-colors text-sm" variant="link">
+                            {link.icon}
+                        </Button>
+                    </Link>
+                ))}
+
+                <ContactButton />
+            </div>
+        </footer>
     );
 }

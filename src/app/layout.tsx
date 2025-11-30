@@ -2,10 +2,14 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import localFont from 'next/font/local';
-import { Navbar } from '@/components/navbar';
-import { Cursor } from '@/components/cursor';
-import PageTransition from '@/components/page-transition';
+import Navbar from '@/components/navbar';
+import {
+    FaCameraRetro,
+    FaFolderOpen,
+    FaHouse,
+    FaMessage,
+    FaRocket,
+} from 'react-icons/fa6';
 import Footer from '@/components/footer';
 
 const geistSans = Geist({
@@ -16,16 +20,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
     variable: '--font-geist-mono',
     subsets: ['latin'],
-});
-
-const stardomFont = localFont({
-    src: '../../public/fonts/Stardom-Regular.woff2',
-    variable: '--font-stardom',
-});
-
-const satoshiFont = localFont({
-    src: '../../public/fonts/Satoshi-Variable.woff2',
-    variable: '--font-satoshi',
 });
 
 export const metadata: Metadata = {
@@ -47,7 +41,7 @@ export default function RootLayout({
                 />
             </head>
             <body
-                className={`${stardomFont.variable} ${satoshiFont.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased `}
             >
                 <ThemeProvider
                     attribute="class"
@@ -55,15 +49,40 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <Navbar className="fixed left-10 top-1/2 transform -translate-y-1/2" />
-                    <Cursor />
-                    <PageTransition>
-
+                    <Navbar
+                        items={[
+                            {
+                                title: 'Home',
+                                icon: <FaHouse />,
+                                href: '/',
+                            },
+                            {
+                                title: 'Experience',
+                                icon: <FaRocket />,
+                                href: '/experience',
+                            },
+                            {
+                                title: 'Projects',
+                                icon: <FaFolderOpen />,
+                                href: '/projects',
+                            },
+                            {
+                                title: 'Blog',
+                                icon: <FaMessage />,
+                                href: '/blog',
+                            },
+                            {
+                                title: 'Photography',
+                                icon: <FaCameraRetro />,
+                                href: '/photography',
+                            },
+                        ]}
+                    />
+                    <div className="min-h-screen">
                         {children}
-
-                        <Footer />
-                    </PageTransition>
+                    </div>
                 </ThemeProvider>
+                <Footer />
             </body>
         </html>
     );

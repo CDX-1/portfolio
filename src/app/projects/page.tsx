@@ -1,7 +1,15 @@
+import { Header } from '@/components/header';
+import { FaCube } from 'react-icons/fa6';
+import ProjectList from '@/components/project-list';
+
 export default function ProjectsPage() {
     return (
-        <div className="flex items-center justify-center h-screen">
-            <h1 className="font-bold text-4xl">Project Gallery</h1>
+        <div className="mt-40 mx-40 space-y-8">
+            <Header>
+                <FaCube className="text-accent" />
+                <span>Projects</span>
+            </Header>
+            <ProjectList />
         </div>
     );
 }
