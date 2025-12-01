@@ -11,9 +11,9 @@ import { FaGithub } from 'react-icons/fa6';
 export default async function ProjectOverview({
     params,
 }: {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }) {
-    const { id } = params;
+    const { id } = await params;
     const filePath = path.join(process.cwd(), 'content/projects', id + '.mdx');
     const rawFile = fs.readFileSync(filePath, 'utf-8');
     const { content, data } = matter(rawFile);
