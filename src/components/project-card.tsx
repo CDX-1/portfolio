@@ -78,7 +78,7 @@ export const ProjectCard = ({
                 </motion.div>
             </Link>
 
-            <div className="flex flex-col px-4 py-4 space-y-4">
+            <div className="flex flex-col p-2 space-y-4">
                 <Link href={`/projects/${id}`}>
                     <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
                         <h1 className="font-bold text-lg text-left">{title}</h1>
