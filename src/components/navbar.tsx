@@ -18,6 +18,7 @@ interface NavItem {
 export default function Navbar({ items }: { items: NavItem[] }) {
     const router = useRouter();
     const pathname = usePathname();
+    const effectivePath = pathname.length > 50 ? pathname.slice(0, 47) + '...' : pathname;
     const { theme, setTheme } = useTheme();
 
     const [paths, setPaths] = useState<string[]>([]);
@@ -64,7 +65,7 @@ export default function Navbar({ items }: { items: NavItem[] }) {
     };
 
     useEffect(() => {
-        const newPaths = pathname.split('/').filter((s) => s !== '');
+        const newPaths = effectivePath.split('/').filter((s) => s !== '');
         if (paths.length === 0) {
             setPaths(newPaths);
             return;
@@ -86,7 +87,7 @@ export default function Navbar({ items }: { items: NavItem[] }) {
         } else {
             setPaths(newPaths);
         }
-    }, [pathname]);
+    }, [effectivePath]);
 
     const lastIndex =
         exitingStart !== null
