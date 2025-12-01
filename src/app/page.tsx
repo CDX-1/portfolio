@@ -4,7 +4,7 @@ import ProjectList from '@/components/project-list';
 import { Header } from '@/components/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import ContactBar from '@/components/contact-bar';
+import { ContactBar } from '@/components/contact-bar';
 
 export default function Home() {
     return (

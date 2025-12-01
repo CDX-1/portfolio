@@ -3,7 +3,7 @@ import { TbBrandFiverr } from 'react-icons/tb';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import ViewSourceButton from '@/components/view-source';
-import ContactButton from '@/components/contact-button';
+import { ContactButton } from '@/components/contact-bar';
 
 export default function Footer() {
     const links = [
