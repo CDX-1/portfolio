@@ -4,7 +4,7 @@ import ProjectList from '@/components/project-list';
 
 export default function ProjectsPage() {
     return (
-        <div className="mt-24 mx-4 md:mt-40 md:mx-40 space-y-8">
+        <div className="mt-24 mx-4 md:mt-40 md:mx-40 space-y-8 mb-20">
             <Header>
                 <FaCube className="text-accent" />
                 <span>Projects</span>
