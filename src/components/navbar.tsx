@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { ReactNode, useRef, useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { FaMoon, FaSun } from 'react-icons/fa6';
+import { FaMoon, FaSun, FaBars, FaXmark } from 'react-icons/fa6';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
 import { Blinker } from '@/components/blinker';
@@ -24,6 +24,7 @@ export default function Navbar({ items }: { items: NavItem[] }) {
     const [paths, setPaths] = useState<string[]>([]);
     const [exitingPaths, setExitingPaths] = useState<string[]>([]);
     const [exitingStart, setExitingStart] = useState<number | null>(null);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [sliderStyle, setSliderStyle] = useState<{
@@ -95,11 +96,11 @@ export default function Navbar({ items }: { items: NavItem[] }) {
             : paths.length - 1;
 
     return (
-        <div className="fixed left-0 right-0 backdrop-blur-xs w-11/12 flex items-center justify-between font-mono mx-auto mt-6 z-10">
-            <h1 className="flex">
+        <div className="fixed left-0 right-0 backdrop-blur-xs w-11/12 flex items-center justify-between font-mono mx-auto py-6 z-50">
+            <h1 className="flex text-sm md:text-base overflow-hidden whitespace-nowrap max-w-[60%] md:max-w-none">
                 <span>/</span>
                 <span
-                    className="cursor-pointer hover:text-accent font-bold duration-100 ease-in-out"
+                    className="cursor-pointer hover:text-accent font-bold transition-colors duration-100 ease-in-out"
                     onClick={() => router.push('/')}
                 >
                     cdx
@@ -167,7 +168,6 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                                                 exit={{ opacity: 0 }}
                                                 transition={{
                                                     duration: 0.2,
-                                                    // stagger exit so tail disappears last-first
                                                     delay:
                                                         (exitingPaths.length -
                                                             j -
@@ -205,7 +205,8 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                 <Blinker />
             </h1>
 
-            <div className="relative flex items-center space-x-4">
+            {/* Desktop Menu */}
+            <div className="hidden md:flex relative items-center space-x-4">
                 <div
                     className="absolute h-full bg-secondary rounded-xl transition-all duration-300 ease-in-out pointer-events-none"
                     style={{
@@ -263,6 +264,56 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                     </span>
                 </Button>
             </div>
+
+            {/* Mobile Menu Toggle */}
+            <div className="md:hidden">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                    {isMobileMenuOpen ? <FaXmark /> : <FaBars />}
+                </Button>
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-md p-4 flex flex-col space-y-2 md:hidden shadow-lg rounded-b-xl"
+                    >
+                        {items.map((item) => (
+                            <Button
+                                key={item.title}
+                                variant="ghost"
+                                className="justify-start w-full"
+                                onClick={() => {
+                                    router.push(item.href);
+                                    setIsMobileMenuOpen(false);
+                                }}
+                            >
+                                <span className="mr-2">{item.icon}</span>
+                                {item.title}
+                            </Button>
+                        ))}
+                        <Button
+                            variant="ghost"
+                            className="justify-start w-full"
+                            onClick={() => {
+                                setTheme(theme === 'light' ? 'dark' : 'light');
+                            }}
+                        >
+                            <span className="mr-2">
+                                {theme === 'light' ? <FaMoon /> : <FaSun />}
+                            </span>
+                            {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                        </Button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

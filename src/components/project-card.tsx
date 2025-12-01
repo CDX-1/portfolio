@@ -39,7 +39,7 @@ export const ProjectCard = ({
             whileHover="hover"
         >
             <Link href={`/projects/${id}`}>
-                <motion.div className="relative w-full h-[400px] overflow-hidden rounded-lg">
+                <motion.div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-lg">
                     <MotionImage
                         src={backdrop}
                         alt={`${title} backdrop`}

@@ -8,7 +8,7 @@ import { ContactBar } from '@/components/contact-bar';
 
 export default function Home() {
     return (
-        <div className="flex flex-col mt-40 mx-40 space-y-40">
+        <div className="flex flex-col mt-24 mx-4 md:mt-40 md:mx-40 space-y-20 md:space-y-40">
             <Statement />
 
             <div className="space-y-8">
@@ -37,7 +37,7 @@ export default function Home() {
                     <span>Like What You See?</span>
                 </Header>
 
-                <p className="font-mono text-4xl w-3/5">
+                <p className="font-mono text-2xl md:text-4xl w-full md:w-3/5">
                     I&apos;m open to freelance projects. Feel free to email me
                     so we can start collaborating.
                 </p>

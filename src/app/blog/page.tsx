@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 
 export default function BlogPage() {
     return (
-        <div className="w-2/5 mt-40 mx-auto space-y-8">
+        <div className="w-11/12 md:w-2/5 mt-24 md:mt-40 mx-auto space-y-8">
             <div className="flex items-center justify-between">
                 <Header>
                     <FaMessage className="text-accent" />
