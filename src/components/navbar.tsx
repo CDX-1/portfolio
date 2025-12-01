@@ -97,7 +97,7 @@ export default function Navbar({ items }: { items: NavItem[] }) {
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xs">
-            <div className="w-11/12 flex items-center justify-between font-mono mx-auto py-6 relative">
+            <div className="w-11/12 flex items-center justify-between font-mono mx-auto py-2 xl:py-4 relative">
                 <h1 className="flex text-sm md:text-base overflow-hidden whitespace-nowrap max-w-[60%] md:max-w-none">
                     <span>/</span>
                     <span
