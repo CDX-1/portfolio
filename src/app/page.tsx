@@ -12,7 +12,7 @@ export default function Home() {
             <Statement />
 
             <div className="space-y-8">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0">
                     <Header>
                         <FaStar className="text-accent" />
                         <span>Featured Projects</span>
@@ -21,7 +21,7 @@ export default function Home() {
                     <Link href="/projects/">
                         <Button
                             variant="link"
-                            className="hover:text-accent-foreground"
+                            className="hover:text-accent-foreground !px-0"
                         >
                             <span className="font-mono text-lg">View All</span>
                             <FaArrowRight className="!size-4" />
@@ -37,7 +37,7 @@ export default function Home() {
                     <span>Like What You See?</span>
                 </Header>
 
-                <p className="font-mono text-2xl md:text-4xl w-full md:w-3/5">
+                <p className="font-mono text-xl md:text-4xl w-full md:w-4/5 lg:w-3/5 xl:w-4/5 2xl:w-3/5 leading-relaxed">
                     I&apos;m open to freelance projects. Feel free to email me
                     so we can start collaborating.
                 </p>

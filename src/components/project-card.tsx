@@ -78,17 +78,19 @@ export const ProjectCard = ({
                 </motion.div>
             </Link>
 
-            <div className="flex flex-col text-center px-4 py-2 space-y-1">
+            <div className="flex flex-col px-4 py-4 space-y-4">
                 <Link href={`/projects/${id}`}>
-                    <div className="flex items-baseline justify-between">
-                        <h1 className="font-bold text-lg">{title}</h1>
-                        <p className="font-mono">{description}</p>
+                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+                        <h1 className="font-bold text-lg text-left">{title}</h1>
+                        <p className="font-mono text-sm text-muted-foreground text-left md:text-right">
+                            {description}
+                        </p>
                     </div>
                 </Link>
 
-                <div className="flex justify-between items-center">
-                    <Link href={`/projects/${id}`}>
-                        <div className="flex space-x-2 items-center">
+                <div className="flex flex-row justify-between items-center gap-4">
+                    <Link href={`/projects/${id}`} className="flex-1 min-w-0">
+                        <div className="flex flex-nowrap gap-2 items-center overflow-hidden mask-linear-fade">
                             {tags.map((tag, i) => {
                                 const bg = [
                                     'bg-chart-1/20',
@@ -101,7 +103,7 @@ export const ProjectCard = ({
                                 return (
                                     <span
                                         key={tag}
-                                        className={`inline-block ${bg} text-accent text-xs font-mono px-2 py-1 rounded-full mt-2 mr-2`}
+                                        className={`inline-block ${bg} text-accent text-xs font-mono px-2 py-1 rounded-full whitespace-nowrap`}
                                     >
                                         {tag.toLowerCase()}
                                     </span>
@@ -110,7 +112,7 @@ export const ProjectCard = ({
                         </div>
                     </Link>
 
-                    <div>
+                    <div className="shrink-0">
                         {links.github && (
                             <a
                                 href={links.github}
@@ -118,9 +120,14 @@ export const ProjectCard = ({
                                 target="_blank"
                                 rel="noreferrer"
                             >
-                                <Button variant="link" className="!px-0 !py-0">
+                                <Button
+                                    variant="link"
+                                    className="!px-0 !py-0 h-auto"
+                                >
                                     <FaGithub />
-                                    <span>github</span>
+                                    <span className="hidden md:block">
+                                        github
+                                    </span>
                                 </Button>
                             </a>
                         )}

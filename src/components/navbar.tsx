@@ -96,84 +96,41 @@ export default function Navbar({ items }: { items: NavItem[] }) {
             : paths.length - 1;
 
     return (
-        <div className="fixed left-0 right-0 backdrop-blur-xs w-11/12 flex items-center justify-between font-mono mx-auto py-6 z-50">
-            <h1 className="flex text-sm md:text-base overflow-hidden whitespace-nowrap max-w-[60%] md:max-w-none">
-                <span>/</span>
-                <span
-                    className="cursor-pointer hover:text-accent font-bold transition-colors duration-100 ease-in-out"
-                    onClick={() => router.push('/')}
-                >
-                    cdx
-                </span>
-                <span>/</span>
+        <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xs">
+            <div className="w-11/12 flex items-center justify-between font-mono mx-auto py-6 relative">
+                <h1 className="flex text-sm md:text-base overflow-hidden whitespace-nowrap max-w-[60%] md:max-w-none">
+                    <span>/</span>
+                    <span
+                        className="cursor-pointer hover:text-accent font-bold transition-colors duration-100 ease-in-out"
+                        onClick={() => router.push('/')}
+                    >
+                        cdx
+                    </span>
+                    <span>/</span>
 
-                <AnimatePresence>
-                    {(() => {
-                        const commonCount =
-                            exitingStart !== null ? exitingStart : paths.length;
-                        const commonSource =
-                            exitingStart !== null
-                                ? pathname.split('/').filter((s) => s !== '')
-                                : paths;
+                    <AnimatePresence>
+                        {(() => {
+                            const commonCount =
+                                exitingStart !== null ? exitingStart : paths.length;
+                            const commonSource =
+                                exitingStart !== null
+                                    ? pathname.split('/').filter((s) => s !== '')
+                                    : paths;
 
-                        const commonPrefix = commonSource.slice(0, commonCount);
+                            const commonPrefix = commonSource.slice(0, commonCount);
 
-                        return (
-                            <>
-                                {commonPrefix.map((segment, i) => {
-                                    const href =
-                                        '/' +
-                                        commonSource.slice(0, i + 1).join('/');
-                                    const showSlash = i < lastIndex;
-                                    return (
-                                        <motion.div
-                                            key={href}
-                                            initial={{ opacity: 1 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            <span
-                                                className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out"
-                                                onClick={() => {
-                                                    if (href === pathname)
-                                                        return;
-                                                    router.push(href);
-                                                }}
-                                            >
-                                                <TypewriterText
-                                                    text={segment}
-                                                    delay={i * 50}
-                                                    isExiting={false}
-                                                />
-                                            </span>
-                                            {showSlash && (
-                                                <span className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out">
-                                                    /
-                                                </span>
-                                            )}
-                                        </motion.div>
-                                    );
-                                })}
-
-                                {exitingStart !== null &&
-                                    exitingPaths.map((segment, j) => {
-                                        const idx = exitingStart + j;
+                            return (
+                                <>
+                                    {commonPrefix.map((segment, i) => {
                                         const href =
                                             '/' +
-                                            paths.slice(0, idx + 1).join('/');
-                                        const isLast = idx === lastIndex;
+                                            commonSource.slice(0, i + 1).join('/');
+                                        const showSlash = i < lastIndex;
                                         return (
                                             <motion.div
                                                 key={href}
                                                 initial={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{
-                                                    duration: 0.2,
-                                                    delay:
-                                                        (exitingPaths.length -
-                                                            j -
-                                                            1) *
-                                                        0.05,
-                                                }}
+                                                transition={{ duration: 0.2 }}
                                             >
                                                 <span
                                                     className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out"
@@ -185,11 +142,11 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                                                 >
                                                     <TypewriterText
                                                         text={segment}
-                                                        delay={idx * 50}
-                                                        isExiting={true}
+                                                        delay={i * 50}
+                                                        isExiting={false}
                                                     />
                                                 </span>
-                                                {!isLast && (
+                                                {showSlash && (
                                                     <span className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out">
                                                         /
                                                     </span>
@@ -197,123 +154,168 @@ export default function Navbar({ items }: { items: NavItem[] }) {
                                             </motion.div>
                                         );
                                     })}
-                            </>
-                        );
-                    })()}
-                </AnimatePresence>
 
-                <Blinker />
-            </h1>
+                                    {exitingStart !== null &&
+                                        exitingPaths.map((segment, j) => {
+                                            const idx = exitingStart + j;
+                                            const href =
+                                                '/' +
+                                                paths.slice(0, idx + 1).join('/');
+                                            const isLast = idx === lastIndex;
+                                            return (
+                                                <motion.div
+                                                    key={href}
+                                                    initial={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    transition={{
+                                                        duration: 0.2,
+                                                        delay:
+                                                            (exitingPaths.length -
+                                                                j -
+                                                                1) *
+                                                            0.05,
+                                                    }}
+                                                >
+                                                    <span
+                                                        className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out"
+                                                        onClick={() => {
+                                                            if (href === pathname)
+                                                                return;
+                                                            router.push(href);
+                                                        }}
+                                                    >
+                                                        <TypewriterText
+                                                            text={segment}
+                                                            delay={idx * 50}
+                                                            isExiting={true}
+                                                        />
+                                                    </span>
+                                                    {!isLast && (
+                                                        <span className="cursor-pointer hover:text-accent transition-colors duration-100 ease-in-out">
+                                                            /
+                                                        </span>
+                                                    )}
+                                                </motion.div>
+                                            );
+                                        })}
+                                </>
+                            );
+                        })()}
+                    </AnimatePresence>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex relative items-center space-x-4">
-                <div
-                    className="absolute h-full bg-secondary rounded-xl transition-all duration-300 ease-in-out pointer-events-none"
-                    style={{
-                        width: `${sliderStyle.width}px`,
-                        left: `${sliderStyle.left}px`,
-                        opacity: hoveredIndex !== null ? 1 : 0,
-                    }}
-                />
+                    <Blinker />
+                </h1>
 
-                {items.map((item, index) => (
+                {/* Desktop Menu */}
+                <div className="hidden md:flex relative items-center space-x-4">
+                    <div
+                        className="absolute h-full bg-secondary rounded-xl transition-all duration-300 ease-in-out pointer-events-none"
+                        style={{
+                            width: `${sliderStyle.width}px`,
+                            left: `${sliderStyle.left}px`,
+                            opacity: hoveredIndex !== null ? 1 : 0,
+                        }}
+                    />
+
+                    {items.map((item, index) => (
+                        <Button
+                            key={item.title}
+                            ref={(el) => {
+                                itemRefs.current[index] = el;
+                            }}
+                            variant="link"
+                            className="flex items-center gap-2 hover:no-underline group relative z-10 text-secondary-foreground"
+                            onClick={() => router.push(item.href)}
+                            onMouseEnter={() => {
+                                setHoveredIndex(index);
+                                updateSliderPosition(index);
+                            }}
+                            onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                            <span className="transition-all duration-300 ease-in-out translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
+                                {item.icon}
+                            </span>
+                            <span>{item.title}</span>
+                        </Button>
+                    ))}
+
                     <Button
-                        key={item.title}
                         ref={(el) => {
-                            itemRefs.current[index] = el;
+                            itemRefs.current[items.length] = el;
                         }}
                         variant="link"
-                        className="flex items-center gap-2 hover:no-underline group relative z-10 text-secondary-foreground"
-                        onClick={() => router.push(item.href)}
+                        className="flex items-center gap-2 ml-4 hover:no-underline group relative z-10"
                         onMouseEnter={() => {
-                            setHoveredIndex(index);
-                            updateSliderPosition(index);
+                            const moonIndex = items.length;
+                            setHoveredIndex(moonIndex);
+                            updateSliderPosition(moonIndex);
                         }}
                         onMouseLeave={() => setHoveredIndex(null)}
+                        onClick={() => {
+                            if (theme === 'light') {
+                                setTheme('dark');
+                            } else {
+                                setTheme('light');
+                            }
+                        }}
                     >
-                        <span className="transition-all duration-300 ease-in-out translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
-                            {item.icon}
+                        {theme === 'light' ? <FaMoon /> : <FaSun />}
+                        <span className="transition-all duration-300 ease-in-out translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 capitalize">
+                            {theme || 'light'}
                         </span>
-                        <span>{item.title}</span>
                     </Button>
-                ))}
+                </div>
 
-                <Button
-                    ref={(el) => {
-                        itemRefs.current[items.length] = el;
-                    }}
-                    variant="link"
-                    className="flex items-center gap-2 ml-4 hover:no-underline group relative z-10"
-                    onMouseEnter={() => {
-                        const moonIndex = items.length;
-                        setHoveredIndex(moonIndex);
-                        updateSliderPosition(moonIndex);
-                    }}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    onClick={() => {
-                        if (theme === 'light') {
-                            setTheme('dark');
-                        } else {
-                            setTheme('light');
-                        }
-                    }}
-                >
-                    {theme === 'light' ? <FaMoon /> : <FaSun />}
-                    <span className="transition-all duration-300 ease-in-out translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 capitalize">
-                        {theme || 'light'}
-                    </span>
-                </Button>
-            </div>
-
-            {/* Mobile Menu Toggle */}
-            <div className="md:hidden">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                    {isMobileMenuOpen ? <FaXmark /> : <FaBars />}
-                </Button>
-            </div>
-
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-md p-4 flex flex-col space-y-2 md:hidden shadow-lg rounded-b-xl"
+                {/* Mobile Menu Toggle */}
+                <div className="md:hidden">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
-                        {items.map((item) => (
+                        {isMobileMenuOpen ? <FaXmark /> : <FaBars />}
+                    </Button>
+                </div>
+
+                {/* Mobile Menu Overlay */}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-md p-4 flex flex-col space-y-2 md:hidden shadow-lg rounded-b-xl"
+                        >
+                            {items.map((item) => (
+                                <Button
+                                    key={item.title}
+                                    variant="ghost"
+                                    className="justify-start w-full"
+                                    onClick={() => {
+                                        router.push(item.href);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                >
+                                    <span className="mr-2">{item.icon}</span>
+                                    {item.title}
+                                </Button>
+                            ))}
                             <Button
-                                key={item.title}
                                 variant="ghost"
                                 className="justify-start w-full"
                                 onClick={() => {
-                                    router.push(item.href);
-                                    setIsMobileMenuOpen(false);
+                                    setTheme(theme === 'light' ? 'dark' : 'light');
                                 }}
                             >
-                                <span className="mr-2">{item.icon}</span>
-                                {item.title}
+                                <span className="mr-2">
+                                    {theme === 'light' ? <FaMoon /> : <FaSun />}
+                                </span>
+                                {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
                             </Button>
-                        ))}
-                        <Button
-                            variant="ghost"
-                            className="justify-start w-full"
-                            onClick={() => {
-                                setTheme(theme === 'light' ? 'dark' : 'light');
-                            }}
-                        >
-                            <span className="mr-2">
-                                {theme === 'light' ? <FaMoon /> : <FaSun />}
-                            </span>
-                            {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-                        </Button>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 }

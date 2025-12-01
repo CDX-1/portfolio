@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 export const Header = ({ children }: { children: ReactNode }) => {
     return (
         <motion.h1
-            className="font-mono font-bold text-3xl flex items-center space-x-4"
+            className="font-mono font-bold text-xl md:text-3xl flex items-center space-x-2 md:space-x-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}

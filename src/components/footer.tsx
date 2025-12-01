@@ -22,7 +22,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="flex flex-col-reverse gap-4 md:flex-row justify-between items-center w-11/12 md:w-5/12 bg-card dark:bg-primary-foreground py-4 px-6 mx-auto mb-6 rounded-lg text-sm text-primary">
+        <footer className="flex flex-col-reverse gap-4 md:flex-row justify-between items-center w-11/12 md:w-11/12 lg:w-4/5 2xl:w-3/5 bg-card dark:bg-primary-foreground py-4 px-6 mx-auto mb-6 rounded-lg text-sm text-primary">
             <span>© {new Date().getFullYear()} CDX. All rights reserved.</span>
 
             <div className="flex items-center divide-x divide-foreground/10">

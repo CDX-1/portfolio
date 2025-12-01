@@ -27,13 +27,15 @@ export default function Statement() {
 
     return (
         <div className="space-y-6 font-mono">
-            <h1 className="text-5xl font-semibold">
+            <h1 className="text-4xl md:text-5xl font-semibold">
                 Heyo! I&apos;m{' '}
-                <span className="text-6xl font-bold text-accent">CDX</span>
+                <span className="text-5xl md:text-6xl font-bold text-accent">
+                    CDX
+                </span>
             </h1>
 
-            <p className="text-xl max-w-4/7 leading-8">
-                I’m a{' '}
+            <p className="text-base md:text-xl max-w-full md:max-w-[80%] lg:max-w-[100%] xl:max-w-[50%] 2xl:max-w-[40%] leading-7 md:leading-8">
+                I&apos;m a{' '}
                 <span className="text-accent font-semibold">16-year-old</span>,
                 fully self-taught{' '}
                 <span className="text-accent font-semibold">full-stack</span>{' '}
@@ -49,7 +51,7 @@ export default function Statement() {
                 code.
             </p>
 
-            <div className="flex justify-between max-w-4/7">
+            <div className="flex flex-col lg:flex-row lg:justify-between max-w-full md:max-w-[80%] lg:max-w-[100%] xl:max-w-[50%] 2xl:max-w-[40%] gap-4 lg:gap-0">
                 <div className="flex items-center divide-x divide-foreground/10">
                     {items.map((item) => (
                         <Link

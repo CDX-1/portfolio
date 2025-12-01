@@ -11,6 +11,7 @@ import {
     FaRocket,
 } from 'react-icons/fa6';
 import Footer from '@/components/footer';
+import ResponsivenessDebugger from '@/components/responsiveness-debugger';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -79,6 +80,7 @@ export default function RootLayout({
                         ]}
                     />
                     <div className="min-h-screen">{children}</div>
+                    {/* <ResponsivenessDebugger />   */}
                 </ThemeProvider>
                 <Footer />
             </body>

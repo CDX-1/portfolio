@@ -33,7 +33,7 @@ export default function ViewSourceButton() {
                 variant="link"
             >
                 <FaCodePullRequest />
-                <span>{hash}</span>
+                <span className="hidden sm:block">{hash}</span>
             </Button>
         </Link>
     );

@@ -20,7 +20,7 @@ export default async function ProjectOverview({
     const mdxSource = await serialize(content);
 
     return (
-        <div className="max-w-4xl mt-20 mx-auto py-10 mb-6">
+        <div className="px-4 md:px-12 lg:w-4/5 xl:w-3/5 2xl:w-2/5 mt-20 mx-auto py-10 mb-6">
             <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
             <p className="text-muted-foreground mb-6">{data.description}</p>
             <div className="relative w-full h-[400px] overflow-hidden rounded-lg mb-4">

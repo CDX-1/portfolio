@@ -10,20 +10,20 @@ export function ContactBar() {
     const [copied, setCopied] = useState(false);
 
     return (
-        <div className="flex space-x-8 font-mono">
-            <Link href={`mailto:${EMAIL}`}>
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8 font-mono">
+            <Link href={`mailto:${EMAIL}`} className="w-full md:w-auto">
                 <Button
                     variant="secondary"
-                    className="flex space-x-2 items-center !p-8 active:scale-105"
+                    className="flex space-x-2 items-center !p-6 md:!p-8 active:scale-105 w-full md:w-auto justify-center"
                 >
-                    <FaPaperPlane className="size-6" />
-                    <span className="text-2xl">Send Email</span>
+                    <FaPaperPlane className="size-5 md:size-6" />
+                    <span className="text-xl md:text-2xl">Send Email</span>
                 </Button>
             </Link>
 
             <Button
                 variant="outline"
-                className="flex space-x-2 items-center !p-8 active:scale-105"
+                className="flex space-x-2 items-center !p-6 md:!p-8 active:scale-105 w-full md:w-auto justify-center"
                 onClick={() => {
                     if (copied) return;
                     navigator.clipboard.writeText(EMAIL).then(() => {
@@ -33,11 +33,11 @@ export function ContactBar() {
                 }}
             >
                 {copied ? (
-                    <FaCheck className="size-6" />
+                    <FaCheck className="size-5 md:size-6" />
                 ) : (
-                    <FaCopy className="size-6" />
+                    <FaCopy className="size-5 md:size-6" />
                 )}
-                <span className="text-2xl">Copy Email</span>
+                <span className="text-xl md:text-2xl">Copy Email</span>
             </Button>
         </div>
     );
@@ -50,7 +50,7 @@ export function ContactButton() {
                 variant="link"
                 className="flex items-center hover:text-accent-foreground hover:no-underline"
             >
-                <span>Contact Me</span>
+                <span className="hidden sm:block">Contact Me</span>
                 <FaPaperPlane />
             </Button>
         </Link>
