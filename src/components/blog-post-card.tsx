@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface BlogPostCardProps {
+    slug: string;
     title: string;
-    description: string;
+    content: string;
     date: Date;
     keywords?: string[];
     author: {
@@ -12,18 +14,24 @@ interface BlogPostCardProps {
 }
 
 export const BlogPostCard = ({
+    slug,
     title,
-    description,
+    content,
     date,
     keywords,
     author,
 }: BlogPostCardProps) => {
+    const router = useRouter();
+
     return (
-        <div className="flex flex-col space-y-2 group hover:cursor-pointer hover:scale-105 transition-transform duration-100">
+        <div
+            className="flex flex-col space-y-2 group hover:cursor-pointer transition-transform duration-100"
+            onClick={() => { router.push(`/blog/${slug}`) }}
+        >
             <h3 className="font-bold text-2xl group-hover:text-accent transition-colors duration-100">
                 {title}
             </h3>
-            <div className="flex items-center mb-2 space-x-2 font-mono text-sm text-muted-foreground/80 group-hover:text-muted-foreground transition-colors duration-100">
+            <div className="flex items-center mb-2 space-x-2 font-mono text-sm text-muted-foreground transition-colors duration-100">
                 <p>
                     {date.toDateString()}{' '}
                     <span className="text-accent-foreground">—</span> Published
@@ -38,8 +46,8 @@ export const BlogPostCard = ({
                     className="rounded-full mr-2"
                 />
             </div>
-            <p className="font-mono text-foreground/80 group-hover:text-foreground transition-colors duration-100">
-                {description}
+            <p className="font-mono text-foreground transition-colors duration-100">
+                {content}
             </p>
             <div className="flex items-center space-x-2">
                 {keywords?.map((keyword, i) => {

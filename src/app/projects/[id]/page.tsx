@@ -38,7 +38,7 @@ export default async function ProjectOverview({
                 />
             </div>
             <div className="flex justify-between items-center">
-                <div className="flex space-x-2 items-center">
+                <div className="flex flex-nowrap gap-2 items-center overflow-hidden mask-linear-fade flex-1">
                     {data.tags.map((tag: string, i: number) => {
                         const bg = [
                             'bg-chart-1/20',
@@ -51,7 +51,7 @@ export default async function ProjectOverview({
                         return (
                             <span
                                 key={tag}
-                                className={`inline-block ${bg} text-accent text-xs font-mono px-2 py-1 rounded-full mt-2 mr-2`}
+                                className={`inline-block ${bg} text-accent text-xs font-mono px-2 py-1 rounded-full whitespace-nowrap`}
                             >
                                 {tag.toLowerCase()}
                             </span>
