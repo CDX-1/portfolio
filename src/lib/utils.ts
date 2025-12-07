@@ -8,11 +8,14 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export function handleParseError(error: ZodError<any>) {
-    return NextResponse.json(error, {
-        status: 200,
-        statusText: z.prettifyError(error)
-    });
+export function handleParseError<T>(error: ZodError<T>) {
+    return NextResponse.json(
+        { issues: error.issues },
+        {
+            status: 400,
+            statusText: z.prettifyError(error)
+        }
+    );
 }
 
 export function stripMarkdown(md: string) {
@@ -20,7 +23,7 @@ export function stripMarkdown(md: string) {
         .replace(/```[\s\S]*?```/g, "")
         .replace(/`([^`]+)`/g, "$1")
         .replace(/!\[.*?\]\(.*?\)/g, "")
-        .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+        .replace(/\[(.*?)]\(.*?\)/g, "$1")
         .replace(/^\s{0,3}#{1,6}\s+/gm, "")
         .replace(/^\s*>+\s?/gm, "")
         .replace(/^\s*([-*+]|\d+\.)\s+/gm, "")

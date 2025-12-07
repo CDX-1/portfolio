@@ -15,8 +15,7 @@ export default async function BlogPost({
     if (res.status !== 200 || !post) {
         return redirect('/+not-found.tsx');
     }
-    // @ts-ignore
-    const { content, _ } = matter(post.content);
+    const { content } = matter(post.content);
     const mdxSource = await serialize(content);
 
     return (
