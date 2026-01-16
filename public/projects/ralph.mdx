@@ -1,0 +1,101 @@
+---
+title: "Ralph — AI Guide Dog"
+date: "2026-01-11"
+author:
+  - name: awsaf
+    github: https://github.com/CDX-1
+    linkedin: https://www.linkedin.com/in/awsaf-syed/
+  - name: ayaan
+    github: https://github.com/nordicator
+    linkedin: https://www.linkedin.com/in/ayaan-sajjad/
+  - name: dinesh
+    github: https://github.com/Crackle2K
+    linkedin: https://www.linkedin.com/in/dsinnath/
+  - name: richard
+    github: https://github.com/richardliuu
+    linkedin: https://www.linkedin.com/in/richard-liu-37b70232a/
+tags:
+  - hardware
+  - accessibility
+  - python
+  - cv
+pinned: true
+description: "Ralph is an AI guide dog that helps people with visual impairments navigate their environment."
+location: DeltaHacks 12 @ McMaster University
+github: https://github.com/CDX-1/ralph
+image: ralph.png
+gallery:
+  - path: ralph.png
+    caption: "Ralph's final design"
+  - path: ralph-complete.jpg
+    caption: "More of Ralph's final design"
+  - path: ralph-debugging.jpg
+    caption: "Our team attempting to debug an issue with Ralph's motors"
+  - path: ralph-demo.jpg
+    caption: "Ralph finally in action"
+  - path: ralph-wiring.jpg
+    caption: "GPIO wiring to control the motors on the Raspberry Pi"
+---
+
+## What is Ralph?
+
+Ralph is a small and autonomous robot car that leverages computer vision and machine learning to assist
+people with visual impairments in navigating their environment. Ralph achieves this by using a combination
+of object identification, depth estimation, and path planning to determine a safe path for the robot to follow,
+in turn guiding its user.
+
+### AI Pipeline
+
+Ralph's AI pipeline is designed to be simple and efficient, using a combination of object identification, depth
+estimation, and path planning to determine a safe path for the robot to follow. The pipeline is as follows:
+
+1. Divide view into 5 columns
+2. Detect objects in each column
+3. Estimate the distance between the robot and the object
+4. Assess the risks that each object poses to the robot
+5. Attempt to find an open path for the robot to follow
+6. Navigate the robot to the path
+
+### Features
+
+- Object identification
+- Depth estimation
+- Path planning
+- Autonomous navigation
+- Risk assessment
+- Emergency braking
+
+### Technical Details
+
+- [YOLOv8](https://yolov8.com/) for object detection
+- [MiDaS](https://github.com/isl-org/MiDaS) for depth estimation
+- Ralph's code was implemented in Python
+
+### Hardware
+
+- Raspberry Pi 5 w/ a case
+- Battery Pack
+- 4x AA Batteries
+- L298N Motor Driver
+- 2x TT DC Motors
+- 2x Wheels
+- 1 Caster Wheel
+- RC Car Chassis
+- Mini Breadboard
+- Jumper Wires
+- Camera
+- Leash
+
+### Other Tools
+
+- Electrical Tape
+- Multimeter
+- Screwdriver
+
+### My Contributions
+
+- Object detection & pathfinding enhancements
+- Integrated Raspberry Pi 5 with the L298N motor driver and TT DC Motors
+- Wired and tested power delivery circuitry
+- Debugged motor control and power delivery issues using a multimeter
+- Assisted with hardware-software integration and debugging

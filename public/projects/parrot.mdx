@@ -1,0 +1,72 @@
+---
+title: "Parrot — Desktop AI Agent"
+date: "2025-08-16"
+author:
+  - name: awsaf
+    github: https://github.com/CDX-1
+    linkedin: https://www.linkedin.com/in/awsaf-syed/
+  - name: ayaan
+    github: https://github.com/nordicator
+    linkedin: https://www.linkedin.com/in/ayaan-sajjad/
+  - name: darren
+    github: https://github.com/darrenn19
+  - name: preston
+    linkedin: https://www.linkedin.com/in/preston-chan-97948936b/
+tags:
+  - ollama
+  - tauri
+  - rust
+description: "Parrot is a desktop agent that leverages context-powered AI to provide a dynamic experience on your desktop."
+location: IgnitionHacks v6 @ TMU
+github: https://github.com/CDX-1/parrot
+image: parrot.png
+---
+
+## What is Parrot?
+
+Parrot is an AI assistant that runs locally on your desktop. It leverages local LLMs powered by Ollama to provide a
+completely private experience. Parrot's AI assistant is deeply integrated into your desktop environment and is designed
+to make use of local resources efficiently to deliver tailored responses. We achieved this by feeding context from your
+filesystem indexes, applications, system information, and more. Furthermore, Parrot is designed to automatically fetch
+relevant context based on your queries, ensuring that the responses are accurate and personalized.
+
+### Features
+
+- Local LLMs powered by Ollama's API
+- Lightweight and beautiful desktop application built with Tauri
+- Deep integration with your desktop environment
+- Automatic context fetching from your filesystem, applications, and system information
+- Settings: auto-execution and user-approved execution of commands
+
+### Technologies
+
+- [Tauri](https://tauri.app/)
+- [Next.js](https://nextjs.org/)
+- [shadcn/ui](https://shadcn.com/ui)
+- [Ollama](https://ollama.com/)
+
+### How it works
+
+Parrot is built using Tauri, a Rust framework for building desktop applications with web technologies. The frontend is
+developed using Next.js, allowing us to rapidly design the frontend with React components. The backend is powered by
+Rust, which allows us to efficiently interact with the operating system and fetch context from various sources.
+
+When Parrot receives a query, the query is sent to the Ollama API with a predefined amount of context including general
+system information and installed programs. The LLM is given a set of commands it can use to either execute actions on
+the users desktop or fetch more context. If more context is needed, Parrot will automatically fetch the relevant information
+and send it back to the LLM. Once the LLM has enough context, it will generate a set of commands to execute on the user's
+computer. Depending on the user's settings, these commands can either be executed automatically or require user approval.
+
+### My contribution
+
+I was primarily responsible for the backend of Parrot, which involved setting up the Tauri application, integrating with
+the Ollama API, and implementing the logic for fetching context and executing commands. I also contributed to the frontend
+by designing and implementing several React components and improving the overall user experience.
+
+### Inspiration
+
+The inspiration for Parrot came from my personal experience of using AI assistants like ChatGPT and noticing the
+limitations of cloud-based LLMs in terms of privacy and context-awareness. I wanted to create a solution that would allow
+users to leverage the power of LLMs on their own local machines while ensuring their data remains private.
+
+> Parrot was a hackathon project and is no longer being actively maintained.
