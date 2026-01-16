@@ -36,6 +36,8 @@ export async function generateMetadata({
         openGraph: {
             title: meta.title,
             description: meta.description,
+            url: "https://awsaf.dev",
+        siteName: "Awsaf's Portfolio",
             images: [
                 {
                     url: `https://awsaf.dev/projects/assets/${meta.image}` || "https://awsaf.dev/landing.png",
