@@ -55,32 +55,46 @@ export const ProjectSummary = ({
     });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!ref.current || isTouch) return;
+    if (!ref.current || isTouch) return;
 
-        const rect = ref.current.getBoundingClientRect();
-        const px = e.clientX - rect.left;
-        const py = e.clientY - rect.top;
+    const rect = ref.current.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
 
-        const padding = 16;
-        const clampedX = Math.min(Math.max(px, padding), rect.width - padding);
-        const clampedY = Math.min(Math.max(py, padding), rect.height - padding);
+    // Use a padding buffer as you did before
+    const padding = 16;
+    const clampedX = Math.min(Math.max(px, padding), rect.width - padding);
+    const clampedY = Math.min(Math.max(py, padding), rect.height - padding);
 
-        targetX.set(clampedX);
-        targetY.set(clampedY);
+    targetX.set(clampedX);
+    targetY.set(clampedY);
 
-        const centerX = rect.width / 2;
-        rotate.set((clampedX - centerX) * 0.04);
-    };
+    const centerX = rect.width / 2;
+    rotate.set((clampedX - centerX) * 0.04);
+};
 
     return (
         <div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="relative flex flex-col gap-4 rounded-2xl p-4 overflow-hidden
-                       transition-colors hover:bg-muted/20 hover:cursor-none"
-        >
+        ref={ref}
+        onMouseEnter={(e) => {
+            if (ref.current) {
+                const rect = ref.current.getBoundingClientRect();
+                const px = e.clientX - rect.left;
+                const py = e.clientY - rect.top;
+
+                springX.jump(px);
+                springY.jump(py);
+
+                targetX.set(px);
+                targetY.set(py);
+            }
+            setIsHovered(true);
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative flex flex-col gap-4 rounded-2xl p-4 overflow-hidden
+                   transition-colors hover:bg-muted/20 hover:cursor-none"
+    >
             {!isTouch && (
                 <motion.div
                     className="absolute pointer-events-none z-50
