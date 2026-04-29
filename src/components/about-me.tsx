@@ -23,7 +23,7 @@ export const AboutMe = ({ className = "" }: AboutMeProps) => {
                         <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
                             Currently, I aspire to pursue a career in computer engineering. I&apos;m
                             particularly passionate about UI/UX design, edge AI, and embedded systems.
-                            Looking ahead, I&apos;m also interested in exploring research in quantum
+                            Looking ahead, I&apos;m also interested in researching quantum
                             computing.
                         </p>
 
