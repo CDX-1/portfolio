@@ -1,11 +1,11 @@
 import Link from "next/link";
-import PhotoFolder, { FolderColour } from "./photo-folder";
+import PhotoFolder, { FolderColor } from "./photo-folder";
 
 interface ProjectMeta {
     name: string;
     description: string;
     images: string[];
-    color: FolderColour;
+    color: FolderColor;
     slug: string;
 }
 

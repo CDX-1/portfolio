@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useState, useRef } from "react";
-import MessageBubble from "./message-bubble"; 
+import MessageBubble from "./message-bubble";
 
-export type FolderColour = "blue" | "red" | "green" | "yellow" | "purple";
+export type FolderColor = "blue" | "red" | "green" | "yellow" | "purple";
 
 interface PhotoFolderProps {
     className?: string;
-    color?: FolderColour;
+    color?: FolderColor;
     images?: string[];
 }
 
@@ -29,7 +29,7 @@ const imageVariants = {
         x: (custom.index - (custom.total - 1) / 2) * 5,
     }),
     hover: (custom: { index: number; total: number }) => ({
-        rotate: (custom.index - (custom.total - 1) / 2) * 16, 
+        rotate: (custom.index - (custom.total - 1) / 2) * 16,
         y: -50,
         x: (custom.index - (custom.total - 1) / 2) * 15,
     })
@@ -43,9 +43,9 @@ export default function PhotoFolder({ className, color = "blue", images = [] }: 
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!containerRef.current) return;
-        
+
         const rect = containerRef.current.getBoundingClientRect();
-        
+
         setMousePos({
             x: e.clientX - rect.left,
             y: e.clientY - rect.top
@@ -53,7 +53,7 @@ export default function PhotoFolder({ className, color = "blue", images = [] }: 
     };
 
     return (
-        <div 
+        <div
             ref={containerRef}
             className="relative flex flex-col items-center"
             onMouseEnter={() => setIsHovered(true)}
@@ -128,7 +128,7 @@ export default function PhotoFolder({ className, color = "blue", images = [] }: 
                         style={{
                             left: mousePos.x,
                             top: mousePos.y,
-                            x: "-89%", 
+                            x: "-89%",
                             y: "-100%"
                         }}
                     >
@@ -142,19 +142,19 @@ export default function PhotoFolder({ className, color = "blue", images = [] }: 
 
 function PictureItem({ path, theme }: { path: string, theme: typeof COLOR_MAP.blue }) {
     return (
-        <div 
+        <div
             className="group relative w-28 h-32 sm:w-32 sm:h-40 rounded-sm p-1.5 shadow-xl transition-all duration-300"
             style={{ backgroundColor: theme.frontTop }}
         >
             <div className="relative w-full h-full overflow-hidden border border-black/10 bg-stone-50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]">
                 <Image
                     src={path}
-                    fill 
+                    fill
                     alt="Folder Image"
                     className="object-contain p-1 transition-transform duration-500 ease-out"
                     sizes="(max-width: 768px) 150px, 200px"
                 />
-                
+
                 <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-white/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
         </div>
