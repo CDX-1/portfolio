@@ -64,124 +64,81 @@ export function getAllProjects(): Project[] {
     );
 }
 
+import type { ComponentPropsWithoutRef } from "react";
+
+type ComponentProps<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
+
 export const MDXComponents = {
-    h1: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLHeadingElement> &
-            HTMLAttributes<HTMLHeadingElement>,
-    ) => (
+    h1: (props: ComponentProps<"h1">) => (
         <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold font-foss mt-12 md:mt-16 mb-6 md:mb-8 tracking-tight text-foreground"
+            className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground mt-16 mb-6 antialiased"
             {...props}
         />
     ),
-    h2: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLHeadingElement> &
-            HTMLAttributes<HTMLHeadingElement>,
-    ) => (
+    h2: (props: ComponentProps<"h2">) => (
         <h2
-            className="text-2xl md:text-3xl lg:text-4xl font-bold font-foss mt-12 md:mt-16 mb-4 md:mb-6 tracking-tight text-foreground border-b border-border pb-3 md:pb-4"
+            className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mt-14 mb-4 pb-2 border-b border-border/40 antialiased"
             {...props}
         />
     ),
-    h3: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLHeadingElement> &
-            HTMLAttributes<HTMLHeadingElement>,
-    ) => (
+    h3: (props: ComponentProps<"h3">) => (
         <h3
-            className="text-xl md:text-2xl lg:text-3xl font-bold font-foss mt-10 md:mt-12 mb-3 md:mb-4 tracking-tight text-foreground"
+            className="text-xl md:text-2xl font-semibold tracking-tight text-foreground mt-10 mb-3 antialiased"
             {...props}
         />
     ),
-    p: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLParagraphElement> &
-            HTMLAttributes<HTMLParagraphElement>,
-    ) => (
+    p: (props: ComponentProps<"p">) => (
         <p
-            className="text-base md:text-lg leading-relaxed md:leading-loose my-6 md:my-8 text-muted-foreground
-                       pl-0 hover:pl-4 border-l-2 border-transparent hover:border-muted-foreground/30
-                       transition-all duration-300 ease-out cursor-default"
+            className="text-[17px] leading-relaxed my-5 text-muted-foreground/90 font-normal antialiased selection:bg-primary/10"
             {...props}
         />
     ),
-    ul: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLUListElement> &
-            HTMLAttributes<HTMLUListElement>,
-    ) => (
+    ul: (props: ComponentProps<"ul">) => (
         <ul
-            className="list-disc pl-6 md:pl-8 space-y-3 md:space-y-4 my-6 md:my-8 text-muted-foreground"
+            className="list-disc pl-5 my-5 space-y-2.5 text-[17px] text-muted-foreground/90"
             {...props}
         />
     ),
-    ol: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLOListElement> &
-            OlHTMLAttributes<HTMLOListElement>,
-    ) => (
+    ol: (props: ComponentProps<"ol">) => (
         <ol
-            className="list-decimal pl-6 md:pl-8 space-y-3 md:space-y-4 my-6 md:my-8 text-muted-foreground"
+            className="list-decimal pl-5 my-5 space-y-2.5 text-[17px] text-muted-foreground/90"
             {...props}
         />
     ),
-    li: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLLIElement> &
-            LiHTMLAttributes<HTMLLIElement>,
-    ) => (
+    li: (props: ComponentProps<"li">) => (
         <li
-            className="leading-relaxed md:leading-loose list-inside pl-2 hover:pl-4
-                       transition-all duration-200 ease-out"
+            className="leading-relaxed pl-1 marker:text-muted-foreground/40"
             {...props}
         />
     ),
-    a: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLAnchorElement> &
-            HTMLAttributes<HTMLAnchorElement>,
-    ) => (
+    a: (props: ComponentProps<"a">) => (
         <a
-            className="font-medium underline underline-offset-4 decoration-border hover:decoration-foreground transition-all text-foreground"
+            className="font-medium text-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-foreground transition-colors duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             {...props}
         />
     ),
-    code: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLElement> &
-            HTMLAttributes<HTMLElement>,
-    ) => (
+    code: (props: ComponentProps<"code">) => (
         <code
-            className="px-2 py-1 rounded bg-muted font-mono text-sm md:text-base text-foreground"
+            className="px-1.5 py-0.5 rounded-md bg-muted/70 border border-border/30 font-mono text-[14px] text-foreground tracking-tight"
             {...props}
         />
     ),
-    pre: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLPreElement> &
-            HTMLAttributes<HTMLPreElement>,
-    ) => (
+    pre: (props: ComponentProps<"pre">) => (
         <pre
-            className="p-4 md:p-6 rounded-xl bg-muted border border-border overflow-x-auto text-sm md:text-base my-8 md:my-12"
+            className="p-5 md:p-6 rounded-2xl bg-muted/40 border border-border/50 overflow-x-auto text-[14px] font-mono leading-relaxed my-8 backdrop-blur-[2px]"
             {...props}
         />
     ),
-    blockquote: (
-        props: JSX.IntrinsicAttributes &
-            ClassAttributes<HTMLQuoteElement> &
-            BlockquoteHTMLAttributes<HTMLQuoteElement>,
-    ) => (
+    blockquote: (props: ComponentProps<"blockquote">) => (
         <blockquote
-            className="border-l-4 border-muted-foreground/30 pl-8 md:pl-6 my-6 py-0.5 md:my-8 italic text-muted-foreground bg-muted/60 rounded-r-lg"
+            className="border-l-3 border-primary/40 pl-6 my-8 text-[18px] font-normal italic text-muted-foreground/80 bg-muted/20 py-1 pr-4 rounded-r-xl"
             {...props}
         />
     ),
     YouTube: ({ id }: { id: string }) => (
-        <div className="my-8 md:my-12 aspect-video w-full">
+        <div className="my-10 aspect-video w-full overflow-hidden rounded-2xl border border-border/40 shadow-sm bg-muted/20">
             <iframe
-                className="w-full h-full rounded-xl border border-border"
+                className="w-full h-full"
                 src={`https://www.youtube.com/embed/${id}`}
                 title="YouTube video player"
                 frameBorder="0"
