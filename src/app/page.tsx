@@ -1,11 +1,14 @@
 import Hero from "@/components/hero";
 import ProjectClickable from "@/components/project-clickable";
+import Stats from "@/components/stats";
 
 export default function Home() {
     return (
         <div className="py-32 px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-6xl space-y-2">
                 <Hero />
+
+                <Stats />
 
                 <div className="grid grid-cols-3 gap-16 mt-16">
                     <ProjectClickable

@@ -17,7 +17,7 @@ export default function ProjectClickable({ name, description, images, color, slu
                     <PhotoFolder className="drop-shadow-2xl" color={color} images={images} />
                 </Link>
             </div>
-            <div className="mt-4 ml-4">
+            <div className="mt-4 px-4">
                 <h3 className="font-bespoke font-medium text-2xl tracking-tight">{name}</h3>
                 <p className="font-satoshi text-lg tracking-tight text-foreground/70">{description}</p>
             </div>

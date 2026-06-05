@@ -3,12 +3,18 @@ import { cn } from "@/lib/utils";
 interface MessageBubbleProps {
     text?: string;
     className?: string;
+    textClassName?: string;
 }
 
-export default function MessageBubble({ text = "Hello!", className }: MessageBubbleProps) {
+export default function MessageBubble({ text = "Hello!", className, textClassName }: MessageBubbleProps) {
     return (
         <div className={cn("relative inline-flex filter drop-shadow-2xl", className)}>
-            <div className="bg-linear-to-b from-[#2694ff] to-[#0176ff] text-white font-sans text-[16px] font-normal leading-5 px-4 py-2.5 rounded-[20px] rounded-br-[4px] max-w-xs sm:max-w-md select-text wrap-break-word">
+            <div
+                className={cn(
+                    "bg-linear-to-b from-[#2694ff] to-[#0176ff] text-white font-sans text-[16px] font-normal leading-5 px-4 py-2.5 rounded-[20px] rounded-br-[4px] max-w-xs sm:max-w-md select-text wrap-break-word",
+                    textClassName
+                )}
+            >
                 {text}
             </div>
 

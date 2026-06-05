@@ -10,7 +10,7 @@ export default function Hero() {
             <h2 className="text-4xl font-medium tracking-tight text-foreground/50 font-satoshi">
                 I'm a developer and designer
             </h2>
-            <h2 className="text-2xl font-medium tracking-tight text-foreground/50 font-satoshi">
+            <h2 className="text-3xl font-medium tracking-tight text-foreground/50 font-satoshi">
                 Aspiring Computer Engineer
             </h2>
 
