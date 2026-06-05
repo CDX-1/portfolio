@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
+import localFont from "next/font/local";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -10,6 +12,21 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
     subsets: ["latin"],
+});
+
+const karma = localFont({
+    src: "./fonts/Karma-Variable.woff2",
+    variable: "--font-karma",
+});
+
+const bespoke = localFont({
+    src: "./fonts/BespokeSerif-Variable.woff2",
+    variable: "--font-bespoke",
+});
+
+const satoshi = localFont({
+    src: "./fonts/Satoshi-Variable.woff2",
+    variable: "--font-satoshi"
 });
 
 export const metadata: Metadata = {
@@ -25,9 +42,21 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} ${bespoke.variable} ${satoshi.variable} h-full antialiased`}
+            suppressHydrationWarning
         >
-            <body className="min-h-full flex flex-col">{children}</body>
+            <body className="bg-background min-h-full flex flex-col">
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="light"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                </ThemeProvider>
+            </body>
         </html>
     );
 }
