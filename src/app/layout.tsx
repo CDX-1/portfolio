@@ -53,7 +53,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <main className="flex-1">
+                    <main className="flex-1 font-satoshi">
                         {children}
                         <Footer />
                     </main>

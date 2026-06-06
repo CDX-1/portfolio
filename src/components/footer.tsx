@@ -1,14 +1,30 @@
+import { IconBrandGithubFilled, IconBrandInstagramFilled, IconBrandLinkedinFilled } from "@tabler/icons-react";
+import Link from "next/link";
+
 export default function Footer() {
     return (
-        <div className="py-16 px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between">
-                <div>
-                    <h3 className="font-bespoke font-medium text-5xl tracking-tight">awsaf.</h3>
-                </div>
-            </div>
+        <div className="py-12 mx-auto max-w-6xl space-y-4">
+            <div className="border-t border-border/80 w-full h-3" />
 
-            <div className="grid grid-cols-3">
-                
+            <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-4">
+                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="/">
+                        <IconBrandLinkedinFilled className="size-5" />
+                        <span>LinkedIn</span>
+                    </Link>
+
+                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="/">
+                        <IconBrandInstagramFilled className="size-5" />
+                        <span>Instagram</span>
+                    </Link>
+
+                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="/">
+                        <IconBrandGithubFilled className="size-5" />
+                        <span>Github</span>
+                    </Link>
+                </div>
+
+                <p className="text-foreground/70">© 2026. Designed & developed by Awsaf Syed.</p>
             </div>
         </div>
     );
