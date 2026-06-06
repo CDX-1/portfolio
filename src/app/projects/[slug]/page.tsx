@@ -2,6 +2,8 @@ import { getAllProjects, getProjectBySlug, MDXComponents } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
 import Image from "next/image";
+import { IconBrandGithubFilled, IconBrandLinkedinFilled, IconCalendarFilled, IconLinkFilled, IconMapPinFilled } from "@tabler/icons-react";
+import Link from "next/link";
 
 export async function generateStaticParams() {
     const projects = getAllProjects();
@@ -58,7 +60,7 @@ export default async function ProjectPage({ params }: Props) {
     return (
         <main className="min-h-screen pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-32">
             <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
-                
+
                 {/* Collage Header Section */}
                 {meta.images && meta.images.length > 0 && (
                     <div className="flex flex-row justify-center items-center py-10 md:py-16 mb-8 overflow-visible">
@@ -73,9 +75,9 @@ export default async function ProjectPage({ params }: Props) {
                                     ${collageStyles[i % collageStyles.length]}
                                 `}
                             >
-                                <Image 
-                                    src={image} 
-                                    alt={`${meta.title} screenshot ${i + 1}`} 
+                                <Image
+                                    src={image}
+                                    alt={`${meta.title} screenshot ${i + 1}`}
                                     width={0}
                                     height={0}
                                     className="w-full h-auto"
@@ -91,16 +93,66 @@ export default async function ProjectPage({ params }: Props) {
                     <h1 className="text-4xl md:text-5xl font-semibold font-bespoke tracking-tight">
                         {meta.title}
                     </h1>
+
                     <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto">
                         {meta.description}
                     </p>
+
+                    <div className="flex justify-center items-center gap-8">
+                        {meta.author.map((author) => (
+                            <div className="flex gap-2 items-center" key={author.name}>
+                                <p>{author.name}</p>
+                                {author.github && (
+                                    <Link href={author.github} target="_blank">
+                                        <IconBrandGithubFilled className="size-5 hover:text-foreground/70" />
+                                    </Link>
+                                )}
+                                {author.linkedin && (
+                                    <Link href={author.linkedin} target="_blank">
+                                        <IconBrandLinkedinFilled className="size-5 hover:text-foreground/70" />
+                                    </Link>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex justify-center items-center gap-8">
+                        {meta.location && (
+                            <div className="flex gap-2 items-center">
+                                <IconMapPinFilled className="size-5" />
+                                <p className="text-sm md:text-base text-foreground/70">{meta.location}</p>
+                            </div>
+                        )}
+                        <div className="flex gap-2 items-center">
+                            <IconCalendarFilled className="size-5" />
+                            <p className="text-sm md:text-base text-foreground/70">{meta.date}</p>
+                        </div>
+                    </div>
+
+                    {(meta.github || meta.devpost) && (
+                        <div className="flex justify-center items-center gap-8">
+                            {meta.github && (
+                                <Link href={meta.github} target="_blank" className="flex items-center gap-2 group">
+                                    <IconBrandGithubFilled className="size-5 group-hover:text-foreground/70 transition-colors duration-200" />
+                                    <span className="group-hover:text-foreground/70 transition-colors duration-200">View Source</span>
+                                </Link>
+                            )}
+
+                            {meta.devpost && (
+                                <Link href={meta.devpost} target="_blank" className="flex items-center gap-2 group">
+                                    <IconLinkFilled className="size-5 group-hover:text-foreground/70 transition-colors duration-200" />
+                                    <span className="group-hover:text-foreground/70 transition-colors duration-200">View on Devpost</span>
+                                </Link>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* MDX Article */}
                 <div className="mx-auto max-w-4xl">
                     <MDXRemote source={content} components={MDXComponents} />
                 </div>
-                
+
             </article>
         </main>
     );

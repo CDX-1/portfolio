@@ -16,7 +16,7 @@ const projectsDirectory = path.join(process.cwd(), "public/projects");
 export type Author = {
     name: string;
     github?: string;
-    linked?: string;
+    linkedin?: string;
 }
 
 export type ProjectMeta = {
