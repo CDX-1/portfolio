@@ -8,17 +8,17 @@ export default function Footer() {
 
             <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
-                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="/">
+                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="https://www.linkedin.com/in/awsaf-syed/" target="_blank">
                         <IconBrandLinkedinFilled className="size-5" />
                         <span>LinkedIn</span>
                     </Link>
 
-                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="/">
+                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="https://www.instagram.com/awsf__/" target="_blank">
                         <IconBrandInstagramFilled className="size-5" />
                         <span>Instagram</span>
                     </Link>
 
-                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="/">
+                    <Link className="flex items-center space-x-1 hover:text-foreground/70 duration-300" href="https://github.com/CDX-1" target="_blank">
                         <IconBrandGithubFilled className="size-5" />
                         <span>Github</span>
                     </Link>
