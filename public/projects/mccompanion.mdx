@@ -1,0 +1,85 @@
+---
+name: "Minecraft Companion"
+title: "Minecraft Companion - AI Companion for Minecraft"
+date: "2026-05-02"
+author:
+  - name: awsaf
+    github: https://github.com/CDX-1
+    linkedin: https://www.linkedin.com/in/awsaf-syed/
+  - name: ayaan
+    github: https://github.com/nordicator
+    linkedin: https://www.linkedin.com/in/ayaan-sajjad/
+  - name: alec
+    github: https://github.com/li-yunshen-alec
+tags:
+  - ai
+  - minecraft
+  - mineflayer
+color: green
+description: "Minecraft Companion is an interactive AI-powered minecraft companion"
+location: EurekaHacks 2026 @ Waterloo Accelerator Centre
+images:
+    - /projects/assets/mccompanion/terminal.png
+    - /projects/assets/mccompanion/1st_phase.png
+    - /projects/assets/mccompanion/2nd_phase.png
+    - /projects/assets/mccompanion/following.png
+devpost: https://devpost.com/software/minecraft-companion
+gallery:
+  - path: mccompanion-1st-phase.png
+    caption: "Generation of an airplane, 1st phase"
+    aspectRatio: "16/9"
+  - path: mccompanion-2nd-phase.png
+    caption: "Generation of an airplane, 2nd phase"
+    aspectRatio: "16/9"
+  - path: mccompanion-following.png
+    caption: "Companion following the user"
+    aspectRatio: "16/9"
+
+
+---
+
+## What is Minecraft Companion?
+
+Minecraft Companion is open-source software that allows you to play Minecraft with an AI companion. Upon launching the applications
+textual user interface (TUI), you are able to customize your companions name, backstory, appearance, and voice. Furthermore, you are
+also able to communicate with your companion via voice or in-game chat and the companion will be able to respond to you via voice.
+Your companion is able to perceive the world and interact with blocks and entities.
+
+### Features
+
+- Skill-powered interactions with the Minecraft world
+- Advanced building generation algorithm
+- Text and voice interaction
+- Step-based goal decomposition
+- Pathfinding and terrain navigation
+- Block collection and inventory awareness
+- Hardware integration through ESP32 to indicate mood *(Optional)*
+
+### How does it work?
+
+Minecraft Companion relies on [Mineflayer](https://github.com/prismarinejs/mineflayer), a JavaScript library that allows you to create
+a Minecraft bot on the client-level. Using Mineflayer allowed us to avoid implementing our own Minecraft protocol client, saving
+us time and effort. We've also created a set of 'skills' that correspond to various actions such as breaking blocks, surveying
+surroundings, eating, etc, and we've given the ChatGPT API access to call these skills in order to achieve any given goal. As for
+speech-to-text, a browser instance is spawned in the background that transcribes your speech to text. The agent's voice response is
+powered by ElevenLabs' API.
+
+In terms of our advanced building generation algorithm, we use a multi-phase process. Firstly, a faster and less performant model is
+used to generate a general blueprint of the desired building. Then, through an iterative process, a more advanced model is used to add
+details, refine structures, and ensure aesthetic quality.
+
+### My contribution
+
+My main responsibility was to implement the skill-based framework that allowed for AI agents to utilize Mineflayer's capabilities. 
+Furthermore, I also implemented the advanced pathfinding and terrain navigation system that allowed the agents to effectively navigate
+the Minecraft world. Lastly, I was responsible for perfecting the step-based goal decomposition and planning algorithms, ensuring that 
+the agent could break down complex tasks into smaller, manageable steps and execute them effectively.
+
+### Inspiration
+
+The main inspriation for Minecraft Companion was the recent published AI Minecraft build generator. We wanted to implement something
+more advanced that could create buildings from scratch without much training beforehand. Additionally, we also wanted to create an
+experience that was more interactive and engaging than simply having a tool that could build structures for you, so, we decided to create
+an AI companion that could play Minecraft with you and assist you in your adventures.
+
+> Minecraft Companion was a hackathon project and is no longer being actively maintained.
