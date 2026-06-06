@@ -24,7 +24,7 @@ export default function Footer() {
                     </Link>
                 </div>
 
-                <p className="text-foreground/70">© 2026. Designed & developed by Awsaf Syed.</p>
+                <p className="text-foreground/70">© {new Date().getFullYear()}. Designed & developed by Awsaf Syed.</p>
             </div>
         </div>
     );
