@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
 import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -54,6 +55,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <main className="flex-1 font-satoshi">
+                        <Navbar />
                         <div className="min-h-screen">
                             {children}
                         </div>
