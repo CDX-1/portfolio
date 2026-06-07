@@ -14,6 +14,7 @@ export default function ProjectGrid() {
                     images={project.meta.images || []}
                     color={project.meta.color}
                     slug={project.slug}
+                    tags={project.meta.tags}
                 />
             ))}
         </div>

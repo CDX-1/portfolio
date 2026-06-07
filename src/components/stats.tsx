@@ -7,7 +7,7 @@ export default function Stats() {
             </div>
 
             <div className="space-y-1">
-                <h3 className="font-bespoke font-medium text-5xl tracking-tight">5+</h3>
+                <h3 className="font-bespoke font-medium text-5xl tracking-tight">6+</h3>
                 <h4 className="font-satoshi text-base tracking-tight text-foreground/70">Years of experience</h4>
             </div>
 
