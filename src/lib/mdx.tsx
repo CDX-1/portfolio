@@ -1,14 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import {
-    JSX,
-    ClassAttributes,
-    HTMLAttributes,
-    OlHTMLAttributes,
-    LiHTMLAttributes,
-    BlockquoteHTMLAttributes,
-} from "react";
+import { JSX } from "react";
 import { FolderColor } from "@/components/photo-folder";
 
 const projectsDirectory = path.join(process.cwd(), "public/projects");
@@ -18,6 +11,8 @@ export type Author = {
     github?: string;
     linkedin?: string;
 }
+
+export type ProjectType = "laptop" | "phone";
 
 export type ProjectMeta = {
     name: string;
@@ -29,6 +24,8 @@ export type ProjectMeta = {
     description: string;
     location?: string;
     github?: string;
+    main: string;
+    type: ProjectType;
     images?: string[],
     devpost?: string;
 }

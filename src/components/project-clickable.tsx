@@ -1,21 +1,37 @@
+'use client';
+
 import Link from "next/link";
-import PhotoFolder, { FolderColor } from "./photo-folder";
+import { ProjectMacbook } from "./project-macbook";
+import { ProjectType } from "@/lib/mdx";
+import { ProjectIPhone } from "./project-iphone";
 
 interface ProjectMeta {
     name: string;
     description: string;
+    main: string;
     images: string[];
-    color: FolderColor;
+    type: ProjectType;
     slug: string;
     tags?: string[];
 }
 
-export default function ProjectClickable({ name, description, images, color, slug, tags }: ProjectMeta) {
+export default function ProjectClickable({ name, description, main, images, type, slug, tags }: ProjectMeta) {
     return (
         <div className="flex flex-col">
-            <div className="mx-auto w-full max-w-sm aspect-square p-12 flex items-center justify-center bg-linear-to-b from-gray-200/50 to-gray-300/70 rounded-4xl">
+            <div className="mx-auto w-full p-12 flex items-center justify-center bg-linear-to-b aspect-square from-gray-200/50 to-gray-300/70 rounded-4xl">
                 <Link href={`/projects/${slug}`}>
-                    <PhotoFolder className="drop-shadow-2xl" color={color} images={images} />
+                    {type == 'laptop' && (
+                        <ProjectMacbook
+                            main={main}
+                            images={images}
+                        />
+                    )}
+                    {type == 'phone' && (
+                        <ProjectIPhone
+                            main={main}
+                            images={images}
+                        />
+                    )}
                 </Link>
             </div>
             <div className="mt-4 px-4">
