@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { JSX } from "react";
 import { FolderColor } from "@/components/photo-folder";
+import { TechStackGraph as TechStackGraphComponent } from "@/components/tech-stack-graph";
 
 const projectsDirectory = path.join(process.cwd(), "public/projects");
 
@@ -62,6 +63,9 @@ export function getAllProjects(): Project[] {
 }
 
 import type { ComponentPropsWithoutRef } from "react";
+import { TechStackGraph, TechStackItem } from "@/components/tech-stack-graph";
+import { ImageCarousel } from "@/components/image-carousel";
+import { AppDownload } from "@/components/app-download";
 
 type ComponentProps<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 
@@ -144,4 +148,53 @@ export const MDXComponents = {
             />
         </div>
     ),
+    TechStackGraph: (props: any) => {
+        let safeItems = [];
+
+        if (props?.items) {
+            if (typeof props.items === "string") {
+                try {
+                    safeItems = JSON.parse(props.items);
+                } catch (e) {
+                    console.error("Failed to parse TechStackGraph JSON items:", e);
+                }
+            } else if (Array.isArray(props.items)) {
+                safeItems = props.items;
+            }
+        }
+
+        return (
+            <div className="w-full overflow-hidden">
+                <TechStackGraphComponent items={safeItems} />
+            </div>
+        );
+    },
+    ImageCarousel: (props: any) => {
+        let safeImages = [];
+        if (props?.images) {
+            if (typeof props.images === "string") {
+                try {
+                    safeImages = JSON.parse(props.images);
+                } catch (e) {
+                    console.error("Failed to parse ImageCarousel JSON images:", e);
+                }
+            } else if (Array.isArray(props.images)) {
+                safeImages = props.images;
+            }
+        }
+
+        return (
+            <div className="w-full overflow-hidden">
+                <ImageCarousel images={safeImages} height="h-100" />
+            </div>
+        );
+    },
+    AppDownload: (props: any) => {
+        console.log(props);
+        return (
+            <div className="mt-10 w-full overflow-hidden">
+                <AppDownload appStore={props.appStore} playStore={props.playStore} metric={props.metric} />
+            </div>
+        );
+    },
 };

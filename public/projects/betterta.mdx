@@ -26,15 +26,42 @@ images:
 
 ## What is BetterTA?
 
-BetterTeachAssist, often referred to as BetterTA, is an essential app for YRDSB that provides a modern, user-friendly interface for
-accessing TeachAssist, YRDSB's official student grade portal. BetterTA is built using React Native and Expo on the front end, and
-a combination of Supabase and custom backend services on the back end.
+BetterTeachAssist (BetterTA) is a drop-in replacement for the YRDSB grade portal: TeachAssist. BetterTA offers 1:1 grade accuracy,
+a modern user interface, and several features that TeachAssist lacks. BetterTA is built using React Native and Expo on the frontend,
+and a combination of Supabase and custom services on the backend.
+
+<ImageCarousel images='[
+    "/projects/assets/betterta/dashboard.png",
+    "/projects/assets/betterta/course_summary.png",
+    "/projects/assets/betterta/yraa.png",
+    "/projects/assets/betterta/rankings.png"
+]' />
 
 ### How does BetterTA work?
 
-BetterTA works by using our own scraper to fetch and parse raw HTML data from TeachAssist's website, and then displaying it in a
-user-friendly interface. Furthermore, our app offers an optional data sharing mode that allows users to anonymously share their
-data with us, which we use to provide helpful analytics to users.
+We use a high-performance **Go-based web scraper** to fetch, parse, and output structured data from TeachAssist's website, which is
+then passed to the mobile app for display in a user-friendly interface. Furthermore, BetterTA includes an **opt-in 'sharing mode.'**
+Enabling this feature allows students to give us permission to anonymously collect their grade data. We then process this data to
+compute various statistics and insights, which are then available to students in the mobile app. (e.g. **class grade distribution**,
+**school-wide grade distribution**, etc.)
+
+BetterTA also features a **school ranking system**, which uses grades shared by students to rank schools across YRDSB. We use a metric
+we coined called the **Senior Academic Index (SAI)**, which averages the grades of a school for students in senior years (Grade 11
+and Grade 12) in University and Mixed level courses to accurately measure a school's senior academic performance.
+
+Another feature we have implemented is the **YRAA page**. The York Region Athletics Association (YRAA) has a website that shows the
+standings and schedule of various sports across the York Region. We use a scraper to fetch this data every 15 minutes and display
+it in our app so that students can easily refer to our app as a central location for their academic and athletic needs.
+
+<TechStackGraph 
+  items='[
+    { "id": "rn", "name": "React Native", "icon": "react", "connections": [] },
+    { "id": "expo", "name": "Expo", "icon": "expo", "connections": [{"id": "rn", "type": "dual"}] },
+    { "id": "supabase", "name": "Supabase", "icon": "supabase", "connections": [{"id": "expo", "type": "out"}] },
+    { "id": "go", "name": "Custom Services", "icon": "go", "connections": [{"id": "expo", "type": "out"}] },
+    { "id": "sources", "name": "TeachAssist + YRAA", "icon": "googlechrome", "connections": [{"id": "go", "type": "out"}] }
+  ]'
+/>
 
 ### Features
 
@@ -55,3 +82,9 @@ data with us, which we use to provide helpful analytics to users.
 - Implemented a smooth onboarding experience
 - Designed website landing page
 - Designed much of the app's marketing materials
+
+<AppDownload
+    appStore="https://apps.apple.com/app/id6757131096"
+    playStore="https://play.google.com/store/apps/details?id=ca.betterta.betterteachassist"
+    metric="400"
+/>

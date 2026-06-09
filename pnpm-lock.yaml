@@ -35,6 +35,9 @@ importers:
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
+      react-store-badge:
+        specifier: ^3.0.0
+        version: 3.0.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
@@ -964,6 +967,12 @@ packages:
     resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
       react: ^19.2.4
+
+  react-store-badge@3.0.0:
+    resolution: {integrity: sha512-z7GNB/Qj5Q+lE+0ATWNwUzY7/1qjrVufSq9MoRJSIa+iqQ909HMoWfZTcriHhG8hWInI8oIBxzZudzGmgWoBZA==}
+    peerDependencies:
+      react: ^16.12.0
+      react-dom: ^16.12.0
 
   react@19.2.4:
     resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
@@ -2139,6 +2148,11 @@ snapshots:
     dependencies:
       react: 19.2.4
       scheduler: 0.27.0
+
+  react-store-badge@3.0.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   react@19.2.4: {}
 
