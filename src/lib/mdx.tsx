@@ -116,6 +116,8 @@ export const MDXComponents = {
     a: (props: ComponentProps<"a">) => (
         <a
             className="font-medium text-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-foreground transition-colors duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            target="_blank"
+            rel="noopener noreferrer"
             {...props}
         />
     ),
