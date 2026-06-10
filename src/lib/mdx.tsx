@@ -66,6 +66,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { TechStackGraph, TechStackItem } from "@/components/tech-stack-graph";
 import { ImageCarousel } from "@/components/image-carousel";
 import { AppDownload } from "@/components/app-download";
+import Image from "next/image";
 
 type ComponentProps<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 
@@ -190,11 +191,26 @@ export const MDXComponents = {
         );
     },
     AppDownload: (props: any) => {
-        console.log(props);
         return (
             <div className="mt-10 w-full overflow-hidden">
                 <AppDownload appStore={props.appStore} playStore={props.playStore} metric={props.metric} />
             </div>
         );
     },
+    Image: (props: any) => {
+        return (
+            <div className="my-8 w-full overflow-hidden rounded-xl border border-border/40 bg-muted/10">
+                <div className="relative w-full aspect-video md:aspect-21/9 max-h-[500px]">
+                    <Image
+                        alt={props.alt || "Project Image"}
+                        src={props.src}
+                        unoptimized={props.src?.endsWith(".gif")}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                        className="object-contain"
+                    />
+                </div>
+            </div>
+        );
+    }
 };
