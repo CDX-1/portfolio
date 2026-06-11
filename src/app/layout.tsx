@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
 import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -14,11 +13,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
     subsets: ["latin"],
-});
-
-const karma = localFont({
-    src: "./fonts/Karma-Variable.woff2",
-    variable: "--font-karma",
 });
 
 const bespoke = localFont({
