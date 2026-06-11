@@ -33,7 +33,7 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
-            <Link href="/resume.pdf" target="_blank" className="my-6 flex items-center space-x-2 text-foreground/70">
+            <Link href="/resume.pdf" target="_blank" className="my-6 flex items-center space-x-2 text-foreground/70 hover:text-primary transition-colors duration-200">
                 <span className="text-xl font-medium">
                     View Resume
                 </span>
