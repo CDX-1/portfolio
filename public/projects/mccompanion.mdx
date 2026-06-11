@@ -15,7 +15,7 @@ tags:
   - ai
   - minecraft
   - mineflayer
-description: "Minecraft Companion is an interactive AI-powered minecraft companion"
+description: "Minecraft Companion is an interactive AI-powered Minecraft companion"
 location: EurekaHacks 2026 @ Waterloo Accelerator Centre
 type: laptop
 main: /projects/assets/mccompanion/github.png
@@ -25,28 +25,54 @@ images:
     - /projects/assets/mccompanion/2nd_phase.png
     - /projects/assets/mccompanion/following.png
 devpost: https://devpost.com/software/minecraft-companion
-gallery:
-  - path: mccompanion-1st-phase.png
-    caption: "Generation of an airplane, 1st phase"
-    aspectRatio: "16/9"
-  - path: mccompanion-2nd-phase.png
-    caption: "Generation of an airplane, 2nd phase"
-    aspectRatio: "16/9"
-  - path: mccompanion-following.png
-    caption: "Companion following the user"
-    aspectRatio: "16/9"
-
-
 ---
 
-## What is Minecraft Companion?
+# What is Minecraft Companion?
 
-Minecraft Companion is open-source software that allows you to play Minecraft with an AI companion. Upon launching the applications
-textual user interface (TUI), you are able to customize your companions name, backstory, appearance, and voice. Furthermore, you are
-also able to communicate with your companion via voice or in-game chat and the companion will be able to respond to you via voice.
-Your companion is able to perceive the world and interact with blocks and entities.
+Minecraft Companion (or MC Companion) is an interactive AI-powered companion for Minecraft. Controlled through a textual user interface (TUI), you
+can customize MC Companion's name, backstory, appearance, and voice. You can communicate with your companion through voice or in-game chat. Furthermore,
+MC Companion can respond to you through voice and in-game chat. Additionally, your companion is fully aware of its surroundings and can interact with
+blocks and entities in the game.
 
-### Features
+## How does it work?
+
+MC Companion is built using several connected systems. These systems meet at the Node.js application, which acts as the bridge between external systems
+and the Minecraft client. To interface with Minecraft, we use the [Mineflayer](https://github.com/prismarinejs/mineflayer) library on NPM. It is an
+incredibly powerful library that allows you to fully control a Minecraft client using code.
+
+For our AI layer, we primarily use ChatGPT for player interactions and controlling the Minecraft bot. To allow an LLM more structured control of the
+Minecraft client, we developed a skill layer that enables the model to call functions in chains to complete complex tasks. For example, the model could
+receive a relatively simple-sounding command such as "collect some wood" and break the request down into multiple actions, executing them in succession.
+For example, the previous task could be broken down into:
+
+1. Identify nearby wood blocks
+2. Move to the closest wood block
+3. Mine the block
+
+For our voice layer, we used the ElevenLabs API to convert ChatGPT's output into audio, and we used on-device language processing to achieve seamless
+speech-to-text functionality, creating a smooth voice interaction experience with your companion. Additionally, we added an optional ESP32 extension to
+our project that uses LEDs to indicate your companion's current mood.
+
+### The Building System
+
+Our building system is one of the most complex components of MC Companion. When the model is prompted to build something, it enters building mode. In
+this mode, the companion uses a multi-step approach to iteratively refine the current build. It starts with a rough outline of what you asked it to build
+and then iterates through multiple steps to add detail and refine the structure. The initial sketch is generated using a faster, less performant model such
+as Gemini Flash, while later additions are handled using more advanced models such as Gemini Pro.
+
+<TechStackGraph 
+  items='[
+    { "id": "app", "name": "Application", "icon": "nodedotjs", "connections": [] },
+    { "id": "mc", "name": "Minecraft Client", "icon": "java", "connections": [] },
+    { "id": "mineflayer", "name": "Mineflayer", "icon": "npm", "connections": [{ "id": "app", "type": "in" }, { "id": "mc", "type": "out" }] },
+    { "id": "gemini", "name": "Gemini", "icon": "gemini", "connections": [{ "id": "app", "type": "dual" }] },
+    { "id": "chatgpt", "name": "ChatGPT", "icon": "openai-chatgpt", "connections": [{ "id": "app", "type": "dual" }] },
+    { "id": "elevenlabs", "name": "ElevenLabs", "icon": "elevenlabs", "connections": [{ "id": "app", "type": "dual" }] },
+    { "id": "esp32", "name": "ESP32", "icon": "arduino", "connections": [{ "id": "app", "type": "in" }] }
+  ]'
+/>
+
+## Features
 
 - Skill-powered interactions with the Minecraft world
 - Advanced building generation algorithm
@@ -54,33 +80,25 @@ Your companion is able to perceive the world and interact with blocks and entiti
 - Step-based goal decomposition
 - Pathfinding and terrain navigation
 - Block collection and inventory awareness
-- Hardware integration through ESP32 to indicate mood *(Optional)*
+- Hardware integration through ESP32 to indicate mood *(optional)*
 
-### How does it work?
+## My Contribution
 
-Minecraft Companion relies on [Mineflayer](https://github.com/prismarinejs/mineflayer), a JavaScript library that allows you to create
-a Minecraft bot on the client-level. Using Mineflayer allowed us to avoid implementing our own Minecraft protocol client, saving
-us time and effort. We've also created a set of 'skills' that correspond to various actions such as breaking blocks, surveying
-surroundings, eating, etc, and we've given the ChatGPT API access to call these skills in order to achieve any given goal. As for
-speech-to-text, a browser instance is spawned in the background that transcribes your speech to text. The agent's voice response is
-powered by ElevenLabs' API.
+My main responsibility was implementing the skill-based framework that allowed AI agents to utilize Mineflayer's capabilities. Furthermore, I implemented
+the advanced pathfinding and terrain navigation system that enabled the agents to effectively navigate the Minecraft world. Lastly, I was responsible for
+refining the step-based goal decomposition and planning algorithms, ensuring that the agent could break down complex tasks into smaller, manageable steps
+and execute them effectively.
 
-In terms of our advanced building generation algorithm, we use a multi-phase process. Firstly, a faster and less performant model is
-used to generate a general blueprint of the desired building. Then, through an iterative process, a more advanced model is used to add
-details, refine structures, and ensure aesthetic quality.
+## Inspiration
 
-### My contribution
+The main inspiration for Minecraft Companion was the recently published AI Minecraft build generator. We wanted to implement something more advanced that
+could create buildings from scratch without extensive prior training. Additionally, we wanted to create a more interactive and engaging experience than
+simply providing a tool that builds structures for you. As a result, we decided to create an AI companion that could play Minecraft with you and assist
+you in your adventures.
 
-My main responsibility was to implement the skill-based framework that allowed for AI agents to utilize Mineflayer's capabilities. 
-Furthermore, I also implemented the advanced pathfinding and terrain navigation system that allowed the agents to effectively navigate
-the Minecraft world. Lastly, I was responsible for perfecting the step-based goal decomposition and planning algorithms, ensuring that 
-the agent could break down complex tasks into smaller, manageable steps and execute them effectively.
+<Image
+  src="/projects/assets/mccompanion/podium.png"
+  alt="My team after we won 3rd place at EurekaHacks 2026"
+/>
 
-### Inspiration
-
-The main inspriation for Minecraft Companion was the recent published AI Minecraft build generator. We wanted to implement something
-more advanced that could create buildings from scratch without much training beforehand. Additionally, we also wanted to create an
-experience that was more interactive and engaging than simply having a tool that could build structures for you, so, we decided to create
-an AI companion that could play Minecraft with you and assist you in your adventures.
-
-> Minecraft Companion was a hackathon project and is no longer being actively maintained.
+My team and I after winning **3rd place** at **EurekaHacks 2026** out of 42 projects!
