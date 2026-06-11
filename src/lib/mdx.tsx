@@ -19,6 +19,7 @@ export type ProjectMeta = {
     name: string;
     title: string;
     date: string;
+    order: number;
     author: Author[];
     tags: string[];
     color: FolderColor;
@@ -56,14 +57,10 @@ export function getAllProjects(): Project[] {
         .filter((file) => file.endsWith(".mdx"))
         .map((file) => getProjectBySlug(file));
 
-    return projects.sort(
-        (a, b) =>
-            new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime(),
-    );
+    return projects.sort((a, b) => a.meta.order - b.meta.order);
 }
 
 import type { ComponentPropsWithoutRef } from "react";
-import { TechStackGraph, TechStackItem } from "@/components/tech-stack-graph";
 import { ImageCarousel } from "@/components/image-carousel";
 import { AppDownload } from "@/components/app-download";
 import Image from "next/image";
