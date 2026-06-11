@@ -24,13 +24,113 @@ description: "Ralph is an autonomous robot guide dog for the visually impaired"
 location: DeltaHacks 12 @ McMaster University
 github: https://github.com/CDX-1/ralph
 type: laptop
-main: /projects/assets/ralph/depth_map.png
+main: /projects/assets/ralph/side_profile.png
 images:
   - /projects/assets/ralph/wiring.png
   - /projects/assets/ralph/demo.png
   - /projects/assets/ralph/assembled.png
+  - /projects/assets/ralph/depth_map.png
 devpost: https://devpost.com/software/ralph-1tkaxb
 ---
 
-## What is Ralph?
+# What is Ralph?
 
+Ralph is a small autonomous robot car that leverages computer vision (CV) and machine learning to assist people with
+visual impairments in navigating their environment. Ralph achieves this by using a combination of object identification,
+depth estimination, and path planning to determine a safe path for the robot to follow.
+
+## AI Pipeline
+
+Ralph's AI pipeline is designed to be simple and efficient enough to run on a Raspberry Pi. Using a combination of CV models,
+depth estimation models, and path planning algorithms, Ralph can identify safe paths for the robot to follow.
+
+1. Divide view into 5 columns
+2. Detect and identify objects in each columns
+3. Estimate distance to each object
+4. Assess the risk that each object poses to the robot
+5. Attempt to find a safe path for the robot to follow
+6. Control the robot's motors to follow the safe path
+
+<TechStackGraph 
+  items='[
+    { "id": "ralph", "name": "Ralph", "icon": "python", "connections": [] },
+    { "id": "yolo", "name": "YOLOv8", "icon": "yolo", "connections": [{ "id": "ralph", "type": "dual" }] },
+    { "id": "midas", "name": "MiDaS", "icon": "github", "connections": [{ "id": "ralph", "type": "dual" }] },
+    { "id": "rpi", "name": "Raspberry Pi 5", "icon": "raspberry-pi", "connections": [{ "id": "ralph", "type": "in" }] }
+  ]'
+/>
+
+## Features
+
+- Object identification
+- Depth estimation
+- Path planning
+- Autonomous navigation
+- Risk assessment
+- Emergency braking
+
+## What We Used
+
+### Technical Details
+
+- [YOLOv8](https://yolov8.com/) for object detection
+- [MiDaS](https://github.com/isl-org/MiDaS) for depth estimation
+- Ralph's code was implemented in Python
+
+<Image
+  src="/projects/assets/ralph/depth_map.png"
+  alt="A visualization of Ralph's depth estimation using a depth heat map"
+/>
+
+### Hardware
+
+- Raspberry Pi 5 w/ a case
+- Battery Pack
+- 4x AA Batteries
+- L298N Motor Driver
+- 2x TT DC Motors
+- 2x Wheels
+- 1 Caster Wheel
+- RC Car Chassis
+- Mini Breadboard
+- Jumper Wires
+- Camera
+- Leash
+
+### Other Tools
+
+- Electrical Tape
+- Multimeter
+- Screwdriver Kit
+
+## My Contributions
+
+- Object detection & pathfinding enhancements
+- Integrated Raspberry Pi 5 with L298N Motor Driver and TT DC Motors
+- Wired and tested power delivery circuit
+- Debugged motor control and power delivery issues using a Multimeter
+- Assisted with hardware-software integration and debugging
+
+## Problems We Faced
+
+### Dead Battery Holder
+
+When I was shopping for the parts we needed to build this project, I bought a pack of 4 AA batteries and a battery holder. When
+we were testing our robot at the hackathon, we found that power was not being delivered from our batteries to the motors. We were
+confused for a while until another team suggested we test continuity throughout our circuit using a multimeter. Eventually, we
+narrowed down the problem to a faulty battery holder which was likely messed up internally, preventing proper power delivery.
+
+We were considering what our options were, eventually we tried to use a bubble tea straw to connect the four batteries in a series
+and found that it worked. Though this solution was janky, it allowed us to continue working on the project and served us well until
+the end of the hackathon.
+
+<Image
+  src="/projects/assets/ralph/battery_holder.jpeg"
+  alt="Our makeshift battery holder using a bubble tea straw"
+/>
+
+### Driving Issues
+
+We faced one major problem when testing Ralph's ability to drive autonomously. We noticed that one of the motors seemed to
+be moving slower than the other despite both of the motors receiving the same speed. After some experimentation, we discovered that the
+issue stemmed from improper power delivery and connection with the motor driver board.
