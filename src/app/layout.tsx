@@ -55,7 +55,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <main className="flex-1 font-satoshi">
-                        <Navbar />
+                        {/* <Navbar /> */}
                         <div className="min-h-screen">
                             {children}
                         </div>
