@@ -33,8 +33,12 @@
         "typescript": "^5"
     },
     "pnpm": {
+        "ignoredBuiltDependencies": [
+            "sharp",
+            "unrs-resolver"
+        ],
         "peerDependencyRules": {
-            "ignoreMissing": [
+            "allowAny": [
                 "react",
                 "react-dom"
             ]
