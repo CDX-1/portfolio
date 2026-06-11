@@ -201,18 +201,22 @@ export const MDXComponents = {
     },
     Image: (props: any) => {
         return (
-            <div className="my-8 w-full overflow-hidden rounded-xl border border-border/40 bg-muted/10">
-                <div className="relative w-full aspect-video md:aspect-21/9 max-h-[500px]">
-                    <Image
-                        alt={props.alt || "Project Image"}
-                        src={props.src}
-                        unoptimized={props.src?.endsWith(".gif")}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                        className="object-contain"
-                    />
+            <>
+                <div className="my-8 w-full overflow-hidden rounded-xl border border-border/40 bg-muted/10">
+                    <div className="relative w-full aspect-video md:aspect-21/9 max-h-[500px]">
+                        <Image
+                            alt={props.alt || "Project Image"}
+                            src={props.src}
+                            unoptimized={props.src?.endsWith(".gif")}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                            className="object-contain"
+                        />
+                    </div>
                 </div>
-            </div>
+
+                <p className="text-muted-foreground/80 text-center">{props.alt}</p>
+            </>
         );
     }
 };
