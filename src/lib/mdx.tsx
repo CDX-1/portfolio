@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { JSX } from "react";
-import { FolderColor } from "@/components/photo-folder";
 import { TechStackGraph as TechStackGraphComponent } from "@/components/tech-stack-graph";
 
 const projectsDirectory = path.join(process.cwd(), "public/projects");
@@ -22,7 +21,6 @@ export type ProjectMeta = {
     order: number;
     author: Author[];
     tags: string[];
-    color: FolderColor;
     description: string;
     location?: string;
     github?: string;
