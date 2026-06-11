@@ -2,26 +2,22 @@ import { useId } from "react"
 import type { SVGProps } from "react"
 
 export interface IPhoneProps extends SVGProps<SVGSVGElement> {
-    width?: number | string
-    height?: number | string
     src?: string
 }
 
 export function IPhone({
-    width = 200,
-    height = 400,
     src,
+    className,
     ...props
 }: IPhoneProps) {
     const clipId = useId() 
 
     return (
         <svg
-            width={width}
-            height={height}
             viewBox="0 0 200 400"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className={`w-full h-auto ${className || ""}`}
             {...props}
         >
             <path

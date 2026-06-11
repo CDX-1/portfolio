@@ -34,8 +34,8 @@ export function ProjectIPhone({ className, main, images = [] }: { className?: st
                 const direction = isLeft ? -1 : 1;
                 const step = Math.floor(index / 2);
 
-                const targetX = direction * (140 + step * 80);
-                const targetY = (isLeft ? -20 : 20) + step * 15 * direction;
+                const targetX = `${direction * (110 + step * 60)}%`;
+                const targetY = `${(isLeft ? -7 : 7) + step * 5 * direction}%`;
                 const targetRotate = direction * (12 + step * 10);
 
                 return (
@@ -55,7 +55,7 @@ export function ProjectIPhone({ className, main, images = [] }: { className?: st
                             damping: 25,
                             delay: index * 0.05,
                         }}
-                        className="absolute z-0 flex flex-col bg-white p-2 pb-8 shadow-2xl rounded-sm border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 w-32 h-[282px] pointer-events-none"
+                        className="absolute z-0 flex flex-col bg-white p-1.5 pb-5 sm:p-2 sm:pb-8 shadow-2xl rounded-sm border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 w-20 h-[180px] sm:w-28 sm:h-[240px] lg:w-32 lg:h-[282px] pointer-events-none"
                     >
                         <div className="relative w-full h-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-sm">
                             <Image
@@ -63,7 +63,7 @@ export function ProjectIPhone({ className, main, images = [] }: { className?: st
                                 alt={`Project secondary image ${index + 1}`}
                                 fill
                                 className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 33vw"
+                                sizes="(max-width: 640px) 25vw, (max-width: 1024px) 20vw, 15vw"
                             />
                         </div>
                     </motion.div>
@@ -71,10 +71,9 @@ export function ProjectIPhone({ className, main, images = [] }: { className?: st
             })}
 
             <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
-                <IPhone
-                    src={main}
-                    className="pointer-events-auto drop-shadow-2xl"
-                />
+                <div className="w-[40%] sm:w-[35%] lg:w-[30%] pointer-events-auto drop-shadow-2xl">
+                    <IPhone src={main} />
+                </div>
             </div>
         </motion.div>
     );

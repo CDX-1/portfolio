@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 
@@ -28,26 +28,7 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
     const [layout, setLayout] = useState<Record<string, { top: number; left: number }>>({});
     const [ready, setReady] = useState(false);
 
-    useEffect(() => {
-        if (!containerRef.current || items.length === 0) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const radius = Math.min(rect.width, rect.height) / 3;
-
-        const newLayout: Record<string, { top: number; left: number }> = {};
-        items.forEach((item, i) => {
-            const angle = (i / items.length) * 2 * Math.PI;
-            newLayout[item.id] = {
-                left: cx + radius * Math.cos(angle) - NODE_WIDTH / 2,
-                top: cy + radius * Math.sin(angle) - NODE_HEIGHT / 2,
-            };
-        });
-        setLayout(newLayout);
-        setReady(true);
-    }, [items]);
-
-    const updateLines = () => {
+    const updateLines = useCallback(() => {
         if (!containerRef.current) return;
         const containerRect = containerRef.current.getBoundingClientRect();
         const newPositions: Record<string, { x: number; y: number }> = {};
@@ -63,14 +44,44 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
             }
         });
         setPositions(newPositions);
-    };
+    }, [items]);
 
     useEffect(() => {
-        if (!ready) return;
-        updateLines();
-        window.addEventListener("resize", updateLines);
-        return () => window.removeEventListener("resize", updateLines);
-    }, [layout, ready]);
+        if (!containerRef.current || items.length === 0) return;
+
+        const calculateLayout = () => {
+            if (!containerRef.current) return;
+            const rect = containerRef.current.getBoundingClientRect();
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const radius = Math.min(rect.width, rect.height) / 3;
+
+            const newLayout: Record<string, { top: number; left: number }> = {};
+            items.forEach((item, i) => {
+                const angle = (i / items.length) * 2 * Math.PI;
+                newLayout[item.id] = {
+                    left: cx + radius * Math.cos(angle) - NODE_WIDTH / 2,
+                    top: cy + radius * Math.sin(angle) - NODE_HEIGHT / 2,
+                };
+            });
+            setLayout(newLayout);
+            setReady(true);
+        };
+
+        const resizeObserver = new ResizeObserver(() => {
+            calculateLayout();
+        });
+
+        resizeObserver.observe(containerRef.current);
+
+        return () => resizeObserver.disconnect();
+    }, [items]);
+
+    useEffect(() => {
+        if (ready) {
+            updateLines();
+        }
+    }, [layout, ready, updateLines]);
 
     const edges = useMemo(() => {
         const directed = new Set<string>();
@@ -137,13 +148,13 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
     };
 
     if (!ready || Object.keys(layout).length === 0) {
-        return <div ref={containerRef} className="w-full h-[400px]" />;
+        return <div ref={containerRef} className="w-full min-h-[400px] h-full" />;
     }
 
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-[400px] overflow-hidden rounded-xl border border-border bg-background"
+            className="relative w-full min-h-[400px] h-full overflow-hidden rounded-xl border border-border bg-background"
             style={{
                 backgroundImage:
                     "linear-gradient(to right, rgba(128,128,128,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(128,128,128,0.08) 1px, transparent 1px)",
@@ -183,7 +194,7 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
 
                             {edge.arrowEnd && (
                                 <g
-                                    transform={`translate(${midX + gap * dx / dist}, ${midY + gap * dy / dist}) rotate(${angleDeg})`}
+                                    transform={`translate(${midX + (gap * dx) / dist}, ${midY + (gap * dy) / dist}) rotate(${angleDeg})`}
                                 >
                                     <polygon
                                         points="0,0 -7,3 -7,-3"
@@ -194,7 +205,7 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
 
                             {edge.arrowStart && (
                                 <g
-                                    transform={`translate(${midX - gap * dx / dist}, ${midY - gap * dy / dist}) rotate(${angleDeg + 180})`}
+                                    transform={`translate(${midX - (gap * dx) / dist}, ${midY - (gap * dy) / dist}) rotate(${angleDeg + 180})`}
                                 >
                                     <polygon
                                         points="0,0 -7,3 -7,-3"

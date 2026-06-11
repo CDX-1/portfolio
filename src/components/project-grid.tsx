@@ -5,7 +5,7 @@ const projects = getAllProjects();
 
 export default function ProjectGrid() {
     return (
-        <div className="grid grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16">
             {projects.map((project) => (
                 <ProjectClickable
                     key={project.slug}

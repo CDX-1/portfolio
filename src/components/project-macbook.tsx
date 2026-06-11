@@ -34,8 +34,8 @@ export function ProjectMacbook({ className, main, images = [] }: { className?: s
                 const direction = isLeft ? -1 : 1;
                 const step = Math.floor(index / 2);
 
-                const targetX = direction * (220 + step * 90); 
-                const targetY = (isLeft ? -20 : 20) + step * 15 * direction;
+                const targetX = `${direction * (135 + step * 55)}%`; 
+                const targetY = `${(isLeft ? -10 : 10) + step * 7 * direction}%`;
                 const targetRotate = direction * (12 + step * 10);
 
                 return (
@@ -55,7 +55,7 @@ export function ProjectMacbook({ className, main, images = [] }: { className?: s
                             damping: 25,
                             delay: index * 0.05,
                         }}
-                        className="absolute z-0 flex flex-col bg-white p-2 pb-8 shadow-2xl rounded-sm border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 w-40 h-52 pointer-events-none"
+                        className="absolute z-0 flex flex-col bg-white p-1.5 pb-5 sm:p-2 sm:pb-8 shadow-2xl rounded-sm border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 w-24 h-32 sm:w-32 sm:h-44 lg:w-40 lg:h-52 pointer-events-none"
                     >
                         <div className="relative w-full h-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-sm">
                             <Image
@@ -63,7 +63,7 @@ export function ProjectMacbook({ className, main, images = [] }: { className?: s
                                 alt={`Project secondary image ${index + 1}`}
                                 fill
                                 className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 33vw"
+                                sizes="(max-width: 640px) 25vw, (max-width: 1024px) 20vw, 15vw"
                             />
                         </div>
                     </motion.div>

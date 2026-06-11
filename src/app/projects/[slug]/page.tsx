@@ -2,7 +2,14 @@ import { getAllProjects, getProjectBySlug, MDXComponents } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
 import Image from "next/image";
-import { IconBrandGithubFilled, IconBrandLinkedinFilled, IconCalendarFilled, IconLinkFilled, IconMapPinFilled } from "@tabler/icons-react";
+import { 
+    IconBrandGithubFilled, 
+    IconBrandLinkedinFilled, 
+    IconCalendarFilled, 
+    IconLinkFilled, 
+    IconMapPinFilled,
+    IconX // <-- Swapped to IconX for a "close" pattern
+} from "@tabler/icons-react";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -58,10 +65,22 @@ export default async function ProjectPage({ params }: Props) {
     const { content, meta } = getProjectBySlug(slug);
 
     return (
-        <main className="min-h-screen pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-32">
-            <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+        <main className="min-h-screen pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-32 relative">
+            <div className="fixed top-6 right-6 md:top-10 md:right-10 z-100">
+                <Link 
+                    href="/" 
+                    className="group flex items-center gap-2 text-foreground/40 hover:text-foreground transition-colors duration-300"
+                    aria-label="Go Home"
+                >
+                    <span className="text-xs font-semibold uppercase tracking-widest hidden md:block">
+                        Home
+                    </span>
+                    <IconX className="size-6 transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
+                </Link>
+            </div>
 
-                {/* Collage Header Section */}
+            <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+                
                 {meta.images && meta.images.length > 0 && (
                     <div className="flex flex-row justify-center items-center py-10 md:py-16 mb-8 overflow-visible">
                         {meta.images.map((image, i) => (
@@ -88,7 +107,6 @@ export default async function ProjectPage({ params }: Props) {
                     </div>
                 )}
 
-                {/* Title & Description */}
                 <div className="flex flex-col gap-4 text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-semibold font-bespoke tracking-tight">
                         {meta.title}
@@ -148,11 +166,9 @@ export default async function ProjectPage({ params }: Props) {
                     )}
                 </div>
 
-                {/* MDX Article */}
                 <div className="mx-auto max-w-4xl">
                     <MDXRemote source={content} components={MDXComponents} />
                 </div>
-
             </article>
         </main>
     );
