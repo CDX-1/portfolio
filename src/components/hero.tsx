@@ -33,12 +33,15 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
-            <Link href="/resume.pdf" target="_blank" className="my-6 flex items-center space-x-2 text-foreground/70 hover:text-primary transition-colors duration-200">
-                <span className="text-xl font-medium">
+            <Link
+                href="/resume.pdf"
+                className="inline-flex items-center space-x-2 text-foreground/70 hover:text-primary transition-colors duration-200 group"
+                target="_blank"
+            >
+                <span className="text-xl font-medium font-satoshi">
                     View Resume
                 </span>
-
-                <IconArrowUpRight className="size-7" />
+                <IconArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" stroke={1.5} />
             </Link>
         </div>
     );
