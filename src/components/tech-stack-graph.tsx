@@ -229,7 +229,11 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
                 >
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/40 transition-colors duration-150 hover:bg-accent backdrop-blur-sm border border-border/60 shadow-xs text-xs font-medium text-secondary-foreground whitespace-nowrap">
                         <Image
-                            src={`https://cdn.simpleicons.org/${item.icon}/${item.icon}`}
+                            src={
+                                item.icon.endsWith(".svg")
+                                    ? `https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/${item.icon}`
+                                    : `https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/${item.icon}/default.svg`
+                            }
                             alt={item.name}
                             width={16}
                             height={16}
