@@ -1,0 +1,76 @@
+---
+name: PARALLAX
+title: "PARALLAX — AI-Enhanced FDIR"
+date: "2026-08-01"
+order: 2
+author:
+  - name: awsaf
+    github: https://github.com/CDX-1
+    linkedin: https://www.linkedin.com/in/awsaf-syed/
+  - name: ayaan
+    github: https://github.com/nordicator
+    linkedin: https://www.linkedin.com/in/ayaan-sajjad/
+tags:
+  - gemma
+  - fdir
+  - space
+description: "Enhancing FDIR systems with a Gemma-powered reasoning pipeline"
+github: https://github.com/CDX-1/BWG
+type: laptop
+main: /projects/assets/parallax/project.png
+images:
+    - /projects/assets/parallax/circuit.png
+    - /projects/assets/parallax/arduino.png
+---
+
+# What is PARALLAX?
+
+PARALLAX is an agentic layer that sits on top of standard FDIR systems deployed in various spacecrafts. PARALLAX uses a chain of five specialized agents to meticulously
+assess any issues that a spacecraft may encounter, ranging from motor failures and sensor blackouts to extensive damage, these agents reason out the best possible way
+to **1.** protect the spacecraft and **2.** continue the mission if possible.
+
+## Why not just FDIR?
+
+Standard FDIR systems act much like a long if-else chain. They are only suited to solve specific and isolated issues such as switching to a backup sensor if one fails.
+While FDIR can help solve several issues, it becomes much less reliable when the spacecraft is faced with compounding problems or issues that were not foreseen by the
+operators. This is where PARALLAX comes in, by employing a chain of agents with independent thinking, PARALLAX can solve issues that a standard FDIR system could not.
+
+### Example
+
+In 2006, a Mars rover hit a rock during a mission which caused FDIR to kick in and force the rover into safing mode. Safing mode is when the spacecraft shuts off and
+waits for explicit instructions to continue. However, during the 24 minute period that it took for the rovers signal to reach the engineers on Earth, the rovers batteries
+had already been destroyed by the suns rays. This highlights exactly why standard FDIR systems are not enough to protect spacecrafts.
+
+## How does it work?
+
+PARALLAX uses five stages in order to properly handle threats:
+1. **The Detector:** a passive agent that constantly searches for issues based on sensor data
+2. **The Diagnostician:** when an issue is detected, the Diagnostician will analyze the data to identify possible causes
+3. **The Flight Director:** will plan out a course of actions to mitigate the issue and protect the spacecraft using tool calls
+4. **The Adjudicator:** running in it's own context, the Adjudicator will assess flight plans and either approve or veto them
+5. **The Archivist:** analyzes the issues and determines the most important data to send back to Earth given small size constraints (few KBs)
+
+These five layers work together in order to detect, analyze, and respond to any issues a spacecraft may face.
+
+## Our demo
+
+For the purposes of our demo, we designed a model satelitte that could be used to model various events that could occur with a real satelitte such as sensor failures.
+Our model used a breadboard, ESP32, IMU, Ultrasonic sensor, Temperature sensor, and a lot of jumper wires. One of our proudest moments during the development of This
+project was getting the gyroscope to accurately map out to an object in the dashboard because it looked a lot better than we had expected it to.
+
+<YouTube id="kpjh9Hg3jHk" />
+
+Furthermore, we used an independent instance of Gemma to simulate other variables of a spacecraft (ex: attitude, signal speed, RW speed). This instance ran independently
+from the 5-stack system and was only responsible for simulating spacecraft conditions. This allowed for a realistic and unbiased demonstration.
+
+## Watch the Breakdown
+
+Watch a short 3 minute video breaking down PARALLAX.
+
+<YouTube id="Avdg-uEhtto" />
+
+## GDG Waterloo: Triage in Light Speed
+
+This project was submitted to the **GDG Waterloo: Triage in Light Speed** and won 2nd place winning **$500 USD**.
+
+<Image src="/projects/assets/parallax/certificate.jpg" alt="Our team with our certificate standing next to an event organizer" />
