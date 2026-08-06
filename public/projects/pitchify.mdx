@@ -34,3 +34,137 @@ images:
 
 # What is Pitchify?
 
+Pitchify is an AI-powered pitch training platform inspired by *Shark Tank*. It gives users a realistic environment where they can practise presenting startup ideas, answer difficult investor questions, and receive feedback on both their business and presentation skills.
+
+Users can pitch their own startup or select an AI-generated idea. They are then given three minutes to convince a panel of four AI investors to provide a target amount of funding.
+
+Each investor has a unique personality, area of expertise, and questioning style. Together, they evaluate the user's idea from financial, technical, logistical, and strategic perspectives.
+
+## Why Pitchify?
+
+Practising a pitch usually requires an audience, mentor, or investor who can provide meaningful feedback. This makes it difficult for entrepreneurs and students to repeatedly practise in a realistic environment.
+
+Pitchify creates an accessible alternative by simulating a complete investor pitch room. Users can practise as many times as they want, test different ideas, improve their responses, and become more comfortable presenting under pressure.
+
+Unlike a standard chatbot, Pitchify also evaluates how the pitch is delivered. The platform analyzes body language, hand movement, posture, tone, confidence, and clarity before combining these signals with the judges' business evaluations.
+
+## How does it work?
+
+Pitchify combines conversational AI, computer vision, voice generation, and real-time 3D rendering to create an interactive pitch experience.
+
+The session follows several stages:
+
+1. **Idea Selection:** the user enters their own startup idea or selects an AI-generated concept
+2. **The Pitch:** the user has three minutes to present their business and request a target amount of funding
+3. **The Investors:** four AI judges independently evaluate the pitch based on their personalities and areas of expertise
+4. **The Questions:** each judge asks follow-up questions designed to challenge the user's assumptions
+5. **Delivery Analysis:** OpenCV captures information about the user's movement and posture
+6. **The Decision:** Gemini combines the business evaluation and presentation analysis to determine the final funding result
+7. **The Feedback:** the user receives a detailed breakdown of their confidence, clarity, body language, and overall performance
+
+This creates a complete feedback loop where users are evaluated not only on the quality of their idea, but also on how effectively they communicate it.
+
+## The AI investors
+
+Pitchify uses four parallel AI agents powered by Gemini. Each agent receives its own prompt defining its personality, expertise, priorities, and questioning style.
+
+The judges focus on different parts of the business, including:
+
+* Financial viability and revenue
+* Technical feasibility
+* Product development and engineering
+* Operations and logistics
+* Market opportunity
+* Scalability and long-term strategy
+
+Running the agents independently allows them to reach different conclusions and challenge the user from multiple perspectives. This makes the experience feel closer to a real investor panel than a conversation with a single general-purpose AI assistant.
+
+## Presentation analysis
+
+Pitchify uses OpenCV to process information about the user's physical delivery during the pitch.
+
+The system looks for factors such as:
+
+* Hand movement
+* Posture
+* Body positioning
+* Speaking confidence
+* Tone
+* Pitch clarity
+
+This information is passed into Gemini, which generates a summary of the user's presentation performance. The results also affect the judges' final funding decisions.
+
+By combining business analysis with communication feedback, Pitchify helps users understand both what they are saying and how they are presenting it.
+
+## Our demo
+
+For the demo, we built an interactive virtual pitch room containing four custom AI judges.
+
+Each judge was represented by a 3D character generated using Meshy. We used Three.js to render the models and position them inside a digital stage where they could interact with the user.
+
+Fish Audio was used to generate realistic voices for the judges, allowing them to ask questions and respond naturally rather than communicating only through text.
+
+The frontend was built using Next.js, React, TypeScript, and CSS. Python was used on the backend to orchestrate communication between Gemini, OpenCV, Fish Audio, and the frontend.
+
+<YouTube id="e_ImMWfW6L0" />
+
+## Challenges
+
+One of our largest challenges was reducing the delay caused by real-time voice generation. Longer processing times occasionally affected the pacing of conversations and made interactions feel less natural.
+
+We also faced several integration issues between the Next.js frontend and Python backend. Managing the flow of pitch transcripts, judge responses, computer-vision results, generated audio, and 3D interactions required significant debugging.
+
+Creating and positioning the 3D judge models was another difficult part of the project. The generated models required adjustments before they could be correctly placed inside the Three.js environment.
+
+Finally, designing the AI judges required extensive prompt engineering. We repeatedly refined their prompts to ensure that each judge maintained a distinct personality, asked relevant questions, and avoided generating repetitive feedback.
+
+## What we learned
+
+Building Pitchify taught us how to combine multiple AI-powered technologies into a single cohesive application.
+
+We gained experience working with:
+
+* Multi-agent AI systems
+* Prompt engineering
+* Computer vision
+* Voice synthesis
+* 3D model generation
+* Real-time rendering
+* Frontend and backend communication
+* Multimodal performance analysis
+
+We also learned that giving an AI agent a personality requires more than assigning it a name or role. Its prompt must clearly define what it values, how it communicates, what questions it should ask, and how it evaluates the user's answers.
+
+Beyond the technical work, this project taught us the importance of rapid prototyping, teamwork, testing, and adapting when external services became unreliable.
+
+## What's next?
+
+In the future, we want to expand Pitchify into a complete AI-powered communication coach.
+
+Planned improvements include:
+
+* Industry-specific investors for technology, healthcare, finance, and sustainability
+* Analysis of filler words, speaking speed, pauses, and vocal confidence
+* Improved body-language and eye-contact detection
+* Performance history and progress tracking
+* Personalized training recommendations
+* More expressive judge animations
+* Faster voice responses
+* Additional practice modes for interviews, sales pitches, and presentations
+
+Our long-term goal is to help entrepreneurs, students, and professionals become more confident speakers by giving them an environment where they can repeatedly practise realistic, high-pressure conversations.
+
+## Tech stack
+
+* **Frontend:** Next.js, React, TypeScript, CSS
+* **Backend:** Python
+* **Artificial Intelligence:** Gemini API
+* **Computer Vision:** OpenCV
+* **Voice Generation:** Fish Audio
+* **3D Model Generation:** Meshy
+* **3D Rendering:** Three.js
+* **Deployment:** Vercel
+
+## Project links
+
+> Check out the [GitHub Repository](https://github.com/nordicator/pitchify)
