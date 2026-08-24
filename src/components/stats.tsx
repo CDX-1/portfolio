@@ -17,7 +17,7 @@ export default function Stats() {
             </div>
 
             <div className="space-y-1">
-                <h3 className="font-bespoke font-medium text-4xl sm:text-5xl tracking-tight">$1K+</h3>
+                <h3 className="font-bespoke font-medium text-4xl sm:text-5xl tracking-tight">$3K+</h3>
                 <h4 className="font-satoshi text-sm sm:text-base tracking-tight text-foreground/70">Earned via Code</h4>
             </div>
         </div>

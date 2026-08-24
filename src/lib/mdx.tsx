@@ -28,6 +28,7 @@ export type ProjectMeta = {
     type: ProjectType;
     images?: string[],
     devpost?: string;
+    awards?: string[];
 }
 
 export type Project = {

@@ -8,6 +8,7 @@ import {
     IconCalendarFilled, 
     IconLinkFilled, 
     IconMapPinFilled,
+    IconTrophyFilled,
     IconX // <-- Swapped to IconX for a "close" pattern
 } from "@tabler/icons-react";
 import Link from "next/link";
@@ -133,6 +134,17 @@ export default async function ProjectPage({ params }: Props) {
                             </div>
                         ))}
                     </div>
+
+                    {meta.awards && meta.awards.length > 0 && (
+                        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-2">
+                            {meta.awards.map((award) => (
+                                <div key={award} className="flex gap-2 items-center">
+                                    <IconTrophyFilled className="size-5" />
+                                    <p className="text-sm md:text-base text-foreground/70">{award}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
                     <div className="flex justify-center items-center gap-8">
                         {meta.location && (

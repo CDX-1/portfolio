@@ -16,6 +16,7 @@ export default function ProjectGrid() {
                     type={project.meta.type}
                     slug={project.slug}
                     tags={project.meta.tags}
+                    awards={project.meta.awards}
                 />
             ))}
         </div>

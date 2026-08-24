@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ProjectMacbook } from "./project-macbook";
 import { ProjectType } from "@/lib/mdx";
 import { ProjectIPhone } from "./project-iphone";
+import { IconTrophyFilled } from "@tabler/icons-react";
 
 interface ProjectMeta {
     name: string;
@@ -13,9 +14,12 @@ interface ProjectMeta {
     type: ProjectType;
     slug: string;
     tags?: string[];
+    awards?: string[];
 }
 
-export default function ProjectClickable({ name, description, main, images, type, slug, tags }: ProjectMeta) {
+export default function ProjectClickable({ name, description, main, images, type, slug, tags, awards }: ProjectMeta) {
+    const hasAwards = !!awards?.length;
+
     return (
         <div className="flex flex-col w-full">
             <div className="mx-auto w-full p-6 sm:p-8 lg:p-12 flex items-center justify-center bg-linear-to-b aspect-square from-gray-200/50 to-gray-300/70 rounded-3xl sm:rounded-4xl">
@@ -37,6 +41,15 @@ export default function ProjectClickable({ name, description, main, images, type
             
             <div className="mt-4 px-2 sm:px-4">
                 <h3 className="font-bespoke font-medium text-xl sm:text-2xl tracking-tight">{name}</h3>
+                {hasAwards && (
+                    <div className="flex items-center gap-2 mt-1.5 text-foreground/80">
+                        <IconTrophyFilled className="size-3.5 sm:size-4 shrink-0" />
+                        <p className="font-satoshi text-sm sm:text-base font-medium tracking-tight">
+                            {awards?.join("  ·  ")}
+                        </p>
+                    </div>
+                )}
+
                 <p className="font-satoshi text-base sm:text-lg tracking-tight text-foreground/70 mt-1">{description}</p>
                 
                 <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
