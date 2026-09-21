@@ -5,6 +5,7 @@ import { JSX } from "react";
 import { TechStackGraph as TechStackGraphComponent } from "@/components/tech-stack-graph";
 
 const projectsDirectory = path.join(process.cwd(), "public/projects");
+const researchDirectory = path.join(process.cwd(), "public/research");
 
 export type Author = {
     name: string;
@@ -37,6 +38,29 @@ export type Project = {
     content: string;
 };
 
+export type ResearchStatus = "published" | "preprint" | "in-progress";
+
+export type ResearchMeta = {
+    name: string;
+    title: string;
+    date: string;
+    order: number;
+    authors: Author[];
+    tags: string[];
+    abstract: string;
+    status: ResearchStatus;
+    venue?: string;
+    pdf?: string;
+    doi?: string;
+    arxiv?: string;
+}
+
+export type Research = {
+    slug: string;
+    meta: ResearchMeta;
+    content: string;
+};
+
 export function getProjectFiles() {
     return fs.readdirSync(projectsDirectory);
 }
@@ -57,6 +81,29 @@ export function getAllProjects(): Project[] {
         .map((file) => getProjectBySlug(file));
 
     return projects.sort((a, b) => a.meta.order - b.meta.order);
+}
+
+export function getResearchFiles() {
+    if (!fs.existsSync(researchDirectory)) return [];
+    return fs.readdirSync(researchDirectory);
+}
+
+export function getResearchBySlug(slug: string): Research {
+    const realSlug = slug.replace(/\.mdx$/, "");
+    const fullPath = path.join(researchDirectory, `${realSlug}.mdx`);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data, content } = matter(fileContents);
+
+    return { slug: realSlug, meta: data as ResearchMeta, content };
+}
+
+export function getAllResearch(): Research[] {
+    const files = getResearchFiles();
+    const research = files
+        .filter((file) => file.endsWith(".mdx"))
+        .map((file) => getResearchBySlug(file));
+
+    return research.sort((a, b) => a.meta.order - b.meta.order);
 }
 
 import type { ComponentPropsWithoutRef } from "react";

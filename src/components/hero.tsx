@@ -1,6 +1,11 @@
-import { IconArrowUpRight, IconCandleFilled, IconClockFilled, IconMapPinFilled } from "@tabler/icons-react"
-import LocalClock from "./local-clock";
+import {
+    IconArrowUpRight,
+    IconCandleFilled,
+    IconClockFilled,
+    IconMapPinFilled,
+} from "@tabler/icons-react";
 import Link from "next/link";
+import LocalClock from "./local-clock";
 
 export default function Hero() {
     return (
@@ -19,12 +24,16 @@ export default function Hero() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:space-x-8 gap-4 md:gap-0 text-foreground/50 mt-6">
                     <div className="flex items-center space-x-2">
                         <IconCandleFilled className="size-5 sm:size-6 text-foreground/65" />
-                        <span className="text-base sm:text-lg font-medium">16 years old</span>
+                        <span className="text-base sm:text-lg font-medium">
+                            16 years old
+                        </span>
                     </div>
 
                     <div className="flex items-center space-x-2">
                         <IconMapPinFilled className="size-5 sm:size-6 text-foreground/65" />
-                        <span className="text-base sm:text-lg font-medium">Toronto, ON</span>
+                        <span className="text-base sm:text-lg font-medium">
+                            Toronto, ON
+                        </span>
                     </div>
 
                     <div className="flex items-center space-x-2">
@@ -34,16 +43,21 @@ export default function Hero() {
                 </div>
             </div>
 
-            <Link
-                href="/resume.pdf"
-                className="inline-flex items-center space-x-2 text-foreground/70 hover:text-primary transition-colors duration-200 group self-start md:self-auto"
-                target="_blank"
-            >
-                <span className="text-lg sm:text-xl font-medium font-satoshi">
-                    View Resume
-                </span>
-                <IconArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" stroke={1.5} />
-            </Link>
+            <div className="flex flex-col items-start md:items-end gap-3 self-start md:self-auto">
+                <Link
+                    href="/resume.pdf"
+                    className="inline-flex items-center space-x-2 text-foreground/70 hover:text-primary transition-colors duration-200 group"
+                    target="_blank"
+                >
+                    <span className="text-lg sm:text-xl font-medium font-satoshi">
+                        View Resume
+                    </span>
+                    <IconArrowUpRight
+                        className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        stroke={1.5}
+                    />
+                </Link>
+            </div>
         </div>
     );
 }

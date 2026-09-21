@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
+import { ThemeProvider } from "next-themes";
 import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -22,7 +23,7 @@ const bespoke = localFont({
 
 const satoshi = localFont({
     src: "./fonts/Satoshi-Variable.woff2",
-    variable: "--font-satoshi"
+    variable: "--font-satoshi",
 });
 
 export const metadata: Metadata = {
@@ -49,10 +50,8 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <main className="flex-1 font-satoshi">
-                        {/* <Navbar /> */}
-                        <div className="min-h-screen">
-                            {children}
-                        </div>
+                        <Navbar />
+                        <div className="min-h-screen">{children}</div>
                         <Footer />
                     </main>
                 </ThemeProvider>
