@@ -109,7 +109,9 @@ export function getAllResearch(): Research[] {
 import type { ComponentPropsWithoutRef } from "react";
 import { ImageCarousel } from "@/components/image-carousel";
 import { AppDownload } from "@/components/app-download";
-import Image from "next/image";
+import { SideNote } from "@/components/side-note";
+import { ImageViewer } from "@/components/image-viewer";
+import { Model3D } from "@/components/model-3d";
 
 type ComponentProps<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 
@@ -242,24 +244,23 @@ export const MDXComponents = {
             </div>
         );
     },
-    Image: (props: any) => {
-        return (
-            <>
-                <div className="my-8 w-full overflow-hidden rounded-xl border border-border/40 bg-muted/10">
-                    <div className="relative w-full aspect-video md:aspect-21/9 max-h-[500px]">
-                        <Image
-                            alt={props.alt || "Project Image"}
-                            src={props.src}
-                            unoptimized={props.src?.endsWith(".gif")}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                            className="object-contain"
-                        />
-                    </div>
-                </div>
-
-                <p className="text-muted-foreground/80 text-center">{props.alt}</p>
-            </>
-        );
-    }
+    SideNote: (props: any) => (
+        <SideNote side={props.side} label={props.label}>
+            {props.children}
+        </SideNote>
+    ),
+    Image: (props: any) => (
+        <ImageViewer src={props.src} alt={props.alt || "Project Image"} />
+    ),
+    Model: (props: any) => (
+        <Model3D
+            src={props.src}
+            alt={props.alt || "3D model"}
+            poster={props.poster}
+            autoRotate={props.autoRotate !== false && props.autoRotate !== "false"}
+            ar={props.ar === true || props.ar === "true"}
+            height={props.height}
+            background={props.background}
+        />
+    ),
 };

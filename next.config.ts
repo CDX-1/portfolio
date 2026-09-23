@@ -1,11 +1,24 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    serverExternalPackages: ["sharp", "ffmpeg-static"],
     images: {
         remotePatterns: [
             {
                 protocol: 'https',
                 hostname: 'cdn.simpleicons.org',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'opwhslnusvtxailbyxiu.supabase.co',
+                port: '',
+                pathname: '/storage/v1/object/public/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'placehold.co',
                 port: '',
                 pathname: '/**',
             },

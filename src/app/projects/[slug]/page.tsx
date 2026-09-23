@@ -1,17 +1,16 @@
-import { getAllProjects, getProjectBySlug, MDXComponents } from "@/lib/mdx";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { Metadata } from "next";
-import Image from "next/image";
-import { 
-    IconBrandGithubFilled, 
-    IconBrandLinkedinFilled, 
-    IconCalendarFilled, 
-    IconLinkFilled, 
+import {
+    IconBrandGithubFilled,
+    IconBrandLinkedinFilled,
+    IconCalendarFilled,
+    IconLinkFilled,
     IconMapPinFilled,
     IconTrophyFilled,
-    IconX // <-- Swapped to IconX for a "close" pattern
 } from "@tabler/icons-react";
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getAllProjects, getProjectBySlug, MDXComponents } from "@/lib/mdx";
 
 export async function generateStaticParams() {
     const projects = getAllProjects();
@@ -66,22 +65,8 @@ export default async function ProjectPage({ params }: Props) {
     const { content, meta } = getProjectBySlug(slug);
 
     return (
-        <main className="min-h-screen pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-32 relative">
-            <div className="fixed top-6 right-6 md:top-10 md:right-10 z-100">
-                <Link 
-                    href="/" 
-                    className="group flex items-center gap-2 text-foreground/40 hover:text-foreground transition-colors duration-300"
-                    aria-label="Go Home"
-                >
-                    <span className="text-xs font-semibold uppercase tracking-widest hidden md:block">
-                        Home
-                    </span>
-                    <IconX className="size-6 transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
-                </Link>
-            </div>
-
+        <main className="min-h-screen pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
             <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
-                
                 {meta.images && meta.images.length > 0 && (
                     <div className="flex flex-row justify-center items-center py-10 md:py-16 mb-8 overflow-visible">
                         {meta.images.map((image, i) => (
@@ -109,26 +94,48 @@ export default async function ProjectPage({ params }: Props) {
                 )}
 
                 <div className="flex flex-col gap-4 text-center mb-16">
+                    <div className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
+                        <span
+                            className="h-px w-6 bg-foreground/15"
+                            aria-hidden
+                        />
+                        <span className="text-foreground/55">Project</span>
+                        <span
+                            className="h-px w-6 bg-foreground/15"
+                            aria-hidden
+                        />
+                    </div>
                     <h1 className="text-4xl md:text-5xl font-semibold font-bespoke tracking-tight">
                         {meta.title}
                     </h1>
 
-                    <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto">
+                    <p className="text-lg md:text-xl text-foreground/55 max-w-2xl mx-auto">
                         {meta.description}
                     </p>
 
-                    <div className="flex justify-center items-center gap-8">
+                    <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-foreground/70">
                         {meta.author.map((author) => (
-                            <div className="flex gap-2 items-center" key={author.name}>
-                                <p>{author.name}</p>
+                            <div
+                                className="flex gap-2 items-center text-sm"
+                                key={author.name}
+                            >
+                                <span>{author.name}</span>
                                 {author.github && (
-                                    <Link href={author.github} target="_blank">
-                                        <IconBrandGithubFilled className="size-5 hover:text-foreground/70" />
+                                    <Link
+                                        href={author.github}
+                                        target="_blank"
+                                        className="text-foreground/40 hover:text-foreground transition-colors"
+                                    >
+                                        <IconBrandGithubFilled className="size-3.5" />
                                     </Link>
                                 )}
                                 {author.linkedin && (
-                                    <Link href={author.linkedin} target="_blank">
-                                        <IconBrandLinkedinFilled className="size-5 hover:text-foreground/70" />
+                                    <Link
+                                        href={author.linkedin}
+                                        target="_blank"
+                                        className="text-foreground/40 hover:text-foreground transition-colors"
+                                    >
+                                        <IconBrandLinkedinFilled className="size-3.5" />
                                     </Link>
                                 )}
                             </div>
@@ -136,49 +143,62 @@ export default async function ProjectPage({ params }: Props) {
                     </div>
 
                     {meta.awards && meta.awards.length > 0 && (
-                        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-2">
+                        <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2">
                             {meta.awards.map((award) => (
-                                <div key={award} className="flex gap-2 items-center">
-                                    <IconTrophyFilled className="size-5" />
-                                    <p className="text-sm md:text-base text-foreground/70">{award}</p>
+                                <div
+                                    key={award}
+                                    className="flex gap-2 items-center"
+                                >
+                                    <IconTrophyFilled className="size-3.5 text-foreground/50" />
+                                    <p className="text-sm md:text-base text-foreground/70 tracking-tight">
+                                        {award}
+                                    </p>
                                 </div>
                             ))}
                         </div>
                     )}
 
-                    <div className="flex justify-center items-center gap-8">
+                    <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
                         {meta.location && (
-                            <div className="flex gap-2 items-center">
-                                <IconMapPinFilled className="size-5" />
-                                <p className="text-sm md:text-base text-foreground/70">{meta.location}</p>
+                            <div className="flex gap-1.5 items-center">
+                                <IconMapPinFilled className="size-3 text-foreground/40" />
+                                <span>{meta.location}</span>
                             </div>
                         )}
-                        <div className="flex gap-2 items-center">
-                            <IconCalendarFilled className="size-5" />
-                            <p className="text-sm md:text-base text-foreground/70">{meta.date}</p>
+                        <div className="flex gap-1.5 items-center">
+                            <IconCalendarFilled className="size-3 text-foreground/40" />
+                            <span className="tabular-nums">{meta.date}</span>
                         </div>
                     </div>
 
                     {(meta.github || meta.devpost) && (
-                        <div className="flex justify-center items-center gap-8">
+                        <div className="flex justify-center items-center gap-6 mt-2">
                             {meta.github && (
-                                <Link href={meta.github} target="_blank" className="flex items-center gap-2 group">
-                                    <IconBrandGithubFilled className="size-5 group-hover:text-foreground/70 transition-colors duration-200" />
-                                    <span className="group-hover:text-foreground/70 transition-colors duration-200">View Source</span>
+                                <Link
+                                    href={meta.github}
+                                    target="_blank"
+                                    className="group inline-flex items-center gap-1.5 text-sm font-medium tracking-tight text-foreground/70 hover:text-foreground transition-colors duration-200"
+                                >
+                                    <IconBrandGithubFilled className="size-4 text-foreground/50 group-hover:text-foreground transition-colors" />
+                                    <span>View Source</span>
                                 </Link>
                             )}
 
                             {meta.devpost && (
-                                <Link href={meta.devpost} target="_blank" className="flex items-center gap-2 group">
-                                    <IconLinkFilled className="size-5 group-hover:text-foreground/70 transition-colors duration-200" />
-                                    <span className="group-hover:text-foreground/70 transition-colors duration-200">View on Devpost</span>
+                                <Link
+                                    href={meta.devpost}
+                                    target="_blank"
+                                    className="group inline-flex items-center gap-1.5 text-sm font-medium tracking-tight text-foreground/70 hover:text-foreground transition-colors duration-200"
+                                >
+                                    <IconLinkFilled className="size-4 text-foreground/50 group-hover:text-foreground transition-colors" />
+                                    <span>View on Devpost</span>
                                 </Link>
                             )}
                         </div>
                     )}
                 </div>
 
-                <div className="mx-auto max-w-4xl">
+                <div className="relative mx-auto max-w-4xl">
                     <MDXRemote source={content} components={MDXComponents} />
                 </div>
             </article>

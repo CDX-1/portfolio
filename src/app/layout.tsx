@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Caveat, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
@@ -26,6 +26,12 @@ const satoshi = localFont({
     variable: "--font-satoshi",
 });
 
+const caveat = Caveat({
+    variable: "--font-caveat",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
     title: "awsaf.dev",
     description: "My personal portfolio",
@@ -39,7 +45,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} ${geistMono.variable} ${bespoke.variable} ${satoshi.variable} h-full antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} ${bespoke.variable} ${satoshi.variable} ${caveat.variable} h-full antialiased`}
             suppressHydrationWarning
         >
             <body className="bg-background min-h-full flex flex-col">
