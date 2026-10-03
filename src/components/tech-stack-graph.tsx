@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export interface Connection {
     id: string;
@@ -24,8 +24,12 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const nodeRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-    const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
-    const [layout, setLayout] = useState<Record<string, { top: number; left: number }>>({});
+    const [positions, setPositions] = useState<
+        Record<string, { x: number; y: number }>
+    >({});
+    const [layout, setLayout] = useState<
+        Record<string, { top: number; left: number }>
+    >({});
     const [ready, setReady] = useState(false);
 
     const updateLines = useCallback(() => {
@@ -81,7 +85,7 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
         if (ready) {
             updateLines();
         }
-    }, [layout, ready, updateLines]);
+    }, [ready, updateLines]);
 
     const edges = useMemo(() => {
         const directed = new Set<string>();
@@ -132,7 +136,13 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
         return result;
     }, [items]);
 
-    const getShortenedLine = (x1: number, y1: number, x2: number, y2: number, offset: number) => {
+    const getShortenedLine = (
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        offset: number,
+    ) => {
         const dx = x2 - x1;
         const dy = y2 - y1;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -148,7 +158,9 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
     };
 
     if (!ready || Object.keys(layout).length === 0) {
-        return <div ref={containerRef} className="w-full min-h-[400px] h-full" />;
+        return (
+            <div ref={containerRef} className="w-full min-h-[400px] h-full" />
+        );
     }
 
     return (
@@ -161,13 +173,22 @@ export function TechStackGraph({ items }: { items: TechStackItem[] }) {
                 backgroundSize: "40px 40px",
             }}
         >
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+            <svg
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full pointer-events-none z-10"
+            >
                 {edges.map((edge) => {
                     const p1 = positions[edge.source];
                     const p2 = positions[edge.target];
                     if (!p1 || !p2) return null;
 
-                    const line = getShortenedLine(p1.x, p1.y, p2.x, p2.y, NODE_RADIUS);
+                    const line = getShortenedLine(
+                        p1.x,
+                        p1.y,
+                        p2.x,
+                        p2.y,
+                        NODE_RADIUS,
+                    );
                     if (!line) return null;
 
                     const midX = (line.x1 + line.x2) / 2;

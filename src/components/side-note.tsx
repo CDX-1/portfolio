@@ -7,7 +7,11 @@ interface SideNoteProps {
     children: ReactNode;
 }
 
-export function SideNote({ side = "right", label = "note", children }: SideNoteProps) {
+export function SideNote({
+    side = "right",
+    label = "note",
+    children,
+}: SideNoteProps) {
     const isLeft = side === "left";
 
     return (

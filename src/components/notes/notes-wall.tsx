@@ -3,6 +3,10 @@
 import { IconPencilPlus } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+    NOTES_SECTION_ID,
+    OPEN_COMPOSE_EVENT,
+} from "@/components/leave-note-button";
 import type { Note } from "@/content/notes";
 import { cn } from "@/lib/utils";
 import BrandStar from "../brand-star";
@@ -82,6 +86,12 @@ export default function NotesWall({
         setLocalPending(remaining);
     }, [serverNotes]);
 
+    useEffect(() => {
+        const handler = () => setComposeOpen(true);
+        window.addEventListener(OPEN_COMPOSE_EVENT, handler);
+        return () => window.removeEventListener(OPEN_COMPOSE_EVENT, handler);
+    }, []);
+
     const notes = useMemo(() => {
         // owner already sees pending from server; skip local layer to avoid dupes
         if (isOwner) return serverNotes;
@@ -117,7 +127,7 @@ export default function NotesWall({
     }
 
     return (
-        <section className="mt-16 sm:mt-24">
+        <section id={NOTES_SECTION_ID} className="mt-16 sm:mt-24 scroll-mt-24">
             <div
                 className={cn(
                     "relative overflow-hidden rounded-[28px] border border-border/40",

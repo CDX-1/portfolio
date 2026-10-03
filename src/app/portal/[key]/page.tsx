@@ -1,8 +1,8 @@
 import { timingSafeEqual } from "node:crypto";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { isOwner } from "@/lib/supabase/owner";
+import { createClient } from "@/lib/supabase/server";
 import PortalClient from "./portal-client";
 
 export const metadata: Metadata = {

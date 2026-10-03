@@ -7,7 +7,9 @@ export function isOwner(user: User | null | undefined): boolean {
     return user.email.toLowerCase() === owner.toLowerCase();
 }
 
-export async function getOwnerUser(supabase: SupabaseClient): Promise<User | null> {
+export async function getOwnerUser(
+    supabase: SupabaseClient,
+): Promise<User | null> {
     const { data } = await supabase.auth.getUser();
     return isOwner(data.user) ? data.user : null;
 }

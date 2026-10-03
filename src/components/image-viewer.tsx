@@ -61,30 +61,32 @@ export function ImageViewer({ src, alt }: ImageViewerProps) {
             {open && (
                 <div
                     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 md:p-8 cursor-zoom-out"
-                    onClick={close}
                     role="dialog"
                     aria-modal="true"
                     aria-label={alt || "Enlarged image"}
                 >
                     <button
                         type="button"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            close();
-                        }}
-                        className="absolute top-4 right-4 z-10 rounded-full bg-background/20 hover:bg-background/40 text-white p-2 transition-colors cursor-pointer"
+                        onClick={close}
+                        className="absolute inset-0 cursor-zoom-out"
+                        aria-label="Close enlarged image"
+                    />
+                    <button
+                        type="button"
+                        onClick={close}
+                        className="absolute top-4 right-4 z-20 rounded-full bg-background/20 hover:bg-background/40 text-white p-2 transition-colors cursor-pointer"
                         aria-label="Close enlarged image"
                     >
                         <IconX className="size-5" />
                     </button>
 
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                         src={src}
                         alt={alt}
-                        className="max-w-full max-h-full object-contain rounded-xl select-none"
-                        draggable={false}
-                        onClick={(e) => e.stopPropagation()}
+                        width={1600}
+                        height={900}
+                        unoptimized={src.endsWith(".gif")}
+                        className="relative z-10 max-w-full max-h-full object-contain rounded-xl select-none"
                     />
                 </div>
             )}

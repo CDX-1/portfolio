@@ -1,6 +1,6 @@
 "use client";
 
-import { IconRotate360, IconLoader2 } from "@tabler/icons-react";
+import { IconLoader2, IconRotate360 } from "@tabler/icons-react";
 import { createElement, useEffect, useState } from "react";
 
 interface Model3DProps {
@@ -74,7 +74,10 @@ export function Model3D({
                         })
                     ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/60">
-                            <IconLoader2 className="size-5 animate-spin" aria-hidden />
+                            <IconLoader2
+                                className="size-5 animate-spin"
+                                aria-hidden
+                            />
                             <p className="text-xs font-mono uppercase tracking-[0.18em]">
                                 Loading model
                             </p>

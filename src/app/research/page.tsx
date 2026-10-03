@@ -29,7 +29,7 @@ const statusLabels: Record<string, string> = {
 
 function formatDate(date: string) {
     const parsed = new Date(date);
-    if (isNaN(parsed.getTime())) return date;
+    if (Number.isNaN(parsed.getTime())) return date;
     return parsed.toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
@@ -107,7 +107,7 @@ export default function ResearchPage() {
                                                         statusStyles[
                                                             paper.meta.status
                                                         ] ??
-                                                        statusStyles["preprint"]
+                                                        statusStyles.preprint
                                                     }`}
                                                 >
                                                     {statusLabels[

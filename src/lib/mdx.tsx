@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import matter from "gray-matter";
-import { JSX } from "react";
+import type { JSX } from "react";
 import { TechStackGraph as TechStackGraphComponent } from "@/components/tech-stack-graph";
 
 const projectsDirectory = path.join(process.cwd(), "public/projects");
@@ -11,7 +11,7 @@ export type Author = {
     name: string;
     github?: string;
     linkedin?: string;
-}
+};
 
 export type ProjectType = "laptop" | "phone";
 
@@ -27,10 +27,10 @@ export type ProjectMeta = {
     github?: string;
     main: string;
     type: ProjectType;
-    images?: string[],
+    images?: string[];
     devpost?: string;
     awards?: string[];
-}
+};
 
 export type Project = {
     slug: string;
@@ -53,7 +53,7 @@ export type ResearchMeta = {
     pdf?: string;
     doi?: string;
     arxiv?: string;
-}
+};
 
 export type Research = {
     slug: string;
@@ -107,13 +107,14 @@ export function getAllResearch(): Research[] {
 }
 
 import type { ComponentPropsWithoutRef } from "react";
-import { ImageCarousel } from "@/components/image-carousel";
 import { AppDownload } from "@/components/app-download";
-import { SideNote } from "@/components/side-note";
+import { ImageCarousel } from "@/components/image-carousel";
 import { ImageViewer } from "@/components/image-viewer";
 import { Model3D } from "@/components/model-3d";
+import { SideNote } from "@/components/side-note";
 
-type ComponentProps<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
+type ComponentProps<T extends keyof JSX.IntrinsicElements> =
+    ComponentPropsWithoutRef<T>;
 
 export const MDXComponents = {
     h1: (props: ComponentProps<"h1">) => (
@@ -204,7 +205,10 @@ export const MDXComponents = {
                 try {
                     safeItems = JSON.parse(props.items);
                 } catch (e) {
-                    console.error("Failed to parse TechStackGraph JSON items:", e);
+                    console.error(
+                        "Failed to parse TechStackGraph JSON items:",
+                        e,
+                    );
                 }
             } else if (Array.isArray(props.items)) {
                 safeItems = props.items;
@@ -224,7 +228,10 @@ export const MDXComponents = {
                 try {
                     safeImages = JSON.parse(props.images);
                 } catch (e) {
-                    console.error("Failed to parse ImageCarousel JSON images:", e);
+                    console.error(
+                        "Failed to parse ImageCarousel JSON images:",
+                        e,
+                    );
                 }
             } else if (Array.isArray(props.images)) {
                 safeImages = props.images;
@@ -240,7 +247,11 @@ export const MDXComponents = {
     AppDownload: (props: any) => {
         return (
             <div className="mt-10 w-full overflow-hidden">
-                <AppDownload appStore={props.appStore} playStore={props.playStore} metric={props.metric} />
+                <AppDownload
+                    appStore={props.appStore}
+                    playStore={props.playStore}
+                    metric={props.metric}
+                />
             </div>
         );
     },
@@ -257,7 +268,9 @@ export const MDXComponents = {
             src={props.src}
             alt={props.alt || "3D model"}
             poster={props.poster}
-            autoRotate={props.autoRotate !== false && props.autoRotate !== "false"}
+            autoRotate={
+                props.autoRotate !== false && props.autoRotate !== "false"
+            }
             ar={props.ar === true || props.ar === "true"}
             height={props.height}
             background={props.background}

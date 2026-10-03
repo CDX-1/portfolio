@@ -1,19 +1,16 @@
-import { useId } from "react"
-import type { SVGProps } from "react"
+import type { SVGProps } from "react";
+import { useId } from "react";
 
 export interface IPhoneProps extends SVGProps<SVGSVGElement> {
-    src?: string
+    src?: string;
 }
 
-export function IPhone({
-    src,
-    className,
-    ...props
-}: IPhoneProps) {
-    const clipId = useId() 
+export function IPhone({ src, className, ...props }: IPhoneProps) {
+    const clipId = useId();
 
     return (
         <svg
+            aria-hidden="true"
             viewBox="0 0 200 400"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -72,5 +69,5 @@ export function IPhone({
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

@@ -1,6 +1,3 @@
-import { getAllResearch, getResearchBySlug, MDXComponents } from "@/lib/mdx";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { Metadata } from "next";
 import {
     IconBrandGithubFilled,
     IconBrandLinkedinFilled,
@@ -9,7 +6,10 @@ import {
     IconLinkFilled,
     IconX,
 } from "@tabler/icons-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getAllResearch, getResearchBySlug, MDXComponents } from "@/lib/mdx";
 
 export async function generateStaticParams() {
     const papers = getAllResearch();
@@ -58,7 +58,7 @@ const statusLabels: Record<string, string> = {
 
 function formatDate(date: string) {
     const parsed = new Date(date);
-    if (isNaN(parsed.getTime())) return date;
+    if (Number.isNaN(parsed.getTime())) return date;
     return parsed.toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
@@ -90,7 +90,8 @@ export default async function ResearchPaperPage({ params }: Props) {
                     <div className="flex flex-wrap items-center gap-3">
                         <span
                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                                statusStyles[meta.status] ?? statusStyles["preprint"]
+                                statusStyles[meta.status] ??
+                                statusStyles.preprint
                             }`}
                         >
                             {statusLabels[meta.status] ?? meta.status}
@@ -112,7 +113,10 @@ export default async function ResearchPaperPage({ params }: Props) {
 
                     <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-2">
                         {meta.authors?.map((author) => (
-                            <div className="flex gap-2 items-center" key={author.name}>
+                            <div
+                                className="flex gap-2 items-center"
+                                key={author.name}
+                            >
                                 <p>{author.name}</p>
                                 {author.github && (
                                     <Link href={author.github} target="_blank">
@@ -120,7 +124,10 @@ export default async function ResearchPaperPage({ params }: Props) {
                                     </Link>
                                 )}
                                 {author.linkedin && (
-                                    <Link href={author.linkedin} target="_blank">
+                                    <Link
+                                        href={author.linkedin}
+                                        target="_blank"
+                                    >
                                         <IconBrandLinkedinFilled className="size-5 hover:text-foreground/70" />
                                     </Link>
                                 )}

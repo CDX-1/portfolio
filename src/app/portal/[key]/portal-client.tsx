@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { useActionState } from "react";
 import { cn } from "@/lib/utils";
-import { signIn, type PortalActionState } from "./actions";
+import { type PortalActionState, signIn } from "./actions";
 
 const INITIAL_STATE: PortalActionState = { error: null };
 

@@ -19,13 +19,15 @@ const POOL_SIZE = 48;
 const SPAWN_COOLDOWN_MS = 42;
 const SPAWN_MIN_DIST_SQ = 22 * 22;
 const GRAVITY = 260;
+const SLOT_IDS = Array.from(
+    { length: POOL_SIZE },
+    (_, index) => `slot-${index}`,
+);
 
 export default function PolaroidTrail({ images }: { images: string[] }) {
     const slotRefs = useRef<HTMLDivElement[]>([]);
     const imgRefs = useRef<HTMLImageElement[]>([]);
-    const particles = useRef<(Particle | null)[]>(
-        Array(POOL_SIZE).fill(null),
-    );
+    const particles = useRef<(Particle | null)[]>(Array(POOL_SIZE).fill(null));
     const visible = useRef<boolean[]>(Array(POOL_SIZE).fill(false));
     const mouse = useRef({
         x: 0,
@@ -162,9 +164,9 @@ export default function PolaroidTrail({ images }: { images: string[] }) {
             className="pointer-events-none fixed inset-0 z-[45] overflow-hidden"
             style={{ contain: "strict" }}
         >
-            {Array.from({ length: POOL_SIZE }).map((_, i) => (
+            {SLOT_IDS.map((slotId, i) => (
                 <div
-                    key={i}
+                    key={slotId}
                     ref={(el) => {
                         if (el) slotRefs.current[i] = el;
                     }}

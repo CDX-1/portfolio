@@ -1,4 +1,5 @@
 import Hero from "@/components/hero";
+import LeaveNoteButton from "@/components/leave-note-button";
 import NotesSection from "@/components/notes/notes-section";
 import PolaroidTrail from "@/components/polaroid-trail";
 import ProjectGrid from "@/components/project-grid";
@@ -21,6 +22,9 @@ export default function Home() {
             <div className="mx-auto max-w-6xl space-y-2">
                 <div data-trail-exclude>
                     <Hero />
+                </div>
+                <div data-trail-exclude className="mt-4 flex">
+                    <LeaveNoteButton />
                 </div>
                 <Stats />
                 <div data-trail-exclude>

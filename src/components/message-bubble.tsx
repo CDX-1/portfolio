@@ -6,19 +6,29 @@ interface MessageBubbleProps {
     textClassName?: string;
 }
 
-export default function MessageBubble({ text = "Hello!", className, textClassName }: MessageBubbleProps) {
+export default function MessageBubble({
+    text = "Hello!",
+    className,
+    textClassName,
+}: MessageBubbleProps) {
     return (
-        <div className={cn("relative inline-flex filter drop-shadow-2xl", className)}>
+        <div
+            className={cn(
+                "relative inline-flex filter drop-shadow-2xl",
+                className,
+            )}
+        >
             <div
                 className={cn(
                     "bg-linear-to-b from-[#2694ff] to-[#0176ff] text-white font-sans text-[16px] font-normal leading-5 px-4 py-2.5 rounded-[20px] rounded-br-[4px] max-w-xs sm:max-w-md select-text wrap-break-word",
-                    textClassName
+                    textClassName,
                 )}
             >
                 {text}
             </div>
 
             <svg
+                aria-hidden="true"
                 width="12"
                 height="16"
                 viewBox="0 0 12 16"
@@ -27,7 +37,13 @@ export default function MessageBubble({ text = "Hello!", className, textClassNam
                 className="absolute bottom-0 right-[-8px] pointer-events-none"
             >
                 <defs>
-                    <linearGradient id="bubble-tail-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <linearGradient
+                        id="bubble-tail-grad"
+                        x1="0%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                    >
                         <stop offset="0%" stopColor="#0b83ff" />
                         <stop offset="100%" stopColor="#0176ff" />
                     </linearGradient>

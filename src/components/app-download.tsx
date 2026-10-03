@@ -1,8 +1,16 @@
-import { IconDownloadFilled } from '@tabler/icons-react';
+import { IconDownloadFilled } from "@tabler/icons-react";
 // @ts-expect-error
-import StoreBadge from 'react-store-badge';
+import StoreBadge from "react-store-badge";
 
-export function AppDownload({ appStore, playStore, metric }: { appStore: string; playStore: string; metric?: string }) {
+export function AppDownload({
+    appStore,
+    playStore,
+    metric,
+}: {
+    appStore: string;
+    playStore: string;
+    metric?: string;
+}) {
     return (
         <section className="w-full max-w-2xl mx-auto px-4 py-12">
             <div className="text-center">
@@ -17,7 +25,9 @@ export function AppDownload({ appStore, playStore, metric }: { appStore: string;
                         <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-muted/50 border border-border/40 px-4 py-1.5 text-sm text-foreground">
                             <IconDownloadFilled className="size-4" />
                             <span className="font-medium">{metric}+</span>
-                            <span className="text-muted-foreground">downloads</span>
+                            <span className="text-muted-foreground">
+                                downloads
+                            </span>
                         </div>
                     )}
                 </div>

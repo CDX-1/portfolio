@@ -25,13 +25,7 @@ export type ShenanigansRow = {
     media_src: string;
     media_poster: string | null;
     media_alt: string | null;
-    media_aspect:
-        | "video"
-        | "square"
-        | "portrait"
-        | "wide"
-        | "tall"
-        | null;
+    media_aspect: "video" | "square" | "portrait" | "wide" | "tall" | null;
     span: "half" | "full";
     position: number;
     created_at: string;

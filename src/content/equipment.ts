@@ -52,13 +52,13 @@ export const equipment: EquipmentCategory[] = [
         items: [
             {
                 name: "Pixio PX277P",
-                detail: "27\" · 1440p · 165Hz",
+                detail: '27" · 1440p · 165Hz',
                 note: "Primary — code + games",
                 image: placeholder("Pixio+PX277P"),
             },
             {
                 name: "Pixio PX277P",
-                detail: "27\" · 1440p · 165Hz",
+                detail: '27" · 1440p · 165Hz',
                 note: "Secondary — reference & docs (matched pair)",
                 image: placeholder("Pixio+PX277P"),
             },
@@ -103,7 +103,7 @@ export const equipment: EquipmentCategory[] = [
         title: "Mobile & Portable",
         items: [
             {
-                name: "MacBook Pro 14\" (M3 Pro)",
+                name: 'MacBook Pro 14" (M3 Pro)',
                 detail: "18 GB · 1 TB",
                 note: "Travel + on-the-go dev",
                 image: placeholder("MBP+14"),

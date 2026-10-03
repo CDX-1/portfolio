@@ -1,10 +1,10 @@
-import type { SVGProps } from "react"
+import type { SVGProps } from "react";
 
 export interface MacbookProProps extends SVGProps<SVGSVGElement> {
-    width?: number
-    height?: number
-    src?: string
-    showShadow?: boolean
+    width?: number;
+    height?: number;
+    src?: string;
+    showShadow?: boolean;
 }
 
 export function MacbookPro({
@@ -16,6 +16,7 @@ export function MacbookPro({
 }: MacbookProProps) {
     return (
         <svg
+            aria-hidden="true"
             width={width}
             height={height}
             viewBox="0 0 650 425"
@@ -36,14 +37,32 @@ export function MacbookPro({
                     />
                 </clipPath>
 
-                <filter id="macbook-drop-shadow" x="-20%" y="-20%" width="140%" height="250%">
+                <filter
+                    id="macbook-drop-shadow"
+                    x="-20%"
+                    y="-20%"
+                    width="140%"
+                    height="250%"
+                >
                     <feGaussianBlur stdDeviation="12" result="blur" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.22 0" />
+                    <feColorMatrix
+                        type="matrix"
+                        values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.22 0"
+                    />
                 </filter>
 
-                <filter id="macbook-ambient-shadow" x="-10%" y="-20%" width="120%" height="200%">
+                <filter
+                    id="macbook-ambient-shadow"
+                    x="-10%"
+                    y="-20%"
+                    width="120%"
+                    height="200%"
+                >
                     <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0" />
+                    <feColorMatrix
+                        type="matrix"
+                        values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0"
+                    />
                 </filter>
             </defs>
 
@@ -99,7 +118,13 @@ export function MacbookPro({
                 />
             )}
 
-            <rect fill="#1d1d1d" x="69.09" y="350.51" width="512.11" height="12.48" />
+            <rect
+                fill="#1d1d1d"
+                x="69.09"
+                y="350.51"
+                width="512.11"
+                height="12.48"
+            />
 
             <path
                 fill="#000"
@@ -138,5 +163,5 @@ export function MacbookPro({
                 d="M278.11,362.6h94.05c0,3.63-2.95,6.58-6.58,6.58h-80.89c-3.63,0-6.58-2.95-6.58-6.58h0Z"
             />
         </svg>
-    )
+    );
 }

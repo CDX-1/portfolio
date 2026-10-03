@@ -16,6 +16,35 @@ I used the following technologies to build my portfolio:
 
 My project pages were made using MDX and custom MDX components.
 
+## Deployment
+
+The app is ready to deploy as a standard Node.js Next.js application. Use Node
+20.9 or newer and install dependencies from the lockfile:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build
+pnpm start
+```
+
+Before deploying, add the variables in `.env.example` to the production
+environment. `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_PORTAL_KEY`, `NOTES_IP_SALT`,
+and `DISCORD_NOTES_WEBHOOK_URL` must remain server-only; never prefix them with
+`NEXT_PUBLIC_`. Generate long random values for the two secret values. The
+`ADMIN_OWNER_EMAIL` value must match the owner email configured in the notes RLS
+policies.
+
+Apply the database migrations to the production Supabase project before the
+first release:
+
+```sh
+supabase db push
+```
+
+The latest migration adds the doodle and hashed-IP fields used by the notes API,
+an index for rate limiting, and removes direct public note inserts so that all
+submissions pass through the server-side rate limit.
+
 ## Inspiration
 
 - https://www.romancaseres.cloud/

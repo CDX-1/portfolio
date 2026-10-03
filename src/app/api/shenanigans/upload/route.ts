@@ -6,8 +6,8 @@ import { join } from "node:path";
 import ffmpegStatic from "ffmpeg-static";
 import { NextResponse } from "next/server";
 import sharp from "sharp";
-import { createClient } from "@/lib/supabase/server";
 import { isOwner } from "@/lib/supabase/owner";
+import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -23,13 +23,7 @@ const ALLOWED_IMAGE = new Set([
     "image/gif",
 ]);
 const ALLOWED_VIDEO = new Set(["video/mp4", "video/quicktime", "video/webm"]);
-const ALLOWED_ASPECT = new Set([
-    "video",
-    "square",
-    "portrait",
-    "wide",
-    "tall",
-]);
+const ALLOWED_ASPECT = new Set(["video", "square", "portrait", "wide", "tall"]);
 const ALLOWED_SPAN = new Set(["half", "full"]);
 
 function slugify(input: string): string {
@@ -279,7 +273,10 @@ export async function POST(request: Request) {
 
     if (insertRes.error) {
         // Best-effort cleanup of the storage object we just wrote.
-        await supabase.storage.from(BUCKET).remove([objectPath]).catch(() => {});
+        await supabase.storage
+            .from(BUCKET)
+            .remove([objectPath])
+            .catch(() => {});
         return NextResponse.json(
             { error: insertRes.error.message },
             { status: 500 },

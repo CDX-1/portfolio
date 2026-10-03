@@ -31,8 +31,8 @@ export default function AdminPanel() {
     const [caption, setCaption] = useState("");
     const [aspect, setAspect] = useState<MediaAspect>("video");
     const [span, setSpan] = useState<Span>("half");
-    const [entryDate, setEntryDate] = useState(
-        () => new Date().toISOString().slice(0, 10),
+    const [entryDate, setEntryDate] = useState(() =>
+        new Date().toISOString().slice(0, 10),
     );
 
     useEffect(() => {
@@ -208,7 +208,6 @@ export default function AdminPanel() {
                                             loop
                                         />
                                     ) : (
-                                        // biome-ignore lint/a11y/useAltText: preview only
                                         <img
                                             src={previewUrl}
                                             alt=""
@@ -275,7 +274,10 @@ export default function AdminPanel() {
                                         className={inputClass}
                                     >
                                         {ASPECT_OPTIONS.map((o) => (
-                                            <option key={o.value} value={o.value}>
+                                            <option
+                                                key={o.value}
+                                                value={o.value}
+                                            >
                                                 {o.label}
                                             </option>
                                         ))}
@@ -307,9 +309,12 @@ export default function AdminPanel() {
                             <div className="flex items-center justify-end gap-2 pt-1">
                                 <button
                                     type="button"
-                                    onClick={() =>
-                                        !pending && (setOpen(false), reset())
-                                    }
+                                    onClick={() => {
+                                        if (!pending) {
+                                            setOpen(false);
+                                            reset();
+                                        }
+                                    }}
                                     className="rounded-full px-4 py-2 text-sm text-foreground/60 hover:text-foreground"
                                 >
                                     Cancel
@@ -348,11 +353,11 @@ function FieldLabel({
     children: React.ReactNode;
 }) {
     return (
-        <label className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5">
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/50">
                 {label}
             </span>
             {children}
-        </label>
+        </div>
     );
 }

@@ -1,11 +1,19 @@
-'use client';
+"use client";
 
-import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useState } from "react";
 import { IPhone } from "./iphone";
 
-export function ProjectIPhone({ className, main, images = [] }: { className?: string; main: string; images?: string[] }) {
+export function ProjectIPhone({
+    className,
+    main,
+    images = [],
+}: {
+    className?: string;
+    main: string;
+    images?: string[];
+}) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -18,7 +26,7 @@ export function ProjectIPhone({ className, main, images = [] }: { className?: st
             }}
             whileTap={{
                 scale: 0.97,
-                y: -2
+                y: -2,
             }}
             transition={{
                 type: "spring",
@@ -40,8 +48,14 @@ export function ProjectIPhone({ className, main, images = [] }: { className?: st
 
                 return (
                     <motion.div
-                        key={index}
-                        initial={{ opacity: 0, scale: 0.5, x: 0, y: 0, rotate: 0 }}
+                        key={src}
+                        initial={{
+                            opacity: 0,
+                            scale: 0.5,
+                            x: 0,
+                            y: 0,
+                            rotate: 0,
+                        }}
                         animate={{
                             opacity: isHovered ? 1 : 0,
                             scale: isHovered ? 1 : 0.8,

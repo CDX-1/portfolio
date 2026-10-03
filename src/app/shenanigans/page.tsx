@@ -38,7 +38,7 @@ const kindLabel: Record<ShenanigansEntry["media"]["kind"], string> = {
 
 function formatDate(date: string) {
     const parsed = new Date(date);
-    if (isNaN(parsed.getTime())) return date;
+    if (Number.isNaN(parsed.getTime())) return date;
     return parsed
         .toLocaleDateString("en-US", {
             day: "2-digit",

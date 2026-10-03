@@ -172,6 +172,7 @@ function SocialsGrid() {
     };
 
     return (
+        // biome-ignore lint/a11y/noStaticElementInteractions: Pointer tracking is visual-only and triggers no action.
         <div
             ref={containerRef}
             onMouseMove={handleMove}
