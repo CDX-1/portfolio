@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { h1Fetch } from "./fetch";
 
 export async function createClient() {
     const cookieStore = await cookies();
@@ -23,7 +22,6 @@ export async function createClient() {
                     }
                 },
             },
-            global: { fetch: h1Fetch },
         },
     );
 }

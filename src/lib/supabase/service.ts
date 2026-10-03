@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { h1Fetch } from "./fetch";
 
 /**
  * Server-only Supabase client using the service role key. Bypasses RLS —
@@ -18,6 +17,5 @@ export function createServiceClient() {
             persistSession: false,
             autoRefreshToken: false,
         },
-        global: { fetch: h1Fetch },
     });
 }

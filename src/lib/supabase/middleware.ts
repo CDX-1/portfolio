@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { h1Fetch } from "./fetch";
 
 export async function updateSession(request: NextRequest) {
     let response = NextResponse.next({ request });
@@ -23,7 +22,6 @@ export async function updateSession(request: NextRequest) {
                     }
                 },
             },
-            global: { fetch: h1Fetch },
         },
     );
 
