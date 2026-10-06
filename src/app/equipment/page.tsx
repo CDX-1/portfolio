@@ -131,7 +131,7 @@ export default function EquipmentPage() {
                                                                 alt={item.name}
                                                                 fill
                                                                 sizes="64px"
-                                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                                className="object-contain p-1.5 transition-transform duration-500 group-hover:scale-105"
                                                             />
                                                         ) : (
                                                             <span
@@ -189,7 +189,7 @@ export default function EquipmentPage() {
 
                                             return (
                                                 <li
-                                                    key={item.name}
+                                                    key={`${item.name}-${i}`}
                                                     className="py-3 first:pt-0 last:pb-0"
                                                 >
                                                     {item.link ? (

@@ -25,13 +25,10 @@ export type PCBuild = {
     specs: EquipmentSpec[];
 };
 
-const placeholder = (label: string, w = 320, h = 320) =>
-    `https://placehold.co/${w}x${h}/171717/525252/webp?text=${encodeURIComponent(label)}`;
-
 export const pcBuild: PCBuild = {
     name: "Main rig",
     tagline: "Custom build — daily driver for dev and gaming.",
-    image: placeholder("Main+Rig", 960, 480),
+    image: "/equipment/rig.jpg",
     specs: [
         { label: "CPU", value: "Intel Core i7-12700F · 12C / 20T" },
         { label: "GPU", value: "ASUS TUF RTX 3080 OC · 12 GB LHR" },
@@ -51,16 +48,16 @@ export const equipment: EquipmentCategory[] = [
         title: "Displays",
         items: [
             {
-                name: "Pixio PX277P",
-                detail: '27" · 1440p · 165Hz',
+                name: "Pixio PX277",
+                detail: '27" · 1440p · 144Hz',
                 note: "Primary — code + games",
-                image: placeholder("Pixio+PX277P"),
+                image: "/equipment/px277.png",
             },
             {
-                name: "Pixio PX277P",
-                detail: '27" · 1440p · 165Hz',
+                name: "Pixio PX277",
+                detail: '27" · 1440p · 144Hz',
                 note: "Secondary — reference & docs (matched pair)",
-                image: placeholder("Pixio+PX277P"),
+                image: "/equipment/px277.png",
             },
         ],
     },
@@ -69,10 +66,10 @@ export const equipment: EquipmentCategory[] = [
         title: "Peripherals",
         items: [
             {
-                name: "Tecware Phantom RGB",
-                detail: "TKL · wired mechanical",
+                name: "Keychron K8",
+                detail: "TKL · wireless mechanical",
                 note: "Daily driver",
-                image: placeholder("Tecware+Phantom"),
+                image: "/equipment/kk8.png",
             },
         ],
     },
@@ -81,20 +78,9 @@ export const equipment: EquipmentCategory[] = [
         title: "Audio & Streaming",
         items: [
             {
-                name: "Sennheiser HD 6XX",
-                detail: "Open-back headphones",
-                image: placeholder("HD+6XX"),
-            },
-            {
-                name: "Shure SM7B",
-                detail: "Dynamic broadcast mic",
-                note: "Cloudlifter CL-1 in the chain",
-                image: placeholder("Shure+SM7B"),
-            },
-            {
-                name: "Focusrite Scarlett 2i2 (4th gen)",
-                detail: "USB audio interface",
-                image: placeholder("Scarlett+2i2"),
+                name: "Razer Seiren X",
+                detail: "USB condenser mic",
+                image: "/equipment/seirenx.png",
             },
         ],
     },
@@ -103,53 +89,27 @@ export const equipment: EquipmentCategory[] = [
         title: "Mobile & Portable",
         items: [
             {
-                name: 'MacBook Pro 14" (M3 Pro)',
-                detail: "18 GB · 1 TB",
+                name: "MacBook Pro (M1 Pro, 2021)",
+                detail: "8 GB · 256 GB",
                 note: "Travel + on-the-go dev",
-                image: placeholder("MBP+14"),
+                image: "/equipment/m1.png",
             },
             {
-                name: "iPhone 15 Pro",
+                name: "iPhone 14",
                 detail: "Personal · daily driver",
-                image: placeholder("iPhone+15+Pro"),
-            },
-            {
-                name: "iPad Air (M2)",
-                detail: "Notes and reading",
-                image: placeholder("iPad+Air"),
+                image: "/equipment/iphone14.png",
             },
         ],
     },
     {
-        id: "capture",
-        title: "Capture",
+        id: "printing",
+        title: "3D Printing",
         items: [
             {
-                name: "Sony ZV-E10",
-                detail: "APS-C mirrorless",
-                note: "Sigma 16mm f/1.4",
-                image: placeholder("Sony+ZV-E10"),
-            },
-            {
-                name: "DJI Mini 3 Pro",
-                detail: "Drone",
-                image: placeholder("DJI+Mini+3"),
-            },
-        ],
-    },
-    {
-        id: "desk",
-        title: "Desk",
-        items: [
-            {
-                name: "IKEA Bekant · Standing",
-                detail: "160 × 80 cm",
-                image: placeholder("Bekant"),
-            },
-            {
-                name: "Herman Miller Aeron",
-                detail: "Size B · remastered",
-                image: placeholder("Aeron"),
+                name: "Bambu Lab P1S",
+                detail: "Enclosed CoreXY",
+                note: "Paired with an AMS Pro for multi-color prints",
+                image: "/equipment/p1swams.png",
             },
         ],
     },
