@@ -17,7 +17,7 @@ export default function Home() {
     ).filter(Boolean);
 
     return (
-        <div className="py-32 px-4 sm:px-6 lg:px-8">
+        <div className="pt-14 pb-16 sm:py-32 px-4 sm:px-6 lg:px-8">
             <PolaroidTrail images={trailImages} />
             <div className="mx-auto max-w-6xl space-y-2">
                 <div data-trail-exclude>

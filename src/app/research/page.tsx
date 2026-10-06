@@ -40,7 +40,7 @@ export default function ResearchPage() {
     const papers = getAllResearch();
 
     return (
-        <main className="min-h-screen pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
+        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
             <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
                 <header className="mb-16 md:mb-24">
                     <div className="mb-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">

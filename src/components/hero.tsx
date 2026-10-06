@@ -10,7 +10,7 @@ import LocalClock from "./local-clock";
 
 export default function Hero() {
     return (
-        <div className="flex flex-col-reverse md:flex-row items-start justify-between gap-6 md:gap-0">
+        <div className="flex flex-col md:flex-row items-start justify-between gap-5 md:gap-0">
             <div className="flex flex-col">
                 <span className="mb-3 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
                     <span className="tabular-nums text-foreground/55">00</span>
@@ -28,7 +28,7 @@ export default function Hero() {
                     Aspiring Computer Engineer
                 </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:space-x-8 gap-4 md:gap-0 text-foreground/70 mt-6">
+                <div className="flex flex-wrap gap-x-6 gap-y-3 md:gap-x-8 text-foreground/70 mt-6">
                     <div className="flex items-center space-x-2">
                         <IconCandleFilled className="size-5 sm:size-6 text-foreground/45" />
                         <span className="text-base sm:text-lg font-medium tabular-nums">

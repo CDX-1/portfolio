@@ -1,17 +1,34 @@
 "use client";
 
-import { IconArrowUpRight } from "@tabler/icons-react";
+import {
+    IconArrowUpRight,
+    IconConfetti,
+    IconDeviceDesktop,
+    IconFlask2,
+    IconHome,
+} from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-    { name: "Home", href: "/", index: "01" },
-    { name: "Research", href: "/research", index: "02" },
-    { name: "Shenanigans", href: "/shenanigans", index: "03" },
-    { name: "Equipment", href: "/equipment", index: "04" },
+    { name: "Home", href: "/", index: "01", icon: IconHome },
+    { name: "Research", href: "/research", index: "02", icon: IconFlask2 },
+    {
+        name: "Shenanigans",
+        href: "/shenanigans",
+        index: "03",
+        icon: IconConfetti,
+    },
+    {
+        name: "Equipment",
+        href: "/equipment",
+        index: "04",
+        icon: IconDeviceDesktop,
+    },
 ] as const;
 
 function matchIndex(pathname: string) {
@@ -27,6 +44,75 @@ function matchIndex(pathname: string) {
 export default function Navbar() {
     const pathname = usePathname();
     const activeIdx = matchIndex(pathname);
+
+    return (
+        <>
+            <DesktopNav activeIdx={activeIdx} />
+            <MobileTabBar activeIdx={activeIdx} />
+        </>
+    );
+}
+
+// Phones get an app-style tab bar pinned to the bottom, within thumb reach.
+function MobileTabBar({ activeIdx }: { activeIdx: number }) {
+    return (
+        <nav
+            aria-label="Primary"
+            data-trail-exclude
+            className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] sm:hidden"
+        >
+            <ul
+                className={cn(
+                    "flex w-full max-w-sm items-stretch rounded-full border border-border/70 p-1",
+                    "bg-background/85 backdrop-blur-xl",
+                    "shadow-[0_12px_32px_-14px_rgba(0,0,0,0.25)]",
+                )}
+            >
+                {NAV_ITEMS.map((item, i) => {
+                    const active = i === activeIdx;
+                    const Icon = item.icon;
+                    return (
+                        <li key={item.name} className="flex-1">
+                            <Link
+                                href={item.href}
+                                aria-current={active ? "page" : undefined}
+                                className={cn(
+                                    "relative flex flex-col items-center gap-0.5 rounded-full py-1.5",
+                                    "text-[11px] font-medium tracking-tight transition-colors",
+                                    active
+                                        ? "text-foreground"
+                                        : "text-foreground/50 active:text-foreground/80",
+                                )}
+                            >
+                                {active && (
+                                    <motion.span
+                                        layoutId="tab-active-pill"
+                                        className="absolute inset-0 rounded-full bg-foreground/[0.06] dark:bg-foreground/10"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 380,
+                                            damping: 32,
+                                        }}
+                                    />
+                                )}
+                                <Icon
+                                    className="relative size-5"
+                                    stroke={active ? 2 : 1.6}
+                                    aria-hidden
+                                />
+                                <span className="relative">{item.name}</span>
+                            </Link>
+                        </li>
+                    );
+                })}
+            </ul>
+        </nav>
+    );
+}
+
+function DesktopNav({ activeIdx }: { activeIdx: number }) {
+    // touch devices can't hover to re-expand, so keep the bar open for them
+    const canHover = useMediaQuery("(hover: hover)");
     const [scrolled, setScrolled] = useState(false);
     const [hoveringNav, setHoveringNav] = useState(false);
 
@@ -37,7 +123,7 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    const expanded = !scrolled || hoveringNav;
+    const expanded = !scrolled || hoveringNav || !canHover;
 
     return (
         <motion.nav
@@ -49,7 +135,7 @@ export default function Navbar() {
                 damping: 26,
                 delay: 0.15,
             }}
-            className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 pb-5 sm:pt-6"
+            className="fixed inset-x-0 top-0 z-50 hidden justify-center px-4 pt-6 pb-5 sm:flex"
             aria-label="Primary"
             data-trail-exclude
             onMouseEnter={() => setHoveringNav(true)}

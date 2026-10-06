@@ -65,10 +65,10 @@ export default async function ProjectPage({ params }: Props) {
     const { content, meta } = getProjectBySlug(slug);
 
     return (
-        <main className="min-h-screen pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
+        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
             <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
                 {meta.images && meta.images.length > 0 && (
-                    <div className="flex flex-row justify-center items-center py-10 md:py-16 mb-8 overflow-visible">
+                    <div className="-mx-4 sm:mx-0 flex flex-row justify-center items-center py-10 md:py-16 mb-8 overflow-x-clip sm:overflow-visible">
                         {meta.images.map((image, i) => (
                             <div
                                 key={image}
@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: Props) {
                     </div>
                 )}
 
-                <div className="flex flex-col gap-4 text-center mb-16">
+                <div className="flex flex-col gap-4 text-center mb-12 md:mb-16">
                     <div className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
                         <span
                             className="h-px w-6 bg-foreground/15"
@@ -105,7 +105,7 @@ export default async function ProjectPage({ params }: Props) {
                             aria-hidden
                         />
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-semibold font-bespoke tracking-tight">
+                    <h1 className="text-[2.5rem] leading-[1.1] md:text-5xl font-semibold font-bespoke tracking-tight text-balance">
                         {meta.title}
                     </h1>
 

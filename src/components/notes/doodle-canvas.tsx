@@ -111,7 +111,7 @@ export default function DoodleCanvas({
 
     return (
         <div className={cn("flex flex-col gap-1.5", className)}>
-            <div className="relative overflow-hidden rounded-lg border border-dashed border-border/60 bg-white/60">
+            <div className="relative overflow-hidden rounded-xl border border-border bg-white/60">
                 <svg
                     ref={svgRef}
                     viewBox={`0 0 ${DOODLE_VIEWBOX.w} ${DOODLE_VIEWBOX.h}`}
@@ -152,17 +152,17 @@ export default function DoodleCanvas({
                 </svg>
 
                 {strokes.length === 0 && !drawingPoints && (
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center font-caveat text-lg text-foreground/30">
-                        doodle here ✎
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-foreground/35">
+                        Draw here
                     </div>
                 )}
             </div>
 
             <div className="flex items-center justify-between text-foreground/50">
-                <span className="font-caveat text-sm">
+                <span className="font-mono text-[10px] tabular-nums">
                     {full
-                        ? "that's plenty of ink"
-                        : "scribble something, if you like"}
+                        ? "Stroke limit reached"
+                        : `${strokes.length}/${MAX_DOODLE_STROKES} strokes`}
                 </span>
                 <div className="flex items-center gap-1">
                     <button
@@ -170,7 +170,7 @@ export default function DoodleCanvas({
                         onClick={undo}
                         disabled={strokeCount === 0}
                         aria-label="undo last stroke"
-                        className="rounded-full p-1.5 hover:bg-muted/40 disabled:opacity-30"
+                        className="rounded-full p-2 hover:bg-muted disabled:opacity-30"
                     >
                         <IconArrowBackUp className="size-4" />
                     </button>
@@ -179,7 +179,7 @@ export default function DoodleCanvas({
                         onClick={clear}
                         disabled={strokeCount === 0}
                         aria-label="clear doodle"
-                        className="rounded-full p-1.5 hover:bg-muted/40 disabled:opacity-30"
+                        className="rounded-full p-2 hover:bg-muted disabled:opacity-30"
                     >
                         <IconEraser className="size-4" />
                     </button>
