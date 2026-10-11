@@ -47,6 +47,7 @@
 
     --font-bespoke: var(--font-bespoke);
     --font-satoshi: var(--font-satoshi);
+    --font-caveat: var(--font-caveat);
 }
 
 :root {

@@ -59,7 +59,6 @@ type Particle = {
 export default function Footer() {
     return (
         <div
-            data-trail-exclude
             className="py-12 md:py-16 mx-auto max-w-6xl space-y-8 px-4 sm:px-6"
         >
             <div className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">

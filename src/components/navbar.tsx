@@ -58,7 +58,6 @@ function MobileTabBar({ activeIdx }: { activeIdx: number }) {
     return (
         <nav
             aria-label="Primary"
-            data-trail-exclude
             className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] sm:hidden"
         >
             <ul
@@ -137,7 +136,6 @@ function DesktopNav({ activeIdx }: { activeIdx: number }) {
             }}
             className="fixed inset-x-0 top-0 z-50 hidden justify-center px-4 pt-6 pb-5 sm:flex"
             aria-label="Primary"
-            data-trail-exclude
             onMouseEnter={() => setHoveringNav(true)}
             onMouseLeave={() => setHoveringNav(false)}
             onFocusCapture={() => setHoveringNav(true)}
