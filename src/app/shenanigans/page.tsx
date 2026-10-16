@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import BrandStar from "@/components/brand-star";
 import {
     rowToEntry,
     type ShenanigansEntry,
@@ -124,7 +123,7 @@ function EntryCard({
                 <span>{kindLabel[entry.media.kind]}</span>
             </div>
 
-            <h2 className="mt-2 font-bespoke text-2xl md:text-[28px] leading-snug tracking-tight text-foreground">
+            <h2 className="mt-2 font-heading text-2xl md:text-[28px] leading-snug tracking-tight text-foreground">
                 {entry.title}
             </h2>
 
@@ -140,7 +139,7 @@ function EntryCard({
 function EmptyState() {
     return (
         <div className="relative flex items-center justify-center rounded-2xl border border-dashed border-border/50 bg-muted/10 py-24 md:py-32 text-center">
-            <p className="font-bespoke text-2xl md:text-3xl tracking-tight text-foreground/70">
+            <p className="font-mono text-2xl md:text-3xl tracking-tight text-foreground/70">
                 Nothing here yet.
             </p>
         </div>
@@ -166,25 +165,14 @@ export default async function ShenanigansPage() {
     const ownerAuthed = isOwner(userData.user);
 
     return (
-        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
-            <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8 relative">
+            <div className="mx-auto max-w-6xl">
                 <header className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                     <div>
-                        <div className="mb-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                            <span className="tabular-nums text-foreground/55">
-                                03
-                            </span>
-                            <span
-                                className="h-px w-6 bg-foreground/15"
-                                aria-hidden
-                            />
-                            Shenanigans
-                            <BrandStar className="ml-0.5 size-2.5 text-[#ec7042]" />
-                        </div>
-                        <h1 className="text-4xl md:text-6xl font-medium tracking-tight font-bespoke">
+                        <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter font-heading">
                             Shenanigans
                         </h1>
-                        <p className="text-lg md:text-xl text-foreground/55 max-w-2xl mt-4 leading-relaxed">
+                        <p className="text-base md:text-lg text-foreground/55 max-w-2xl mt-4 leading-relaxed">
                             What I'm messing with lately.
                         </p>
                     </div>

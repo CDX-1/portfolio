@@ -1,29 +1,31 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Geist, Geist_Mono } from "next/font/google";
+import {
+    Bricolage_Grotesque,
+    Caveat,
+    Geist,
+    JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
-import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import PageTransition from "@/components/page-transition";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+// Display face for headings; its ink traps read like drafting lettering.
+const bricolage = Bricolage_Grotesque({
+    variable: "--font-bricolage",
     subsets: ["latin"],
+    axes: ["opsz", "wdth"],
 });
 
-const bespoke = localFont({
-    src: "./fonts/BespokeSerif-Variable.woff2",
-    variable: "--font-bespoke",
-});
-
-const satoshi = localFont({
-    src: "./fonts/Satoshi-Variable.woff2",
-    variable: "--font-satoshi",
+const jetbrainsMono = JetBrains_Mono({
+    variable: "--font-jetbrains-mono",
+    subsets: ["latin"],
 });
 
 const caveat = Caveat({
@@ -42,8 +44,8 @@ export const viewport: Viewport = {
     initialScale: 1,
     viewportFit: "cover",
     themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-        { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+        { media: "(prefers-color-scheme: light)", color: "#fbfaf7" },
+        { media: "(prefers-color-scheme: dark)", color: "#111317" },
     ],
 };
 
@@ -55,7 +57,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} ${geistMono.variable} ${bespoke.variable} ${satoshi.variable} ${caveat.variable} h-full antialiased`}
+            className={`${geistSans.variable} ${bricolage.variable} ${jetbrainsMono.variable} ${caveat.variable} h-full antialiased`}
             suppressHydrationWarning
         >
             <body className="bg-background min-h-full flex flex-col">
@@ -65,11 +67,14 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <main className="flex-1 font-satoshi pb-[calc(env(safe-area-inset-bottom)+5.5rem)] sm:pb-0">
+                    <main className="flex-1 font-sans pb-[calc(env(safe-area-inset-bottom)+5.5rem)] sm:pb-0">
                         <Navbar />
-                        <div className="min-h-screen">{children}</div>
+                        <PageTransition>
+                            <div className="min-h-screen">{children}</div>
+                        </PageTransition>
                         <Footer />
                     </main>
+                    <div aria-hidden className="paper-grain" />
                 </ThemeProvider>
             </body>
         </html>

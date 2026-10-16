@@ -2,6 +2,7 @@
 name: "Ralph"
 title: "Ralph — AI Guide Dog"
 date: "2026-01-11"
+starred: true
 order: 6
 author:
   - name: awsaf
@@ -24,7 +25,7 @@ tags:
 description: "Ralph is an autonomous robot guide dog for the visually impaired"
 location: DeltaHacks 12 @ McMaster University
 github: https://github.com/CDX-1/ralph
-type: laptop
+type: hardware
 main: /projects/assets/ralph/side_profile.png
 images:
   - /projects/assets/ralph/wiring.png
@@ -57,9 +58,9 @@ depth estimation models, and path planning algorithms, Ralph can identify safe p
 <TechStackGraph 
   items='[
     { "id": "ralph", "name": "Ralph", "icon": "python", "connections": [] },
-    { "id": "yolo", "name": "YOLOv8", "icon": "yolo", "connections": [{ "id": "ralph", "type": "dual" }] },
-    { "id": "midas", "name": "MiDaS", "icon": "github", "connections": [{ "id": "ralph", "type": "dual" }] },
-    { "id": "rpi", "name": "Raspberry Pi 5", "icon": "raspberry-pi", "connections": [{ "id": "ralph", "type": "in" }] }
+    { "id": "yolo", "name": "YOLOv8", "icon": "yolo", "connections": [{ "id": "ralph", "type": "dual", "note": "Detects objects in each of the five view columns" }] },
+    { "id": "midas", "name": "MiDaS", "icon": "github", "connections": [{ "id": "ralph", "type": "dual", "note": "Estimates how far away each object is" }] },
+    { "id": "rpi", "name": "Raspberry Pi 5", "icon": "raspberry-pi", "connections": [{ "id": "ralph", "type": "in", "note": "Runs the pipeline and drives the motors through an L298N" }] }
   ]'
 />
 

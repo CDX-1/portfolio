@@ -23,7 +23,7 @@ awards:
 description: "A head-and-face controlled device that enables fine-grained control of a computer"
 github: https://github.com/CDX-1/Hed
 main: /projects/assets/hed/demo.jpg
-type: laptop
+type: hardware
 images:
     - /projects/assets/hed/awards.jpg
     - /projects/assets/hed/team.jpg
@@ -51,11 +51,12 @@ An Arduino sketch on the ESP32 pushes 100 raw MPU samples per second over USB. O
 ## What are the components of Hed?
 
 Here are the main components of Hed:
-**1.** An ESP32 with an MPU-6050 IMU mounted on a cap — the wearable that captures head motion. <br />
-**2.** An Arduino firmware sketch that streams raw accelerometer and gyroscope samples at 100 Hz over USB serial. <br />
-**3.** A Python host that reads the serial stream, calibrates gyro bias, fuses samples into a stable orientation, and exposes it to consumers over SSE. <br />
-**4.** A cursor driver that maps yaw and pitch to cursor movement and roll to clicks, sending events straight to CoreGraphics so the trackpad keeps working alongside it. <br />
-**5.** A macOS voice island that types anything you say into the focused text field using Apple's on-device SpeechAnalyzer, plus a Chrome extension for browser-only voice control.
+
+1. An ESP32 with an MPU-6050 IMU mounted on a cap — the wearable that captures head motion.
+2. An Arduino firmware sketch that streams raw accelerometer and gyroscope samples at 100 Hz over USB serial.
+3. A Python host that reads the serial stream, calibrates gyro bias, fuses samples into a stable orientation, and exposes it to consumers over SSE.
+4. A cursor driver that maps yaw and pitch to cursor movement and roll to clicks, sending events straight to CoreGraphics so the trackpad keeps working alongside it.
+5. A macOS voice island that types anything you say into the focused text field using Apple's on-device SpeechAnalyzer, plus a Chrome extension for browser-only voice control.
 
 <TechStackGraph
   items='[
@@ -70,7 +71,7 @@ Here are the main components of Hed:
       "name": "Arduino Firmware",
       "icon": "arduino",
       "connections": [
-        { "id": "sensor", "type": "dual" }
+        { "id": "sensor", "type": "dual", "note": "Reads raw motion from the MPU-6050" }
       ]
     },
     {
@@ -78,23 +79,23 @@ Here are the main components of Hed:
       "name": "Python Host",
       "icon": "python",
       "connections": [
-        { "id": "firmware", "type": "in" }
+        { "id": "firmware", "type": "in", "note": "Motion data streamed over USB serial" }
       ]
     },
     {
       "id": "cursor",
       "name": "Cursor Driver",
-      "icon": "apple",
+      "icon": "apple/light.svg",
       "connections": [
-        { "id": "python", "type": "in" }
+        { "id": "python", "type": "in", "note": "Fused yaw and pitch move the cursor, roll clicks" }
       ]
     },
     {
       "id": "voice",
       "name": "Voice Island",
-      "icon": "apple",
+      "icon": "apple/light.svg",
       "connections": [
-        { "id": "python", "type": "in" }
+        { "id": "python", "type": "in", "note": "Speech typed into whatever text field has focus" }
       ]
     },
     {
@@ -108,9 +109,9 @@ Here are the main components of Hed:
 
 ## Challenges we faced
 
-**1.** Yaw drift was the hardest problem. The MPU-6050 has no magnetometer, so heading has no absolute reference — a startup calibration is a single snapshot and gyro bias moves as the board warms up. A creeping 0.8 deg/s of bias integrates into a 72-degree yaw error over three minutes with a plain Mahony filter. We swapped in x-io's Fusion filter with a zero-rate-update bias tracker that ramps its bias estimate onto whatever the gyro reads while at rest, cutting that same three-minute error to about 6 degrees. On top of that, the cursor's centre is not fixed — it leaks towards wherever the user is actually looking, so any leftover drift is absorbed instead of turning into a pointer that slides on its own. <br />
-**2.** Clicks and cursor movement fight each other. Head tilt bleeds into yaw and pitch, so a naive "roll to click" implementation would slide the pointer off its target the moment you tipped your head. We freeze the cursor whenever roll crosses the click threshold, add hysteresis (button goes down at 20 degrees, only comes back up under 10) to stop a wobbling head from machine-gunning clicks, and refuse to let the roll centre creep, so a habitual lean can't silently re-arm the click while the head is still over. <br />
-**3.** Getting macOS to hand over motion data and simulated input at all. The AirPods CoreMotion source and typing into other apps both need entitlements that a script in a terminal simply does not have — the OS kills the process outright on TCC violation. We built a minimal `HeadTrack.app` bundle whose executable is a copy of the real Python interpreter and launch it through LaunchServices, so the app is the one asking for permission; output comes back through a FIFO.
+1. Yaw drift was the hardest problem. The MPU-6050 has no magnetometer, so heading has no absolute reference — a startup calibration is a single snapshot and gyro bias moves as the board warms up. A creeping 0.8 deg/s of bias integrates into a 72-degree yaw error over three minutes with a plain Mahony filter. We swapped in x-io's Fusion filter with a zero-rate-update bias tracker that ramps its bias estimate onto whatever the gyro reads while at rest, cutting that same three-minute error to about 6 degrees. On top of that, the cursor's centre is not fixed — it leaks towards wherever the user is actually looking, so any leftover drift is absorbed instead of turning into a pointer that slides on its own.
+2. Clicks and cursor movement fight each other. Head tilt bleeds into yaw and pitch, so a naive "roll to click" implementation would slide the pointer off its target the moment you tipped your head. We freeze the cursor whenever roll crosses the click threshold, add hysteresis (button goes down at 20 degrees, only comes back up under 10) to stop a wobbling head from machine-gunning clicks, and refuse to let the roll centre creep, so a habitual lean can't silently re-arm the click while the head is still over.
+3. Getting macOS to hand over motion data and simulated input at all. The AirPods CoreMotion source and typing into other apps both need entitlements that a script in a terminal simply does not have — the OS kills the process outright on TCC violation. We built a minimal `HeadTrack.app` bundle whose executable is a copy of the real Python interpreter and launch it through LaunchServices, so the app is the one asking for permission; output comes back through a FIFO.
 
 <Image
   src="/projects/assets/hed/hacking.jpg"

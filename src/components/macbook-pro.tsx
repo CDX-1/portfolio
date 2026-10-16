@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import { type SVGProps, useId } from "react";
 
 export interface MacbookProProps extends SVGProps<SVGSVGElement> {
     width?: number;
@@ -14,6 +14,12 @@ export function MacbookPro({
     showShadow = false,
     ...props
 }: MacbookProProps) {
+    // Unique per instance so several laptops can share a page.
+    const uid = useId();
+    const clipId = `${uid}-screen`;
+    const dropId = `${uid}-drop`;
+    const ambientId = `${uid}-ambient`;
+
     return (
         <svg
             aria-hidden="true"
@@ -25,7 +31,7 @@ export function MacbookPro({
             {...props}
         >
             <defs>
-                <clipPath id="roundedCorners">
+                <clipPath id={clipId}>
                     <rect
                         fill="#ffffff"
                         x="74.52"
@@ -38,7 +44,7 @@ export function MacbookPro({
                 </clipPath>
 
                 <filter
-                    id="macbook-drop-shadow"
+                    id={dropId}
                     x="-20%"
                     y="-20%"
                     width="140%"
@@ -52,7 +58,7 @@ export function MacbookPro({
                 </filter>
 
                 <filter
-                    id="macbook-ambient-shadow"
+                    id={ambientId}
                     x="-10%"
                     y="-20%"
                     width="120%"
@@ -70,12 +76,12 @@ export function MacbookPro({
                 <g opacity="0.9">
                     <path
                         fill="#000"
-                        filter="url(#macbook-drop-shadow)"
+                        filter={`url(#${dropId})`}
                         d="M19.04,362.77h611.92v10.39c0,5.95-4.83,10.79-10.79,10.79H29.83c-5.95,0-10.79-4.83-10.79-10.79v-10.39h0Z"
                     />
                     <path
                         fill="#000"
-                        filter="url(#macbook-ambient-shadow)"
+                        filter={`url(#${ambientId})`}
                         d="M24.04,364.77h601.92v6.39c0,5.95-4.83,10.79-10.79,10.79H34.83c-5.95,0-10.79-4.83-10.79-10.79v-6.39h0Z"
                     />
                 </g>
@@ -114,7 +120,7 @@ export function MacbookPro({
                     width="501.22"
                     height="323.85"
                     preserveAspectRatio="xMidYMid slice"
-                    clipPath="url(#roundedCorners)"
+                    clipPath={`url(#${clipId})`}
                 />
             )}
 

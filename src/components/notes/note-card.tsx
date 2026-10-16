@@ -1,6 +1,7 @@
 import { NOTE_PALETTE, type Note } from "@/content/notes";
 import { cn } from "@/lib/utils";
 import DoodleRender from "./doodle-render";
+import { letterTilt, Postmark, ruledLines, Stamp } from "./letter-paper";
 
 export function formatNoteDate(iso: string, style: "short" | "long") {
     const d = new Date(iso);
@@ -25,55 +26,73 @@ export default function NoteCard({
     badge,
     clamp = false,
     placeholder,
+    tilt = true,
     className,
 }: {
     note: CardNote;
     badge?: string;
     clamp?: boolean;
     placeholder?: { message?: boolean; sender?: boolean };
+    /** Pin it slightly crooked, like a letter on a corkboard. */
+    tilt?: boolean;
     className?: string;
 }) {
     const palette = NOTE_PALETTE[note.color];
+    const rotate = tilt ? letterTilt(`${note.sender}${note.createdAt}`) : 0;
 
     return (
         <div
             className={cn(
-                "relative flex flex-col rounded-2xl p-5 text-left",
-                "ring-1 ring-inset ring-black/[0.05]",
-                "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-16px_rgba(0,0,0,0.18)]",
+                "relative flex flex-col overflow-hidden rounded-[3px] px-5 pt-4 pb-5 text-left",
+                "shadow-[0_1px_1px_rgba(0,0,0,0.06),0_12px_28px_-16px_rgba(0,0,0,0.3)]",
                 palette.paper,
                 palette.ink,
                 className,
             )}
+            style={{ rotate: `${rotate}deg` }}
         >
-            <p
-                className={cn(
-                    "whitespace-pre-wrap break-words font-bespoke text-[17px] leading-[1.55]",
-                    clamp && "line-clamp-[8]",
-                    placeholder?.message && "opacity-40",
-                )}
-            >
-                {note.message}
-            </p>
-
-            {note.doodle && note.doodle.length > 0 && (
-                <div className="mt-3 w-full max-w-[170px] opacity-85">
-                    <DoodleRender paths={note.doodle} ink={palette.ink} />
+            <div className="relative flex items-start justify-between gap-3">
+                <span className="pt-2 font-caveat text-xl leading-none opacity-70">
+                    To Awsaf,
+                </span>
+                <div className="flex items-center">
+                    <Postmark
+                        label={badge ?? formatNoteDate(note.createdAt, "short")}
+                        className="-mr-1.5 mt-2"
+                    />
+                    <Stamp color={note.color} />
                 </div>
-            )}
+            </div>
 
-            <div className="mt-5 flex items-center justify-between gap-3 border-t border-current/10 pt-3">
-                <span
+            {/* the whole writing area is ruled, so doodles sit on the lines too */}
+            <div
+                className="relative mt-2 flex flex-1 flex-col font-caveat text-[22px]"
+                style={ruledLines(30)}
+            >
+                <p
                     className={cn(
-                        "min-w-0 truncate font-bespoke text-[15px] italic",
+                        "whitespace-pre-wrap break-words",
+                        clamp && "line-clamp-[7]",
+                        placeholder?.message && "opacity-40",
+                    )}
+                >
+                    {note.message}
+                </p>
+
+                {note.doodle && note.doodle.length > 0 && (
+                    <div className="mt-2 w-full max-w-[170px] opacity-85">
+                        <DoodleRender paths={note.doodle} ink={palette.ink} />
+                    </div>
+                )}
+
+                <p
+                    className={cn(
+                        "mt-auto self-end truncate pt-[30px] text-2xl",
                         placeholder?.sender && "opacity-40",
                     )}
                 >
-                    {note.sender}
-                </span>
-                <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] opacity-55">
-                    {badge ?? formatNoteDate(note.createdAt, "short")}
-                </span>
+                    — {note.sender}
+                </p>
             </div>
         </div>
     );

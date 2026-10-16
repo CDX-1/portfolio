@@ -17,22 +17,22 @@ type Floater = {
 
 const FLOATER_CONTENT = [
     {
-        color: "rose",
+        color: "clay",
         text: "hi!",
         size: "sm",
     },
     {
-        color: "sky",
+        color: "tangerine",
         text: "hello",
         size: "sm",
     },
     {
-        color: "sage",
+        color: "apricot",
         text: "thanks",
         size: "sm",
     },
     {
-        color: "butter",
+        color: "amber",
         text: "hey",
         size: "sm",
     },

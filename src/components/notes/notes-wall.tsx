@@ -7,9 +7,8 @@ import {
     NOTES_SECTION_ID,
     OPEN_COMPOSE_EVENT,
 } from "@/components/leave-note-button";
-import type { Note } from "@/content/notes";
+import { type Note, normalizeNoteColor } from "@/content/notes";
 import { cn } from "@/lib/utils";
-import BrandStar from "../brand-star";
 import ComposeForm from "./compose-form";
 import NoteCard from "./note-card";
 import NoteLetter from "./note-letter";
@@ -25,7 +24,10 @@ function readLocal(): Note[] {
         if (!raw) return [];
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) return [];
-        return parsed as Note[];
+        return (parsed as Note[]).map((n) => ({
+            ...n,
+            color: normalizeNoteColor(n.color),
+        }));
     } catch {
         return [];
     }
@@ -113,25 +115,9 @@ export default function NotesWall({
             id={NOTES_SECTION_ID}
             className="mt-20 scroll-mt-8 sm:mt-28 sm:scroll-mt-24"
         >
-            <div className="mb-6 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                    <span className="tabular-nums text-foreground/55">03</span>
-                    <span className="h-px w-6 bg-foreground/15" aria-hidden />
-                    Notes
-                    <BrandStar className="ml-0.5 size-2.5 text-[#ec7042]" />
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                    <span className="tabular-nums text-foreground/55">
-                        {String(notes.length).padStart(2, "0")}
-                    </span>
-                    <span className="px-0.5 text-foreground/25">/</span>
-                    <span>Letters</span>
-                </div>
-            </div>
-
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <h2 className="font-bespoke text-3xl font-medium tracking-tight sm:text-4xl">
+                    <h2 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
                         Letters
                     </h2>
                     <p className="mt-2 max-w-md text-base text-foreground/55">

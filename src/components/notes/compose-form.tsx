@@ -3,12 +3,14 @@
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import {
+    DEFAULT_NOTE_COLOR,
     MAX_MESSAGE_LEN,
     MAX_NAME_LEN,
     NOTE_COLORS,
     NOTE_PALETTE,
     type Note,
     type NoteColor,
+    normalizeNoteColor,
 } from "@/content/notes";
 import { cn } from "@/lib/utils";
 import DoodleCanvas from "./doodle-canvas";
@@ -39,14 +41,14 @@ export default function ComposeForm({
     const [error, setError] = useState<string | null>(null);
     const [sender, setSender] = useState("");
     const [message, setMessage] = useState("");
-    const [color, setColor] = useState<NoteColor>("cream");
+    const [color, setColor] = useState<NoteColor>(DEFAULT_NOTE_COLOR);
     const [doodle, setDoodle] = useState<string[]>([]);
     const [showDoodle, setShowDoodle] = useState(false);
 
     function reset() {
         setSender("");
         setMessage("");
-        setColor("cream");
+        setColor(DEFAULT_NOTE_COLOR);
         setDoodle([]);
         setShowDoodle(false);
         setError(null);
@@ -110,7 +112,7 @@ export default function ComposeForm({
             id: row.id,
             sender: row.sender_name,
             message: row.message,
-            color: row.color,
+            color: normalizeNoteColor(row.color),
             status: row.status,
             createdAt: row.created_at,
             approvedAt: row.approved_at ?? undefined,
@@ -134,7 +136,7 @@ export default function ComposeForm({
             <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col">
                 <div className="flex items-start justify-between gap-4 border-b border-border/50 px-5 pt-7 pb-4 sm:px-7 sm:pt-6">
                     <div>
-                        <h2 className="font-bespoke text-2xl tracking-tight text-foreground">
+                        <h2 className="font-heading text-2xl tracking-tight text-foreground">
                             Write a letter
                         </h2>
                         <p className="mt-1 text-sm text-foreground/55">
@@ -244,6 +246,7 @@ export default function ComposeForm({
                                 message: !message,
                                 sender: !sender.trim(),
                             }}
+                            tilt={false}
                         />
                     </div>
                 </div>

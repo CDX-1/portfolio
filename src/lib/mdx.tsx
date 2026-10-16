@@ -13,7 +13,7 @@ export type Author = {
     linkedin?: string;
 };
 
-export type ProjectType = "laptop" | "phone";
+export type ProjectType = "laptop" | "phone" | "hardware";
 
 export type ProjectMeta = {
     name: string;
@@ -30,6 +30,8 @@ export type ProjectMeta = {
     images?: string[];
     devpost?: string;
     awards?: string[];
+    /** Featured on the home page. */
+    starred?: boolean;
 };
 
 export type Project = {
@@ -119,49 +121,46 @@ type ComponentProps<T extends keyof JSX.IntrinsicElements> =
 export const MDXComponents = {
     h1: (props: ComponentProps<"h1">) => (
         <h1
-            className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground mt-16 mb-6 antialiased"
+            className="font-heading text-3xl md:text-4xl font-semibold tracking-tighter text-foreground mt-16 mb-5 first:mt-0 antialiased"
             {...props}
         />
     ),
     h2: (props: ComponentProps<"h2">) => (
         <h2
-            className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mt-14 mb-4 pb-2 border-b border-border/40 antialiased"
+            className="font-heading text-2xl md:text-[1.75rem] font-semibold tracking-tighter text-foreground mt-14 mb-4 antialiased"
             {...props}
         />
     ),
     h3: (props: ComponentProps<"h3">) => (
         <h3
-            className="text-xl md:text-2xl font-semibold tracking-tight text-foreground mt-10 mb-3 antialiased"
+            className="font-heading text-lg md:text-xl font-semibold tracking-tight text-foreground mt-10 mb-3 antialiased"
             {...props}
         />
     ),
     p: (props: ComponentProps<"p">) => (
         <p
-            className="text-[17px] leading-relaxed my-5 text-muted-foreground/90 font-normal antialiased selection:bg-primary/10"
+            className="text-[17px] leading-[1.75] my-5 text-foreground/70 font-normal antialiased"
             {...props}
         />
     ),
     ul: (props: ComponentProps<"ul">) => (
         <ul
-            className="list-disc pl-5 my-5 space-y-2.5 text-[17px] text-muted-foreground/90"
+            className="list-disc pl-5 my-5 space-y-2.5 text-[17px] leading-[1.7] text-foreground/70"
             {...props}
         />
     ),
     ol: (props: ComponentProps<"ol">) => (
         <ol
-            className="list-decimal pl-5 my-5 space-y-2.5 text-[17px] text-muted-foreground/90"
+            className="list-decimal pl-5 my-5 space-y-2.5 text-[17px] leading-[1.7] text-foreground/70"
             {...props}
         />
     ),
     li: (props: ComponentProps<"li">) => (
-        <li
-            className="leading-relaxed pl-1 marker:text-muted-foreground/40"
-            {...props}
-        />
+        <li className="pl-1 marker:text-primary/70" {...props} />
     ),
     a: (props: ComponentProps<"a">) => (
         <a
-            className="font-medium text-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-foreground transition-colors duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="font-medium text-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-primary transition-colors duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             target="_blank"
             rel="noopener noreferrer"
             {...props}
@@ -169,24 +168,24 @@ export const MDXComponents = {
     ),
     code: (props: ComponentProps<"code">) => (
         <code
-            className="px-1.5 py-0.5 rounded-md bg-muted/70 border border-border/30 font-mono text-[14px] text-foreground tracking-tight"
+            className="px-1.5 py-0.5 rounded-sm bg-foreground/[0.05] border border-border font-mono text-[0.85em] text-foreground"
             {...props}
         />
     ),
     pre: (props: ComponentProps<"pre">) => (
         <pre
-            className="p-5 md:p-6 rounded-2xl bg-muted/40 border border-border/50 overflow-x-auto text-[14px] font-mono leading-relaxed my-8 backdrop-blur-[2px]"
+            className="p-5 md:p-6 rounded-md bg-card border border-border overflow-x-auto text-[14px] font-mono leading-relaxed my-8"
             {...props}
         />
     ),
     blockquote: (props: ComponentProps<"blockquote">) => (
         <blockquote
-            className="border-l-3 border-primary/40 pl-6 my-8 text-[18px] font-normal italic text-muted-foreground/80 bg-muted/20 py-1 pr-4 rounded-r-xl"
+            className="border-l-2 border-primary pl-5 my-8 text-[18px] leading-relaxed text-foreground/75"
             {...props}
         />
     ),
     YouTube: ({ id }: { id: string }) => (
-        <div className="my-10 aspect-video w-full overflow-hidden rounded-2xl border border-border/40 shadow-sm bg-muted/20">
+        <div className="my-10 aspect-video w-full overflow-hidden rounded-md border border-border bg-muted/20">
             <iframe
                 className="w-full h-full"
                 src={`https://www.youtube.com/embed/${id}`}

@@ -33,18 +33,18 @@ export function ImageViewer({ src, alt }: ImageViewerProps) {
                 type="button"
                 onClick={() => setOpen(true)}
                 aria-label={`Enlarge image: ${alt || "project image"}`}
-                className="group relative my-8 w-full overflow-hidden rounded-xl border border-border/40 bg-muted/10 cursor-zoom-in block"
+                className="group relative mt-8 block w-full cursor-zoom-in overflow-hidden rounded-md border border-border bg-muted/30"
             >
-                <div className="relative w-full aspect-video md:aspect-21/9 max-h-[500px]">
-                    <Image
-                        alt={alt || "Project Image"}
-                        src={src}
-                        unoptimized={src?.endsWith(".gif")}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                        className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
-                    />
-                </div>
+                <Image
+                    alt={alt || "Project Image"}
+                    src={src}
+                    unoptimized={src?.endsWith(".gif")}
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    style={{ width: "100%", height: "auto" }}
+                    className="block h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                />
                 <span
                     className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-background/70 backdrop-blur-md border border-border/40 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     aria-hidden
@@ -55,7 +55,10 @@ export function ImageViewer({ src, alt }: ImageViewerProps) {
             </button>
 
             {alt && (
-                <p className="text-muted-foreground/80 text-center">{alt}</p>
+                <p className="mt-2.5 mb-8 font-mono text-xs leading-relaxed text-foreground/50">
+                    <span className="text-primary">↳ </span>
+                    {alt}
+                </p>
             )}
 
             {open && (

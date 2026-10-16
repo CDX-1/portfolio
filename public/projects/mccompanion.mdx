@@ -67,11 +67,11 @@ as Gemini Flash, while later additions are handled using more advanced models su
   items='[
     { "id": "app", "name": "Application", "icon": "nodedotjs", "connections": [] },
     { "id": "mc", "name": "Minecraft Client", "icon": "java", "connections": [] },
-    { "id": "mineflayer", "name": "Mineflayer", "icon": "npm", "connections": [{ "id": "app", "type": "in" }, { "id": "mc", "type": "out" }] },
-    { "id": "gemini", "name": "Gemini", "icon": "gemini", "connections": [{ "id": "app", "type": "dual" }] },
-    { "id": "chatgpt", "name": "ChatGPT", "icon": "openai-chatgpt", "connections": [{ "id": "app", "type": "dual" }] },
-    { "id": "elevenlabs", "name": "ElevenLabs", "icon": "elevenlabs", "connections": [{ "id": "app", "type": "dual" }] },
-    { "id": "esp32", "name": "ESP32", "icon": "arduino", "connections": [{ "id": "app", "type": "in" }] }
+    { "id": "mineflayer", "name": "Mineflayer", "icon": "npm", "connections": [{ "id": "app", "type": "in", "note": "Chained skill calls become bot actions" }, { "id": "mc", "type": "out", "note": "Drives a real Minecraft client from code" }] },
+    { "id": "gemini", "name": "Gemini", "icon": "gemini", "connections": [{ "id": "app", "type": "dual", "note": "Sketches builds with Flash, refines them with Pro" }] },
+    { "id": "chatgpt", "name": "ChatGPT", "icon": "openai-chatgpt", "connections": [{ "id": "app", "type": "dual", "note": "Talks to the player and picks which skills to run" }] },
+    { "id": "elevenlabs", "name": "ElevenLabs", "icon": "elevenlabs", "connections": [{ "id": "app", "type": "dual", "note": "Turns replies into the companion voice" }] },
+    { "id": "esp32", "name": "ESP32", "icon": "arduino", "connections": [{ "id": "app", "type": "in", "note": "Shows the companion mood on LEDs" }] }
   ]'
 />
 

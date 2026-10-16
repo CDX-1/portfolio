@@ -15,7 +15,7 @@ export function AppDownload({
         <section className="w-full max-w-2xl mx-auto px-4 py-12">
             <div className="text-center">
                 <div className="space-y-2 mb-8">
-                    <h2 className="text-2xl md:text-3xl font-semibold font-bespoke tracking-tight text-foreground">
+                    <h2 className="text-2xl md:text-3xl font-semibold font-heading tracking-tight text-foreground">
                         Try it out yourself!
                     </h2>
                     <p className="text-sm text-muted-foreground">

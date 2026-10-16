@@ -2,6 +2,7 @@
 name: "BetterTeachAssist"
 title: "BetterTA — Better TeachAssist"
 date: "2025-08-30"
+starred: true
 order: 1
 author:
   - name: awsaf
@@ -58,10 +59,10 @@ it in our app so that students can easily refer to our app as a central location
 <TechStackGraph 
   items='[
     { "id": "rn", "name": "React Native", "icon": "reactnative", "connections": [] },
-    { "id": "expo", "name": "Expo", "icon": "expo", "connections": [{"id": "rn", "type": "dual"}] },
-    { "id": "supabase", "name": "Supabase", "icon": "supabase", "connections": [{"id": "expo", "type": "out"}] },
-    { "id": "go", "name": "Custom Services", "icon": "go/light.svg", "connections": [{"id": "expo", "type": "out"}] },
-    { "id": "sources", "name": "TeachAssist + YRAA", "icon": "chrome", "connections": [{"id": "go", "type": "out"}] }
+    { "id": "expo", "name": "Expo", "icon": "expo", "connections": [{"id": "rn", "type": "dual", "note": "UI written in React Native, built and shipped with Expo"}] },
+    { "id": "supabase", "name": "Supabase", "icon": "supabase", "connections": [{"id": "expo", "type": "out", "note": "Accounts, class chatrooms and shared grade stats"}] },
+    { "id": "go", "name": "Custom Services", "icon": "go/light.svg", "connections": [{"id": "expo", "type": "out", "note": "Grades and YRAA standings as structured data"}] },
+    { "id": "sources", "name": "TeachAssist + YRAA", "icon": "chrome", "connections": [{"id": "go", "type": "out", "note": "Raw HTML scraped and parsed, YRAA every 15 minutes"}] }
   ]'
 />
 

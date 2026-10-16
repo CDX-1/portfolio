@@ -51,13 +51,14 @@ export default function DoodleCanvas({
 
     const toLocal = useCallback((clientX: number, clientY: number): Point => {
         const svg = svgRef.current;
-        if (!svg) return { x: 0, y: 0 };
-        const rect = svg.getBoundingClientRect();
-        const scaleX = DOODLE_VIEWBOX.w / rect.width;
-        const scaleY = DOODLE_VIEWBOX.h / rect.height;
+        const ctm = svg?.getScreenCTM();
+        if (!svg || !ctm) return { x: 0, y: 0 };
+        // Map through the SVG's own screen transform so letterboxing from
+        // preserveAspectRatio (and any CSS transforms) is accounted for.
+        const p = new DOMPoint(clientX, clientY).matrixTransform(ctm.inverse());
         return {
-            x: (clientX - rect.left) * scaleX,
-            y: (clientY - rect.top) * scaleY,
+            x: Math.min(Math.max(p.x, 0), DOODLE_VIEWBOX.w),
+            y: Math.min(Math.max(p.y, 0), DOODLE_VIEWBOX.h),
         };
     }, []);
 
@@ -115,12 +116,13 @@ export default function DoodleCanvas({
                 <svg
                     ref={svgRef}
                     viewBox={`0 0 ${DOODLE_VIEWBOX.w} ${DOODLE_VIEWBOX.h}`}
-                    className="block h-40 w-full touch-none cursor-crosshair"
+                    className="block w-full touch-none cursor-crosshair"
                     onPointerDown={onPointerDown}
                     onPointerMove={onPointerMove}
                     role="img"
                     aria-label="Doodle canvas"
                     style={{
+                        aspectRatio: `${DOODLE_VIEWBOX.w} / ${DOODLE_VIEWBOX.h}`,
                         backgroundImage:
                             "repeating-linear-gradient(0deg, transparent 0px, transparent 24px, rgba(0,0,0,0.05) 24px, rgba(0,0,0,0.05) 25px)",
                     }}

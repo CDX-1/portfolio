@@ -5,8 +5,7 @@ import {
     MAX_DOODLE_STROKES,
     MAX_MESSAGE_LEN,
     MAX_NAME_LEN,
-    NOTE_COLORS,
-    type NoteColor,
+    normalizeNoteColor,
 } from "@/content/notes";
 import { getOwnerUser } from "@/lib/supabase/owner";
 import { createClient as createServerClient } from "@/lib/supabase/server";
@@ -118,13 +117,11 @@ export async function POST(req: Request) {
     const senderRaw =
         typeof body.sender_name === "string" ? body.sender_name : "";
     const messageRaw = typeof body.message === "string" ? body.message : "";
-    const colorRaw = typeof body.color === "string" ? body.color : "cream";
+    const colorRaw = typeof body.color === "string" ? body.color : null;
 
     const sender_name = senderRaw.trim();
     const message = messageRaw.trim();
-    const color = NOTE_COLORS.includes(colorRaw as NoteColor)
-        ? (colorRaw as NoteColor)
-        : "cream";
+    const color = normalizeNoteColor(colorRaw);
     const doodle = sanitizeDoodle(body.doodle);
 
     if (!sender_name) return bad("Add your name.");

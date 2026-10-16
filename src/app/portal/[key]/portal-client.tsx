@@ -20,7 +20,7 @@ export default function PortalClient() {
                 className="w-full max-w-sm flex flex-col gap-5"
                 autoComplete="off"
             >
-                <h1 className="font-bespoke text-2xl tracking-tight text-foreground">
+                <h1 className="font-heading text-2xl tracking-tight text-foreground">
                     Sign in
                 </h1>
 

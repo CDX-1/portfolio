@@ -5,7 +5,6 @@ import {
 } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import BrandStar from "@/components/brand-star";
 import { getAllResearch } from "@/lib/mdx";
 
 export const metadata: Metadata = {
@@ -40,45 +39,30 @@ export default function ResearchPage() {
     const papers = getAllResearch();
 
     return (
-        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
-            <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8 relative">
+            <article className="mx-auto max-w-6xl [&>*]:max-w-4xl">
                 <header className="mb-16 md:mb-24">
-                    <div className="mb-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                        <span className="tabular-nums text-foreground/55">
-                            02
-                        </span>
-                        <span
-                            className="h-px w-6 bg-foreground/15"
-                            aria-hidden
-                        />
-                        Research
-                        <BrandStar className="ml-0.5 size-2.5 text-[#ec7042]" />
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-medium tracking-tight font-bespoke">
+                    <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter font-heading">
                         Papers & Writing
                     </h1>
-                    <p className="text-lg md:text-xl text-foreground/55 max-w-2xl mt-4 leading-relaxed">
+                    <p className="text-base md:text-lg text-foreground/55 max-w-2xl mt-4 leading-relaxed">
                         A collection of research papers, preprints, and
                         technical writing.
                     </p>
                 </header>
 
                 {papers.length === 0 ? (
-                    <div className="rounded-2xl border border-dashed border-border/50 bg-foreground/[0.02] px-8 py-16 text-center">
-                        <div className="mx-auto max-w-md space-y-3">
-                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                                Nothing here yet
-                            </div>
-                            <h2 className="font-bespoke text-2xl md:text-3xl tracking-tight">
-                                Papers are on the way.
-                            </h2>
-                            <p className="text-foreground/55 text-base leading-relaxed">
-                                No published work to share just yet. Check back
-                                soon, or reach out if you&rsquo;d like to
-                                collaborate.
-                            </p>
-                        </div>
-                    </div>
+                    <p className="border-t border-border/40 pt-8 text-foreground/55 text-base md:text-lg leading-relaxed">
+                        Nothing published yet. If you want to work on something
+                        together,{" "}
+                        <a
+                            href="mailto:contact@awsaf.dev"
+                            className="text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground transition-colors"
+                        >
+                            email me
+                        </a>
+                        .
+                    </p>
                 ) : (
                     <ul className="flex flex-col divide-y divide-border/40">
                         {papers.map((paper, i) => (
@@ -115,18 +99,18 @@ export default function ResearchPage() {
                                                     ] ?? paper.meta.status}
                                                 </span>
                                                 {paper.meta.venue && (
-                                                    <span className="text-xs sm:text-sm text-foreground/55 font-satoshi">
+                                                    <span className="text-xs sm:text-sm text-foreground/55 font-sans">
                                                         {paper.meta.venue}
                                                     </span>
                                                 )}
-                                                <span className="text-xs sm:text-sm text-foreground/40 font-satoshi tabular-nums">
+                                                <span className="text-xs sm:text-sm text-foreground/40 font-sans tabular-nums">
                                                     {formatDate(
                                                         paper.meta.date,
                                                     )}
                                                 </span>
                                             </div>
 
-                                            <h2 className="font-bespoke text-2xl md:text-3xl tracking-tight leading-snug group-hover:text-foreground transition-colors duration-200">
+                                            <h2 className="font-heading text-2xl md:text-3xl tracking-tight leading-snug group-hover:text-foreground transition-colors duration-200">
                                                 {paper.meta.title}
                                             </h2>
 

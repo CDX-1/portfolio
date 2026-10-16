@@ -1,27 +1,22 @@
+import { IconArrowRight } from "@tabler/icons-react";
+import Link from "next/link";
 import { getAllProjects } from "@/lib/mdx";
-import BrandStar from "./brand-star";
+import BlueprintFill from "./blueprint-fill";
 import ProjectClickable from "./project-clickable";
 
-const projects = getAllProjects();
+const allProjects = getAllProjects();
 
-export default function ProjectGrid() {
+export default function ProjectGrid({
+    starredOnly = false,
+}: {
+    starredOnly?: boolean;
+}) {
+    const projects = starredOnly
+        ? allProjects.filter((p) => p.meta.starred)
+        : allProjects;
+
     return (
         <section>
-            <div className="mb-8 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                    <span className="tabular-nums text-foreground/55">02</span>
-                    <span className="h-px w-6 bg-foreground/15" aria-hidden />
-                    Selected Work
-                    <BrandStar className="ml-0.5 size-2.5 text-[#ec7042]" />
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                    <span className="tabular-nums text-foreground/55">
-                        {String(projects.length).padStart(2, "0")}
-                    </span>
-                    <span className="text-foreground/25 px-0.5">/</span>
-                    <span>Projects</span>
-                </div>
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16">
                 {projects.map((project, i) => (
                     <ProjectClickable
@@ -38,6 +33,24 @@ export default function ProjectGrid() {
                     />
                 ))}
             </div>
+
+            {starredOnly && allProjects.length > projects.length && (
+                <div className="mt-12 sm:mt-16 flex justify-center">
+                    <Link
+                        href="/projects"
+                        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-md border border-foreground/10 bg-background py-2 pl-3.5 pr-3 text-sm font-medium tracking-tight text-foreground/70 transition-colors duration-300 hover:border-primary hover:text-white focus-visible:border-primary focus-visible:text-white focus-visible:outline-none"
+                    >
+                        <BlueprintFill />
+                        <span className="relative">
+                            View all {allProjects.length} projects
+                        </span>
+                        <IconArrowRight
+                            className="relative size-4 stroke-[2] text-foreground/50 transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:text-white group-focus-visible:text-white"
+                            aria-hidden
+                        />
+                    </Link>
+                </div>
+            )}
         </section>
     );
 }

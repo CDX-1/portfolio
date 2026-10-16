@@ -1,93 +1,103 @@
 "use client";
 
 import { motion } from "motion/react";
-import Image from "next/image";
 import { useState } from "react";
 import { IPhone } from "./iphone";
+import { fanMainSlot, fanSlot, LIFT } from "./project-fan";
 
 export function ProjectIPhone({
     className,
     main,
     images = [],
+    expanded = false,
 }: {
     className?: string;
     main: string;
     images?: string[];
+    /** Keep the fan open; hovering then lifts a single phone instead. */
+    expanded?: boolean;
 }) {
     const [isHovered, setIsHovered] = useState(false);
+    const [focused, setFocused] = useState<number | null>(null);
+    const spread = expanded || isHovered;
+
+    const focus = (i: number) => expanded && setFocused(i);
+    const blur = (i: number) => setFocused((f) => (f === i ? null : f));
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            whileHover={{
-                scale: 1.03,
-                y: -10,
-            }}
-            whileTap={{
-                scale: 0.97,
-                y: -2,
-            }}
-            transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 22,
-            }}
+            whileHover={expanded ? undefined : { scale: 1.03, y: -10 }}
+            whileTap={expanded ? undefined : { scale: 0.97, y: -2 }}
+            transition={{ type: "spring", stiffness: 260, damping: 22 }}
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
             className={`relative w-full h-full flex items-center justify-center ${className || ""}`}
         >
             {images.map((src, index) => {
-                const isLeft = index % 2 === 0;
-                const direction = isLeft ? -1 : 1;
-                const step = Math.floor(index / 2);
-
-                const targetX = `${direction * (110 + step * 60)}%`;
-                const targetY = `${(isLeft ? -7 : 7) + step * 5 * direction}%`;
-                const targetRotate = direction * (12 + step * 10);
+                const { slot, ring } = fanSlot(index, images.length);
+                const lifted = focused === index;
+                const y = ring * ring * 2;
 
                 return (
                     <motion.div
                         key={src}
-                        initial={{
-                            opacity: 0,
-                            scale: 0.5,
-                            x: 0,
-                            y: 0,
-                            rotate: 0,
-                        }}
-                        animate={{
-                            opacity: isHovered ? 1 : 0,
-                            scale: isHovered ? 1 : 0.8,
-                            x: isHovered ? targetX : 0,
-                            y: isHovered ? targetY : 0,
-                            rotate: isHovered ? targetRotate : 0,
-                        }}
+                        initial={false}
+                        animate={
+                            spread
+                                ? {
+                                      opacity: 1,
+                                      x: `${slot * 52}%`,
+                                      y: `${lifted ? y - LIFT.y : y}%`,
+                                      rotate: lifted ? 0 : slot * 6,
+                                      scale:
+                                          0.9 -
+                                          ring * 0.06 +
+                                          (lifted ? LIFT.scale : 0),
+                                  }
+                                : {
+                                      opacity: 0,
+                                      x: 0,
+                                      y: 0,
+                                      rotate: 0,
+                                      scale: 0.85,
+                                  }
+                        }
                         transition={{
                             type: "spring",
-                            stiffness: 260,
-                            damping: 25,
-                            delay: index * 0.05,
+                            stiffness: 300,
+                            damping: 30,
+                            delay: spread && !expanded ? (ring - 1) * 0.04 : 0,
                         }}
-                        className="absolute z-0 flex flex-col bg-white p-1.5 pb-5 sm:p-2 sm:pb-8 shadow-2xl rounded-sm border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 w-20 h-[180px] sm:w-28 sm:h-[240px] lg:w-32 lg:h-[282px] pointer-events-none"
+                        onHoverStart={() => focus(index)}
+                        onHoverEnd={() => blur(index)}
+                        style={{
+                            zIndex: lifted ? 40 : 10 - ring,
+                            transformOrigin: "50% 90%",
+                        }}
+                        className={`absolute w-[40%] sm:w-[35%] lg:w-[30%] drop-shadow-xl ${expanded ? "" : "pointer-events-none"}`}
                     >
-                        <div className="relative w-full h-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-sm">
-                            <Image
-                                src={src}
-                                alt={`Project secondary image ${index + 1}`}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 640px) 25vw, (max-width: 1024px) 20vw, 15vw"
-                            />
-                        </div>
+                        <IPhone src={src} />
                     </motion.div>
                 );
             })}
 
-            <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
-                <div className="w-[40%] sm:w-[35%] lg:w-[30%] pointer-events-auto drop-shadow-2xl">
+            <div className="relative z-20 w-full h-full flex items-center justify-center pointer-events-none">
+                <motion.div
+                    className="w-[40%] sm:w-[35%] lg:w-[30%] pointer-events-auto drop-shadow-2xl"
+                    animate={{
+                        x: spread ? `${fanMainSlot(images.length) * 52}%` : 0,
+                        ...(focused === -1
+                            ? { scale: 1 + LIFT.scale / 2, y: `-${LIFT.y}%` }
+                            : { scale: 1, y: 0 }),
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 26 }}
+                    onHoverStart={() => focus(-1)}
+                    onHoverEnd={() => blur(-1)}
+                >
                     <IPhone src={main} />
-                </div>
+                </motion.div>
             </div>
         </motion.div>
     );

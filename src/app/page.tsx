@@ -3,8 +3,11 @@ import LeaveNoteButton from "@/components/leave-note-button";
 import NotesSection from "@/components/notes/notes-section";
 import ProjectGrid from "@/components/project-grid";
 import Stats from "@/components/stats";
+import { getAllProjects } from "@/lib/mdx";
 
 export const dynamic = "force-dynamic";
+
+const projectThumbs = getAllProjects().map((p) => p.meta.main);
 
 export default function Home() {
     return (
@@ -16,9 +19,9 @@ export default function Home() {
                 <div className="mt-4 flex">
                     <LeaveNoteButton />
                 </div>
-                <Stats />
+                <Stats thumbs={projectThumbs} />
                 <div>
-                    <ProjectGrid />
+                    <ProjectGrid starredOnly />
                 </div>
                 <div>
                     <NotesSection />

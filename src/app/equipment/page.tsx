@@ -2,7 +2,6 @@ import { IconArrowUpRight, IconCpu } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import BrandStar from "@/components/brand-star";
 import { equipment, pcBuild } from "@/content/equipment";
 
 export const metadata: Metadata = {
@@ -12,26 +11,14 @@ export const metadata: Metadata = {
 
 export default function EquipmentPage() {
     return (
-        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
-            <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8 relative">
+            <article className="mx-auto max-w-6xl">
                 <header className="mb-16 md:mb-24">
-                    <div className="mb-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                        <span className="tabular-nums text-foreground/55">
-                            04
-                        </span>
-                        <span
-                            className="h-px w-6 bg-foreground/15"
-                            aria-hidden
-                        />
-                        Equipment
-                        <BrandStar className="ml-0.5 size-2.5 text-[#ec7042]" />
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-medium tracking-tight font-bespoke">
+                    <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter font-heading">
                         Gear & Setup
                     </h1>
-                    <p className="text-lg md:text-xl text-foreground/55 max-w-2xl mt-4 leading-relaxed">
-                        The hardware I reach for daily — build specs,
-                        peripherals, and everything in between.
+                    <p className="text-base md:text-lg text-foreground/55 max-w-2xl mt-4 leading-relaxed">
+                        What's on my desk and in my bag.
                     </p>
                 </header>
 
@@ -49,12 +36,12 @@ export default function EquipmentPage() {
 
                     <div className="rounded-2xl border border-border/50 bg-muted/25 backdrop-blur-[2px] overflow-hidden">
                         {pcBuild.image && (
-                            <div className="relative w-full aspect-[2/1] border-b border-border/40 bg-muted/40">
+                            <div className="relative w-full aspect-[2/1] md:aspect-[5/2] border-b border-border/40 bg-muted/40">
                                 <Image
                                     src={pcBuild.image}
                                     alt={`${pcBuild.name} — photo`}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, 900px"
+                                    sizes="(max-width: 768px) 100vw, 1152px"
                                     className="object-cover"
                                 />
                             </div>
@@ -63,7 +50,7 @@ export default function EquipmentPage() {
                             <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-6 md:mb-8">
                                 <h2
                                     id="pc-build-heading"
-                                    className="font-bespoke text-2xl md:text-3xl tracking-tight"
+                                    className="font-heading text-2xl md:text-3xl tracking-tight"
                                 >
                                     {pcBuild.name}
                                 </h2>
@@ -110,7 +97,7 @@ export default function EquipmentPage() {
                             >
                                 <div className="grid grid-cols-1 md:grid-cols-[minmax(0,10rem)_1fr] gap-4 md:gap-10">
                                     <div>
-                                        <h3 className="font-bespoke text-xl md:text-2xl tracking-tight">
+                                        <h3 className="font-heading text-xl md:text-2xl tracking-tight">
                                             {category.title}
                                         </h3>
                                         {category.description && (
@@ -173,13 +160,13 @@ export default function EquipmentPage() {
                                                                 )}
                                                             </div>
                                                             {item.note && (
-                                                                <p className="mt-1 ml-6 text-xs md:text-sm text-foreground/50 leading-relaxed">
+                                                                <p className="mt-1 ml-5 text-xs md:text-sm text-foreground/50 leading-relaxed">
                                                                     {item.note}
                                                                 </p>
                                                             )}
                                                         </div>
                                                         {item.detail && (
-                                                            <span className="ml-6 sm:ml-0 text-xs md:text-sm text-foreground/55 font-mono tracking-tight tabular-nums shrink-0">
+                                                            <span className="ml-5 sm:ml-0 text-xs md:text-sm text-foreground/55 font-mono tracking-tight tabular-nums shrink-0">
                                                                 {item.detail}
                                                             </span>
                                                         )}

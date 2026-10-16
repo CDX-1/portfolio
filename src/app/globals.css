@@ -6,8 +6,8 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
-    --font-heading: var(--font-heading);
+    --font-mono: var(--font-jetbrains-mono);
+    --font-heading: var(--font-bricolage);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -37,6 +37,7 @@
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
+    --color-blueprint: var(--blueprint);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -45,36 +46,37 @@
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
 
-    --font-bespoke: var(--font-bespoke);
-    --font-satoshi: var(--font-satoshi);
     --font-caveat: var(--font-caveat);
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.141 0.005 285.823);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.141 0.005 285.823);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.141 0.005 285.823);
-    --primary: oklch(0.553 0.195 38.402);
+    --background: oklch(0.985 0.003 95);
+    --foreground: oklch(0.2 0.01 260);
+    --card: oklch(0.975 0.004 95);
+    --card-foreground: oklch(0.2 0.01 260);
+    --popover: oklch(0.985 0.003 95);
+    --popover-foreground: oklch(0.2 0.01 260);
+    --primary: oklch(0.62 0.18 40);
     --primary-foreground: oklch(0.98 0.016 73.684);
-    --secondary: oklch(0.967 0.001 286.375);
-    --secondary-foreground: oklch(0.21 0.006 285.885);
-    --muted: oklch(0.967 0.001 286.375);
-    --muted-foreground: oklch(0.552 0.016 285.938);
-    --accent: oklch(0.967 0.001 286.375);
-    --accent-foreground: oklch(0.21 0.006 285.885);
+    --secondary: oklch(0.955 0.004 95);
+    --secondary-foreground: oklch(0.25 0.01 260);
+    --muted: oklch(0.955 0.004 95);
+    --muted-foreground: oklch(0.5 0.012 260);
+    --accent: oklch(0.955 0.004 95);
+    --accent-foreground: oklch(0.25 0.01 260);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.92 0.004 286.32);
-    --input: oklch(0.92 0.004 286.32);
-    --ring: oklch(0.705 0.015 286.067);
+    --border: oklch(0.89 0.006 95);
+    --input: oklch(0.89 0.006 95);
+    --ring: oklch(0.62 0.18 40);
+    --blueprint: var(--primary);
+    --blueprint-line: oklch(1 0 0 / 9%);
+    --blueprint-line-major: oklch(1 0 0 / 18%);
     --chart-1: oklch(0.837 0.128 66.29);
     --chart-2: oklch(0.705 0.213 47.604);
     --chart-3: oklch(0.646 0.222 41.116);
     --chart-4: oklch(0.553 0.195 38.402);
     --chart-5: oklch(0.47 0.157 37.304);
-    --radius: 0.625rem;
+    --radius: 0.375rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.141 0.005 285.823);
     --sidebar-primary: oklch(0.646 0.222 41.116);
@@ -86,24 +88,27 @@
 }
 
 .dark {
-    --background: oklch(0.141 0.005 285.823);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.21 0.006 285.885);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.21 0.006 285.885);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.47 0.157 37.304);
-    --primary-foreground: oklch(0.98 0.016 73.684);
-    --secondary: oklch(0.274 0.006 286.033);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.274 0.006 286.033);
-    --muted-foreground: oklch(0.705 0.015 286.067);
-    --accent: oklch(0.274 0.006 286.033);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: oklch(0.16 0.006 260);
+    --foreground: oklch(0.93 0.006 260);
+    --card: oklch(0.195 0.007 260);
+    --card-foreground: oklch(0.93 0.006 260);
+    --popover: oklch(0.195 0.007 260);
+    --popover-foreground: oklch(0.93 0.006 260);
+    --primary: oklch(0.72 0.16 45);
+    --primary-foreground: oklch(0.16 0.006 260);
+    --secondary: oklch(0.24 0.008 260);
+    --secondary-foreground: oklch(0.93 0.006 260);
+    --muted: oklch(0.24 0.008 260);
+    --muted-foreground: oklch(0.68 0.01 260);
+    --accent: oklch(0.24 0.008 260);
+    --accent-foreground: oklch(0.93 0.006 260);
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
+    --border: oklch(1 0 0 / 11%);
     --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.552 0.016 285.938);
+    --ring: oklch(0.72 0.16 45);
+    --blueprint: var(--primary);
+    --blueprint-line: oklch(1 0 0 / 7%);
+    --blueprint-line-major: oklch(1 0 0 / 14%);
     --chart-1: oklch(0.837 0.128 66.29);
     --chart-2: oklch(0.705 0.213 47.604);
     --chart-3: oklch(0.646 0.222 41.116);
@@ -129,5 +134,159 @@
     }
     html {
         @apply font-sans;
+    }
+    ::selection {
+        background: color-mix(in oklab, var(--primary) 30%, transparent);
+    }
+}
+
+/* Drafting-paper grid used behind project mockups. */
+@utility blueprint-grid {
+    background-color: var(--blueprint);
+    background-image:
+        linear-gradient(var(--blueprint-line-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blueprint-line-major) 1px, transparent 1px),
+        linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
+    background-size:
+        80px 80px,
+        80px 80px,
+        16px 16px,
+        16px 16px;
+    background-position: -1px -1px;
+}
+
+/* Faint drafting grid drawn in the element's own ink colour, for letter paper.
+   Only sets background-image, so it layers over a bg-color class. */
+@utility paper-grid {
+    background-image:
+        linear-gradient(
+            color-mix(in oklab, currentColor 11%, transparent) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            color-mix(in oklab, currentColor 11%, transparent) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            color-mix(in oklab, currentColor 5%, transparent) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            color-mix(in oklab, currentColor 5%, transparent) 1px,
+            transparent 1px
+        );
+    background-size:
+        60px 60px,
+        60px 60px,
+        12px 12px,
+        12px 12px;
+    background-position: -1px -1px;
+}
+
+/* Perforated postage-stamp edge: holes along the border, solid inside.
+   Pair with a few px of padding so the perforations sit in the padding. */
+@utility stamp-edge {
+    mask:
+        radial-gradient(circle, transparent 1.4px, #000 1.6px) -2.5px -2.5px /
+        5px 5px,
+        linear-gradient(#000, #000) content-box;
+}
+
+/* Bricolage at display sizes: optical sizing brings out the ink traps,
+   a touch narrower so big titles feel set rather than typed. */
+@layer base {
+    .font-heading {
+        font-optical-sizing: auto;
+        font-stretch: 92%;
+    }
+}
+
+/* Paper grain laid over the whole page. A real element (not a pseudo) so it
+   can keep its own view-transition-name and stay put during navigations. */
+.paper-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    view-transition-name: paper-grain;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.12 0 0 0 0 0.1 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark .paper-grain {
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.97 0 0 0 0 0.92 0 0 0 .4 -.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- View transitions ------------------------------------------------- */
+
+/* Nav, tab bar and grain hold still while the page underneath changes. */
+::view-transition-group(site-nav),
+::view-transition-group(site-tabbar),
+::view-transition-group(paper-grain) {
+    animation: none;
+    z-index: 100;
+}
+::view-transition-old(site-nav),
+::view-transition-old(site-tabbar),
+::view-transition-old(paper-grain) {
+    display: none;
+}
+::view-transition-new(site-nav),
+::view-transition-new(site-tabbar),
+::view-transition-new(paper-grain) {
+    animation: none;
+}
+
+/* Whole-page swap: old page drops away fast, new page rises in. */
+::view-transition-old(.page-out) {
+    animation: 160ms cubic-bezier(0.4, 0, 1, 1) both vt-page-out;
+}
+::view-transition-new(.page-in) {
+    animation: 380ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both vt-page-in;
+}
+@keyframes vt-page-out {
+    to {
+        opacity: 0;
+        filter: blur(4px);
+        translate: 0 -8px;
+    }
+}
+@keyframes vt-page-in {
+    from {
+        opacity: 0;
+        filter: blur(4px);
+        translate: 0 14px;
+    }
+}
+
+/* Project panel morphing from its card into the project page hero. */
+::view-transition-group(.panel-morph) {
+    animation-duration: 520ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.panel-morph) {
+    animation-name: vt-morph-blur;
+}
+::view-transition-old(.panel-morph),
+::view-transition-new(.panel-morph) {
+    height: 100%;
+    object-fit: cover;
+}
+@keyframes vt-morph-blur {
+    35% {
+        filter: blur(3px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*),
+    ::view-transition-image-pair(*) {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
     }
 }

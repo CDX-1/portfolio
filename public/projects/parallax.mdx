@@ -2,6 +2,7 @@
 name: PARALLAX
 title: "PARALLAX — AI-Enhanced FDIR"
 date: "2026-08-01"
+starred: true
 order: 2
 author:
   - name: awsaf
@@ -18,7 +19,7 @@ awards:
   - "3rd Place Overall — Gemma Triage in Light Speed"
 description: "Enhancing FDIR systems with a Gemma-powered reasoning pipeline"
 github: https://github.com/CDX-1/BWG
-type: laptop
+type: hardware
 main: /projects/assets/parallax/project.png
 images:
     - /projects/assets/parallax/circuit.png
@@ -53,6 +54,80 @@ PARALLAX uses five stages in order to properly handle threats:
 5. **The Archivist:** analyzes the issues and determines the most important data to send back to Earth given small size constraints (few KBs)
 
 These five layers work together in order to detect, analyze, and respond to any issues a spacecraft may face.
+
+<TechStackGraph
+  items='[
+    {
+      "id": "esp32",
+      "name": "ESP32 + Sensors",
+      "icon": "espressif",
+      "connections": []
+    },
+    {
+      "id": "simulator",
+      "name": "Gemma Simulator",
+      "icon": "gemini",
+      "connections": []
+    },
+    {
+      "id": "host",
+      "name": "Python Host",
+      "icon": "python",
+      "connections": [
+        { "id": "esp32", "type": "in", "note": "IMU, ultrasonic and temperature readings over serial" },
+        { "id": "simulator", "type": "in", "note": "Simulated attitude, signal and reaction wheel speeds" }
+      ]
+    },
+    {
+      "id": "detector",
+      "name": "The Detector",
+      "icon": "gemini",
+      "connections": [
+        { "id": "host", "type": "in", "note": "Watches the live sensor stream for anomalies" }
+      ]
+    },
+    {
+      "id": "diagnostician",
+      "name": "The Diagnostician",
+      "icon": "gemini",
+      "connections": [
+        { "id": "detector", "type": "in", "note": "Flagged issues handed over for root-cause analysis" }
+      ]
+    },
+    {
+      "id": "director",
+      "name": "The Flight Director",
+      "icon": "gemini",
+      "connections": [
+        { "id": "diagnostician", "type": "in", "note": "Likely causes, turned into a plan via tool calls" }
+      ]
+    },
+    {
+      "id": "adjudicator",
+      "name": "The Adjudicator",
+      "icon": "gemini",
+      "connections": [
+        { "id": "director", "type": "dual", "note": "Flight plans submitted, then approved or vetoed" }
+      ]
+    },
+    {
+      "id": "archivist",
+      "name": "The Archivist",
+      "icon": "gemini",
+      "connections": [
+        { "id": "adjudicator", "type": "in", "note": "Final outcome, condensed into a few KB for Earth" }
+      ]
+    },
+    {
+      "id": "dashboard",
+      "name": "Streamlit Dashboard",
+      "icon": "streamlit",
+      "connections": [
+        { "id": "host", "type": "in", "note": "Live telemetry, with the gyro mapped onto a 3D model" }
+      ]
+    }
+  ]'
+/>
 
 ## Our demo
 

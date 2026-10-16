@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
         ],
     },
     reactCompiler: true,
+    experimental: {
+        viewTransition: true,
+    },
     async headers() {
         return [
             {

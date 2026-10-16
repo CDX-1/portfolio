@@ -71,7 +71,7 @@ export default async function ResearchPaperPage({ params }: Props) {
     const { content, meta } = getResearchBySlug(slug);
 
     return (
-        <main className="min-h-screen pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-32 relative">
+        <main className="min-h-screen pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8 relative">
             <div className="fixed top-6 right-6 md:top-10 md:right-10 z-100">
                 <Link
                     href="/research"
@@ -85,7 +85,7 @@ export default async function ResearchPaperPage({ params }: Props) {
                 </Link>
             </div>
 
-            <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+            <article className="mx-auto max-w-6xl [&>*]:max-w-4xl">
                 <header className="flex flex-col gap-4 mb-16">
                     <div className="flex flex-wrap items-center gap-3">
                         <span
@@ -97,13 +97,13 @@ export default async function ResearchPaperPage({ params }: Props) {
                             {statusLabels[meta.status] ?? meta.status}
                         </span>
                         {meta.venue && (
-                            <span className="text-sm text-foreground/60 font-satoshi">
+                            <span className="text-sm text-foreground/60 font-sans">
                                 {meta.venue}
                             </span>
                         )}
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-semibold font-bespoke tracking-tight leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-semibold font-heading tracking-tighter leading-tight">
                         {meta.title}
                     </h1>
 

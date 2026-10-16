@@ -1,16 +1,19 @@
 import {
+    IconArrowLeft,
+    IconArrowRight,
+    IconArrowUpRight,
     IconBrandGithubFilled,
     IconBrandLinkedinFilled,
-    IconCalendarFilled,
-    IconLinkFilled,
-    IconMapPinFilled,
     IconTrophyFilled,
 } from "@tabler/icons-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import type { ReactNode } from "react";
+import BlueprintFill from "@/components/blueprint-fill";
+import ProjectShowcase from "@/components/project-showcase";
 import { getAllProjects, getProjectBySlug, MDXComponents } from "@/lib/mdx";
+import { PROJECT_TYPE_LABELS } from "@/lib/project-types";
 
 export async function generateStaticParams() {
     const projects = getAllProjects();
@@ -22,23 +25,23 @@ export async function generateStaticParams() {
 export async function generateMetadata({
     params,
 }: {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
     const { slug } = await params;
     const { meta } = getProjectBySlug(slug);
 
     return {
-        title: meta.title,
+        title: `${meta.title} — awsaf.dev`,
         description: meta.description,
 
         openGraph: {
             title: meta.title,
             description: meta.description,
-            url: "https://awsaf.dev",
+            url: `https://awsaf.dev/projects/${slug}`,
             siteName: "Awsaf's Portfolio",
             images: [
                 {
-                    url: `https://awsaf.dev/projects/assets/${meta.images?.[0]}`,
+                    url: `https://awsaf.dev${meta.main}`,
                     width: 1200,
                     height: 630,
                 },
@@ -52,156 +55,225 @@ type Props = {
     params: Promise<{ slug: string }>;
 };
 
-const collageStyles = [
-    "-rotate-6 hover:rotate-0 z-10",
-    "rotate-3 hover:rotate-0 z-20 -ml-12 md:-ml-24 mt-8 md:mt-12",
-    "-rotate-3 hover:rotate-0 z-30 -ml-12 md:-ml-24 -mt-6 md:-mt-10",
-    "rotate-6 hover:rotate-0 z-40 -ml-12 md:-ml-24 mt-4 md:mt-8",
-    "-rotate-12 hover:rotate-0 z-50 -ml-12 md:-ml-24",
-];
+function formatDate(date: string) {
+    const parsed = new Date(`${date}T00:00:00`);
+    if (Number.isNaN(parsed.getTime())) return date;
+    return parsed.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+    });
+}
 
 export default async function ProjectPage({ params }: Props) {
     const { slug } = await params;
     const { content, meta } = getProjectBySlug(slug);
 
-    return (
-        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 lg:pb-32 relative">
-            <article className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
-                {meta.images && meta.images.length > 0 && (
-                    <div className="-mx-4 sm:mx-0 flex flex-row justify-center items-center py-10 md:py-16 mb-8 overflow-x-clip sm:overflow-visible">
-                        {meta.images.map((image, i) => (
-                            <div
-                                key={image}
-                                className={`
-                                    relative w-32 sm:w-48 md:w-64 shrink-0
-                                    transition-all duration-300 ease-in-out hover:scale-110 hover:z-[60]
-                                    shadow-xl hover:shadow-2xl rounded-xl md:rounded-2xl 
-                                    border-4 border-white/10 bg-background overflow-hidden
-                                    ${collageStyles[i % collageStyles.length]}
-                                `}
-                            >
-                                <Image
-                                    src={image}
-                                    alt={`${meta.title} screenshot ${i + 1}`}
-                                    width={0}
-                                    height={0}
-                                    className="w-full h-auto"
-                                    sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 256px"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                )}
+    const all = getAllProjects();
+    const position = all.findIndex((p) => p.slug === slug);
+    const next = all[(position + 1) % all.length];
+    const index = String(position + 1).padStart(2, "0");
 
-                <div className="flex flex-col gap-4 text-center mb-12 md:mb-16">
-                    <div className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
-                        <span
-                            className="h-px w-6 bg-foreground/15"
-                            aria-hidden
-                        />
-                        <span className="text-foreground/55">Project</span>
-                        <span
-                            className="h-px w-6 bg-foreground/15"
-                            aria-hidden
-                        />
-                    </div>
-                    <h1 className="text-[2.5rem] leading-[1.1] md:text-5xl font-semibold font-bespoke tracking-tight text-balance">
+    const links = [
+        meta.github && {
+            href: meta.github,
+            label: "View source",
+            icon: <IconBrandGithubFilled className="size-4" />,
+        },
+        meta.devpost && {
+            href: meta.devpost,
+            label: "Devpost",
+            icon: <IconArrowUpRight className="size-4" />,
+        },
+    ].filter(Boolean) as { href: string; label: string; icon: ReactNode }[];
+
+    return (
+        <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8 relative">
+            <article className="mx-auto max-w-6xl">
+                <Link
+                    href="/projects"
+                    className="group mb-8 inline-flex items-center gap-1.5 font-mono text-xs text-foreground/50 transition-colors hover:text-foreground"
+                >
+                    <IconArrowLeft
+                        className="size-3.5 transition-transform duration-200 group-hover:-translate-x-0.5"
+                        aria-hidden
+                    />
+                    All projects
+                </Link>
+
+                <header>
+                    <h1 className="font-heading text-3xl font-semibold leading-[1.1] tracking-tighter text-balance md:text-5xl">
                         {meta.title}
                     </h1>
-
-                    <p className="text-lg md:text-xl text-foreground/55 max-w-2xl mx-auto">
+                    <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground/55 md:text-xl">
                         {meta.description}
                     </p>
 
-                    <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-foreground/70">
-                        {meta.author.map((author) => (
-                            <div
-                                className="flex gap-2 items-center text-sm"
-                                key={author.name}
-                            >
-                                <span>{author.name}</span>
-                                {author.github && (
-                                    <Link
-                                        href={author.github}
-                                        target="_blank"
-                                        className="text-foreground/40 hover:text-foreground transition-colors"
-                                    >
-                                        <IconBrandGithubFilled className="size-3.5" />
-                                    </Link>
-                                )}
-                                {author.linkedin && (
-                                    <Link
-                                        href={author.linkedin}
-                                        target="_blank"
-                                        className="text-foreground/40 hover:text-foreground transition-colors"
-                                    >
-                                        <IconBrandLinkedinFilled className="size-3.5" />
-                                    </Link>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-
                     {meta.awards && meta.awards.length > 0 && (
-                        <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2">
+                        <ul className="mt-5 flex flex-wrap gap-2">
                             {meta.awards.map((award) => (
-                                <div
+                                <li
                                     key={award}
-                                    className="flex gap-2 items-center"
+                                    className="inline-flex items-center gap-1.5 rounded-sm border border-primary/30 bg-primary/[0.06] px-2 py-1 text-sm font-medium tracking-tight text-foreground/80"
                                 >
-                                    <IconTrophyFilled className="size-3.5 text-foreground/50" />
-                                    <p className="text-sm md:text-base text-foreground/70 tracking-tight">
-                                        {award}
-                                    </p>
-                                </div>
+                                    <IconTrophyFilled className="size-3.5 text-primary" />
+                                    {award}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {links.length > 0 && (
+                        <div className="mt-6 flex flex-wrap gap-3">
+                            {links.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-md border border-foreground/10 bg-background py-2 pl-3 pr-3.5 text-sm font-medium tracking-tight text-foreground/70 transition-colors duration-300 hover:border-primary hover:text-white focus-visible:border-primary focus-visible:text-white focus-visible:outline-none"
+                                >
+                                    <BlueprintFill />
+                                    <span className="relative text-foreground/50 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white">
+                                        {link.icon}
+                                    </span>
+                                    <span className="relative">
+                                        {link.label}
+                                    </span>
+                                </Link>
                             ))}
                         </div>
                     )}
+                </header>
 
-                    <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
-                        {meta.location && (
-                            <div className="flex gap-1.5 items-center">
-                                <IconMapPinFilled className="size-3 text-foreground/40" />
-                                <span>{meta.location}</span>
-                            </div>
+                <ProjectShowcase
+                    slug={slug}
+                    type={meta.type}
+                    name={meta.name}
+                    main={meta.main}
+                    images={meta.images ?? []}
+                    index={index}
+                    expanded
+                    className="mt-10 aspect-square overflow-hidden sm:aspect-[16/10] md:mt-14"
+                />
+
+                {/* Article on the left, specs pinned alongside it, so the
+                    text column spans the same width as the showcase above. */}
+                <div className="mt-8 grid gap-14 md:mt-10 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-16">
+                    <aside className="lg:order-2">
+                        <dl className="grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:sticky lg:top-28 lg:grid-cols-1">
+                            <SpecRow label="Type">
+                                {PROJECT_TYPE_LABELS[meta.type]}
+                            </SpecRow>
+                            <SpecRow label="Date">
+                                <span className="tabular-nums">
+                                    {formatDate(meta.date)}
+                                </span>
+                            </SpecRow>
+                            {meta.location && (
+                                <SpecRow label="Where">{meta.location}</SpecRow>
+                            )}
+                            <SpecRow label="Team">
+                                <span className="flex flex-wrap gap-x-4 gap-y-1">
+                                    {meta.author.map((author) => (
+                                        <span
+                                            key={author.name}
+                                            className="inline-flex items-center gap-1.5"
+                                        >
+                                            {author.name}
+                                            {author.github && (
+                                                <Link
+                                                    href={author.github}
+                                                    target="_blank"
+                                                    aria-label={`${author.name} on GitHub`}
+                                                    className="text-foreground/35 transition-colors hover:text-foreground"
+                                                >
+                                                    <IconBrandGithubFilled className="size-3.5" />
+                                                </Link>
+                                            )}
+                                            {author.linkedin && (
+                                                <Link
+                                                    href={author.linkedin}
+                                                    target="_blank"
+                                                    aria-label={`${author.name} on LinkedIn`}
+                                                    className="text-foreground/35 transition-colors hover:text-foreground"
+                                                >
+                                                    <IconBrandLinkedinFilled className="size-3.5" />
+                                                </Link>
+                                            )}
+                                        </span>
+                                    ))}
+                                </span>
+                            </SpecRow>
+                            {meta.tags && meta.tags.length > 0 && (
+                                <SpecRow label="Stack">
+                                    <span className="flex flex-wrap gap-1.5">
+                                        {meta.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="rounded-sm border border-border bg-foreground/[0.04] px-1.5 py-0.5 font-mono text-xs text-foreground/65"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </span>
+                                </SpecRow>
+                            )}
+                        </dl>
+                    </aside>
+                    <div className="min-w-0 lg:order-1 lg:pt-3">
+                        <div className="relative">
+                            <MDXRemote
+                                source={content}
+                                components={MDXComponents}
+                            />
+                        </div>
+
+                        {next && next.slug !== slug && (
+                            <nav
+                                aria-label="Next project"
+                                className="mt-20 border-t border-dashed border-foreground/15 pt-8 md:mt-28"
+                            >
+                                <Link
+                                    href={`/projects/${next.slug}`}
+                                    className="group flex items-end justify-between gap-6"
+                                >
+                                    <div className="min-w-0">
+                                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-foreground/40">
+                                            Next project
+                                        </span>
+                                        <p className="mt-1 truncate font-heading text-2xl font-semibold tracking-tighter transition-colors group-hover:text-primary md:text-3xl">
+                                            {next.meta.name}
+                                        </p>
+                                        <p className="mt-1 truncate text-foreground/55">
+                                            {next.meta.description}
+                                        </p>
+                                    </div>
+                                    <span className="relative grid size-11 shrink-0 place-items-center overflow-hidden rounded-md border border-foreground/10 text-foreground/60 transition-colors duration-300 group-hover:border-primary group-hover:text-white">
+                                        <BlueprintFill />
+                                        <IconArrowRight
+                                            className="relative size-5 transition-transform duration-300 group-hover:translate-x-0.5"
+                                            aria-hidden
+                                        />
+                                    </span>
+                                </Link>
+                            </nav>
                         )}
-                        <div className="flex gap-1.5 items-center">
-                            <IconCalendarFilled className="size-3 text-foreground/40" />
-                            <span className="tabular-nums">{meta.date}</span>
-                        </div>
                     </div>
-
-                    {(meta.github || meta.devpost) && (
-                        <div className="flex justify-center items-center gap-6 mt-2">
-                            {meta.github && (
-                                <Link
-                                    href={meta.github}
-                                    target="_blank"
-                                    className="group inline-flex items-center gap-1.5 text-sm font-medium tracking-tight text-foreground/70 hover:text-foreground transition-colors duration-200"
-                                >
-                                    <IconBrandGithubFilled className="size-4 text-foreground/50 group-hover:text-foreground transition-colors" />
-                                    <span>View Source</span>
-                                </Link>
-                            )}
-
-                            {meta.devpost && (
-                                <Link
-                                    href={meta.devpost}
-                                    target="_blank"
-                                    className="group inline-flex items-center gap-1.5 text-sm font-medium tracking-tight text-foreground/70 hover:text-foreground transition-colors duration-200"
-                                >
-                                    <IconLinkFilled className="size-4 text-foreground/50 group-hover:text-foreground transition-colors" />
-                                    <span>View on Devpost</span>
-                                </Link>
-                            )}
-                        </div>
-                    )}
-                </div>
-
-                <div className="relative mx-auto max-w-4xl">
-                    <MDXRemote source={content} components={MDXComponents} />
                 </div>
             </article>
         </main>
+    );
+}
+
+function SpecRow({ label, children }: { label: string; children: ReactNode }) {
+    return (
+        <div className="flex items-baseline gap-4 border-b border-dashed border-foreground/15 py-3">
+            <dt className="w-16 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground/40">
+                {label}
+            </dt>
+            <dd className="min-w-0 text-sm text-foreground/80 sm:text-base">
+                {children}
+            </dd>
+        </div>
     );
 }

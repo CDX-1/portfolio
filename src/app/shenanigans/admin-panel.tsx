@@ -174,7 +174,7 @@ export default function AdminPanel() {
                             )}
                         >
                             <div className="flex items-start justify-between gap-4">
-                                <h2 className="font-bespoke text-2xl tracking-tight text-foreground">
+                                <h2 className="font-heading text-2xl tracking-tight text-foreground">
                                     New entry
                                 </h2>
                                 <button

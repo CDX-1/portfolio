@@ -27,7 +27,7 @@ export type PCBuild = {
 
 export const pcBuild: PCBuild = {
     name: "Main rig",
-    tagline: "Custom build — daily driver for dev and gaming.",
+    tagline: "My own build, for dev and gaming.",
     image: "/equipment/rig.jpg",
     specs: [
         { label: "CPU", value: "Intel Core i7-12700F · 12C / 20T" },
@@ -50,13 +50,13 @@ export const equipment: EquipmentCategory[] = [
             {
                 name: "Pixio PX277",
                 detail: '27" · 1440p · 144Hz',
-                note: "Primary — code + games",
+                note: "Primary, for code and games",
                 image: "/equipment/px277.png",
             },
             {
                 name: "Pixio PX277",
                 detail: '27" · 1440p · 144Hz',
-                note: "Secondary — reference & docs (matched pair)",
+                note: "Secondary, for reference and docs",
                 image: "/equipment/px277.png",
             },
         ],
@@ -110,6 +110,68 @@ export const equipment: EquipmentCategory[] = [
                 detail: "Enclosed CoreXY",
                 note: "Paired with an AMS Pro for multi-color prints",
                 image: "/equipment/p1swams.png",
+            },
+        ],
+    },
+    {
+        id: "software",
+        title: "Software",
+        items: [
+            {
+                name: "Cursor",
+                detail: "Editor",
+                note: "Main text editor",
+                link: "https://cursor.com",
+                image: "/equipment/cursor.png",
+            },
+            {
+                name: "IntelliJ IDEA",
+                detail: "IDE",
+                note: "For anything on the JVM",
+                link: "https://www.jetbrains.com/idea/",
+                image: "/equipment/intellij.png",
+            },
+            {
+                name: "KiCad",
+                detail: "EDA",
+                note: "Schematics and PCB layout",
+                link: "https://www.kicad.org",
+                image: "/equipment/kicad.png",
+            },
+            {
+                name: "Fusion 360",
+                detail: "CAD",
+                note: "Mechanical CAD for everything that isn't a PCB",
+                link: "https://www.autodesk.com/products/fusion-360/",
+                image: "/equipment/fusion360.png",
+            },
+            {
+                name: "Claude",
+                detail: "Agent",
+                note: "Main coding agent, alongside Codex",
+                link: "https://claude.ai",
+                image: "/equipment/claude.png",
+            },
+            {
+                name: "Codex",
+                detail: "Agent",
+                note: "Main coding agent, alongside Claude",
+                link: "https://openai.com/codex/",
+                image: "/equipment/codex.png",
+            },
+            {
+                name: "Dia",
+                detail: "Browser",
+                note: "On the MacBook",
+                link: "https://www.diabrowser.com",
+                image: "/equipment/dia.png",
+            },
+            {
+                name: "Zen",
+                detail: "Browser",
+                note: "On the PC",
+                link: "https://zen-browser.app",
+                image: "/equipment/zen.png",
             },
         ],
     },

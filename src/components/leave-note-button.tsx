@@ -4,6 +4,7 @@ import { IconArrowDown, IconMail } from "@tabler/icons-react";
 import { useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import BlueprintFill from "./blueprint-fill";
 import FloatingNotes from "./notes/floating-notes";
 
 export const NOTES_SECTION_ID = "notes";
@@ -45,20 +46,21 @@ export default function LeaveNoteButton() {
                 onFocus={() => setHovered(true)}
                 onBlur={() => setHovered(false)}
                 className={cn(
-                    "group relative z-10 inline-flex items-center gap-2 rounded-full",
+                    "group relative z-10 inline-flex items-center gap-2 overflow-hidden rounded-md",
                     "border border-foreground/10 bg-background",
-                    "py-2 pl-3 pr-3.5 text-[13px] font-medium tracking-tight text-foreground/65",
-                    "transition-colors hover:border-foreground/20 hover:text-foreground/85",
+                    "py-2 pl-3 pr-3.5 text-[13px] font-medium text-foreground/65",
+                    "transition-colors duration-300 hover:border-primary hover:text-white focus-visible:border-primary focus-visible:text-white",
                     "focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20",
                 )}
             >
+                <BlueprintFill />
                 <IconMail
-                    className="size-4 stroke-[1.9] text-foreground/55"
+                    className="relative size-4 stroke-[1.9] text-foreground/55 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white"
                     aria-hidden
                 />
-                Leave me a note
+                <span className="relative">Leave me a note</span>
                 <IconArrowDown
-                    className="size-3.5 stroke-[2] text-foreground/45 transition-transform duration-200 group-hover:translate-y-px"
+                    className="relative size-3.5 stroke-[2] text-foreground/45 transition-[color,transform] duration-300 group-hover:translate-y-px group-hover:text-white group-focus-visible:text-white"
                     aria-hidden
                 />
             </button>
