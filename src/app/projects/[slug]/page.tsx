@@ -76,15 +76,16 @@ export default async function ProjectPage({ params }: Props) {
     const links = [
         meta.github && {
             href: meta.github,
-            label: "View source",
-            icon: <IconBrandGithubFilled className="size-4" />,
+            label: "Source",
+            icon: <IconBrandGithubFilled className="size-3.5" aria-hidden />,
         },
         meta.devpost && {
             href: meta.devpost,
             label: "Devpost",
-            icon: <IconArrowUpRight className="size-4" />,
+            icon: null,
         },
     ].filter(Boolean) as { href: string; label: string; icon: ReactNode }[];
+    const hasAwards = !!meta.awards?.length;
 
     return (
         <main className="min-h-screen pt-14 sm:pt-24 md:pt-32 pb-16 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8 relative">
@@ -108,39 +109,58 @@ export default async function ProjectPage({ params }: Props) {
                         {meta.description}
                     </p>
 
-                    {meta.awards && meta.awards.length > 0 && (
-                        <ul className="mt-5 flex flex-wrap gap-2">
-                            {meta.awards.map((award) => (
-                                <li
-                                    key={award}
-                                    className="inline-flex items-center gap-1.5 rounded-sm border border-primary/30 bg-primary/[0.06] px-2 py-1 text-sm font-medium tracking-tight text-foreground/80"
-                                >
-                                    <IconTrophyFilled className="size-3.5 text-primary" />
-                                    {award}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                    {(hasAwards || links.length > 0) && (
+                        <div className="mt-6 flex flex-col gap-4 border-y border-dashed border-foreground/15 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+                            {hasAwards && (
+                                <ul className="flex flex-col gap-1.5">
+                                    {meta.awards?.map((award) => {
+                                        const [place, event] =
+                                            award.split(" — ");
+                                        return (
+                                            <li
+                                                key={award}
+                                                className="flex items-center gap-2 text-sm tracking-tight sm:text-base"
+                                            >
+                                                <IconTrophyFilled
+                                                    className="size-4 shrink-0 text-primary"
+                                                    aria-hidden
+                                                />
+                                                <span className="font-medium text-foreground/85">
+                                                    {place}
+                                                </span>
+                                                {event && (
+                                                    <span className="text-foreground/45">
+                                                        {event}
+                                                    </span>
+                                                )}
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
 
-                    {links.length > 0 && (
-                        <div className="mt-6 flex flex-wrap gap-3">
-                            {links.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-md border border-foreground/10 bg-background py-2 pl-3 pr-3.5 text-sm font-medium tracking-tight text-foreground/70 transition-colors duration-300 hover:border-primary hover:text-white focus-visible:border-primary focus-visible:text-white focus-visible:outline-none"
-                                >
-                                    <BlueprintFill />
-                                    <span className="relative text-foreground/50 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white">
-                                        {link.icon}
-                                    </span>
-                                    <span className="relative">
-                                        {link.label}
-                                    </span>
-                                </Link>
-                            ))}
+                            {links.length > 0 && (
+                                <div className="flex shrink-0 items-center gap-5 sm:ml-auto">
+                                    {links.map((link) => (
+                                        <Link
+                                            key={link.href}
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.14em] text-foreground/55 transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
+                                        >
+                                            {link.icon}
+                                            <span className="underline decoration-foreground/20 underline-offset-4 transition-colors group-hover:decoration-primary">
+                                                {link.label}
+                                            </span>
+                                            <IconArrowUpRight
+                                                className="size-3.5 transition-transform duration-200 group-hover:translate-x-[2px] group-hover:-translate-y-[2px]"
+                                                aria-hidden
+                                            />
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     )}
                 </header>

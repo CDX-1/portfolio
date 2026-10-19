@@ -240,44 +240,64 @@
     animation: none;
 }
 
-/* Whole-page swap: old page drops away fast, new page rises in. */
+/* Whole-page swap: old page fades out while the new one settles in right
+   behind it. Opacity and translate only; blurring full-page snapshots is
+   expensive enough to drop frames. */
 ::view-transition-old(.page-out) {
-    animation: 160ms cubic-bezier(0.4, 0, 1, 1) both vt-page-out;
+    animation: 200ms cubic-bezier(0.4, 0, 1, 1) both vt-page-out;
 }
 ::view-transition-new(.page-in) {
-    animation: 380ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both vt-page-in;
+    animation: 420ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both vt-page-in;
 }
 @keyframes vt-page-out {
     to {
         opacity: 0;
-        filter: blur(4px);
-        translate: 0 -8px;
+        translate: 0 -6px;
     }
 }
 @keyframes vt-page-in {
     from {
         opacity: 0;
-        filter: blur(4px);
-        translate: 0 14px;
+        translate: 0 10px;
     }
 }
 
-/* Project panel morphing from its card into the project page hero. */
+/* Project panel morphing from its card into the project page hero. The
+   mockups inside differ (single device vs. the open fan), so the old one is
+   gone early instead of ghosting over the new one the whole way. */
 ::view-transition-group(.panel-morph) {
-    animation-duration: 520ms;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-duration: 560ms;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
 }
 ::view-transition-image-pair(.panel-morph) {
-    animation-name: vt-morph-blur;
+    isolation: isolate;
 }
 ::view-transition-old(.panel-morph),
 ::view-transition-new(.panel-morph) {
     height: 100%;
     object-fit: cover;
+    mix-blend-mode: plus-lighter;
+    animation-duration: 560ms;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
 }
-@keyframes vt-morph-blur {
-    35% {
-        filter: blur(3px);
+::view-transition-old(.panel-morph) {
+    animation-name: vt-morph-out;
+}
+::view-transition-new(.panel-morph) {
+    animation-name: vt-morph-in;
+}
+@keyframes vt-morph-out {
+    40%,
+    to {
+        opacity: 0;
+    }
+}
+@keyframes vt-morph-in {
+    from {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
     }
 }
 

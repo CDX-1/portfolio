@@ -10,9 +10,10 @@ import {
 import { MotionConfig, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { MARKER, type MarkerColor } from "./intro-list";
+import NavProjectsMenu, { type FeaturedProject } from "./nav-projects-menu";
 
 // Each page gets its own highlighter, same inks as the intro list.
 const NAV_ITEMS: {
@@ -49,13 +50,17 @@ function matchIndex(pathname: string) {
     return -1;
 }
 
-export default function Navbar() {
+export default function Navbar({ featured }: { featured: FeaturedProject[] }) {
     const pathname = usePathname();
     const activeIdx = matchIndex(pathname);
 
     return (
         <MotionConfig reducedMotion="user">
-            <DesktopNav activeIdx={activeIdx} />
+            <DesktopNav
+                activeIdx={activeIdx}
+                featured={featured}
+                pathname={pathname}
+            />
             <MobileTabBar activeIdx={activeIdx} />
         </MotionConfig>
     );
@@ -121,8 +126,44 @@ function MobileTabBar({ activeIdx }: { activeIdx: number }) {
     );
 }
 
-function DesktopNav({ activeIdx }: { activeIdx: number }) {
+function DesktopNav({
+    activeIdx,
+    featured,
+    pathname,
+}: {
+    activeIdx: number;
+    featured: FeaturedProject[];
+    pathname: string;
+}) {
     const [scrolled, setScrolled] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+    // A short grace period lets the cursor cross from link to panel.
+    const openMenu = useCallback(() => {
+        clearTimeout(closeTimer.current);
+        setMenuOpen(true);
+    }, []);
+    const scheduleClose = useCallback(() => {
+        clearTimeout(closeTimer.current);
+        closeTimer.current = setTimeout(() => setMenuOpen(false), 140);
+    }, []);
+    const closeMenu = useCallback(() => {
+        clearTimeout(closeTimer.current);
+        setMenuOpen(false);
+    }, []);
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: close on navigation
+    useEffect(() => closeMenu(), [pathname, closeMenu]);
+
+    useEffect(() => {
+        if (!menuOpen) return;
+        const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeMenu();
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+    }, [menuOpen, closeMenu]);
+
+    useEffect(() => () => clearTimeout(closeTimer.current), []);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 8);
@@ -142,7 +183,7 @@ function DesktopNav({ activeIdx }: { activeIdx: number }) {
         >
             <div
                 className={cn(
-                    "flex items-center gap-2 rounded-full py-1 pl-4 pr-1.5 ring-1 backdrop-blur-xl",
+                    "relative flex items-center gap-2 rounded-full py-1 pl-4 pr-1.5 ring-1 backdrop-blur-xl",
                     "transition-[background-color,box-shadow] duration-300",
                     scrolled
                         ? "bg-background/90 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.3)] ring-border"
@@ -157,9 +198,22 @@ function DesktopNav({ activeIdx }: { activeIdx: number }) {
                     Awsaf
                 </Link>
 
-                <NavLinks activeIdx={activeIdx} />
+                <NavLinks
+                    activeIdx={activeIdx}
+                    menuOpen={menuOpen}
+                    onProjectsEnter={openMenu}
+                    onProjectsLeave={scheduleClose}
+                />
 
                 <ResumeLink />
+
+                <NavProjectsMenu
+                    open={menuOpen}
+                    projects={featured}
+                    onEnter={openMenu}
+                    onLeave={scheduleClose}
+                    onNavigate={closeMenu}
+                />
             </div>
         </motion.nav>
     );
@@ -178,12 +232,37 @@ function ResumeLink() {
     );
 }
 
-function NavLinks({ activeIdx }: { activeIdx: number }) {
+function NavLinks({
+    activeIdx,
+    menuOpen,
+    onProjectsEnter,
+    onProjectsLeave,
+}: {
+    activeIdx: number;
+    menuOpen: boolean;
+    onProjectsEnter: () => void;
+    onProjectsLeave: () => void;
+}) {
     return (
         <ul className="flex items-center gap-0.5 lg:gap-1.5">
-            {NAV_ITEMS.map((item, i) => (
-                <NavLink key={item.name} item={item} active={i === activeIdx} />
-            ))}
+            {NAV_ITEMS.map((item, i) =>
+                item.href === "/projects" ? (
+                    <NavLink
+                        key={item.name}
+                        item={item}
+                        active={i === activeIdx}
+                        expanded={menuOpen}
+                        onEnter={onProjectsEnter}
+                        onLeave={onProjectsLeave}
+                    />
+                ) : (
+                    <NavLink
+                        key={item.name}
+                        item={item}
+                        active={i === activeIdx}
+                    />
+                ),
+            )}
         </ul>
     );
 }
@@ -193,15 +272,29 @@ function NavLinks({ activeIdx }: { activeIdx: number }) {
 function NavLink({
     item,
     active,
+    expanded,
+    onEnter,
+    onLeave,
 }: {
     item: (typeof NAV_ITEMS)[number];
     active: boolean;
+    /** Set when this link controls a dropdown. */
+    expanded?: boolean;
+    onEnter?: () => void;
+    onLeave?: () => void;
 }) {
+    const hasMenu = expanded !== undefined;
+
     return (
-        <li>
+        <li onMouseEnter={onEnter} onMouseLeave={onLeave}>
             <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
+                aria-expanded={hasMenu ? expanded : undefined}
+                aria-controls={
+                    hasMenu && expanded ? "nav-projects-menu" : undefined
+                }
+                onFocus={onEnter}
                 className={cn(
                     "group block px-1.5 py-2 text-sm tracking-tight transition-colors duration-200 focus-visible:outline-none",
                     active
@@ -213,7 +306,7 @@ function NavLink({
                     className={cn(
                         "-mx-0.5 rounded-[2px] bg-left-bottom bg-no-repeat px-0.5 box-decoration-clone",
                         "transition-[background-size] duration-300 ease-out",
-                        active
+                        active || expanded
                             ? "[background-size:100%_88%]"
                             : "[background-size:0%_88%] group-hover:[background-size:100%_88%] group-focus-visible:[background-size:100%_88%]",
                     )}

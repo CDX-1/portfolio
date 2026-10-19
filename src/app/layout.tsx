@@ -10,6 +10,17 @@ import { ThemeProvider } from "next-themes";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import PageTransition from "@/components/page-transition";
+import { getAllProjects } from "@/lib/mdx";
+
+const featuredProjects = getAllProjects()
+    .filter((p) => p.meta.starred)
+    .slice(0, 4)
+    .map(({ slug, meta }) => ({
+        slug,
+        name: meta.name,
+        description: meta.description,
+        main: meta.main,
+    }));
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -68,7 +79,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <main className="flex-1 font-sans pb-[calc(env(safe-area-inset-bottom)+5.5rem)] sm:pb-0">
-                        <Navbar />
+                        <Navbar featured={featuredProjects} />
                         <PageTransition>
                             <div className="min-h-screen">{children}</div>
                         </PageTransition>
