@@ -63,7 +63,7 @@ const ROWS: Row[] = [
         content: (mark) => (
             <>
                 I'm an {mark("active hackathon participant", true)} and placed
-                at {mark("4 hackathons")}
+                at {mark("5 hackathons")}
             </>
         ),
     },

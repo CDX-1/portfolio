@@ -1,0 +1,99 @@
+---
+name: "VisionAiry"
+title: "VisionAiry — Natural-Language Drone Pilot"
+date: "2026-10-18"
+starred: true
+order: 6
+author:
+  - name: awsaf
+    github: https://github.com/CDX-1
+    linkedin: https://www.linkedin.com/in/awsaf-syed/
+  - name: ayaan
+    github: https://github.com/nordicator
+    linkedin: https://www.linkedin.com/in/ayaan-sajjad/
+  - name: darren
+    github: https://github.com/darrenn19
+    linkedin: https://www.linkedin.com/in/darren-nadarajah-29805234b/
+tags:
+  - hardware
+  - llm
+  - python
+  - cv
+awards:
+  - "3rd Place — Hack the Skies 2026"
+description: "Fly a toy drone in plain English, with every AI plan physics-simulated before it flies"
+location: Hack the Skies 2026
+github: https://github.com/nordicator/visionairy
+type: hardware
+main: /projects/assets/visionairy/drone.jpg
+images:
+  - /projects/assets/visionairy/hover.jpg
+  - /projects/assets/visionairy/workspace.jpg
+devpost: https://devpost.com/software/visionairy-cyp9k4
+---
+
+# What is VisionAiry?
+
+VisionAiry is a natural-language drone pilot. You type a command in plain English ("take off, fly a 1 m square, turn right, land")
+and an LLM turns it into a full flight plan through tool calls. Before a single packet reaches the drone, VisionAiry runs that plan
+through a live physics simulation, predicts the path, and refuses anything dangerous: leaving the safe area, going through the ceiling,
+or diving toward the floor. When a plan is refused, the LLM is told why and replans.
+
+All of this runs on a $30 toy drone with no SDK.
+
+<YouTube id="-bizok4Xtso" />
+
+## Learning From Every Flight
+
+Every flight is logged and fed into the next one. VisionAiry builds a profile of the drone it's flying:
+
+- Its drift, which gets trimmed out automatically
+- Its real speeds, which go straight into the LLM's planning instructions
+- Quirks like reversed axes or camera orientation, which it corrects for
+- How its controller behaved, so it can retune itself
+
+The more you fly, the more accurate its predictions and plans get.
+
+## Real-Time Safety
+
+While the drone is in the air, a supervisor runs on every video frame:
+
+- **Obstacle guard:** object detection plus monocular depth gives every object a name, distance and time-to-collision. Anything in the flight path you'd reach in under 1.5 s stops the plan instantly.
+- **Position hold:** measures drift from the video and pushes back against drafts and fans, adapting its gains if it starts to wobble.
+- **Self-correction:** detects a reversed axis, a gust it can't beat, lost video or a dying battery, and lands on its own when it has to.
+- **Vision for the LLM:** the model gets labelled camera frames, so commands like "fly to the chair" work.
+
+<Image
+  src="/projects/assets/visionairy/hover.jpg"
+  alt="The drone holding position mid-air in a school hallway"
+/>
+
+## How We Built It
+
+- **Reverse engineering:** we decompiled the drone's Android app to recover its Wi-Fi protocol (8-byte stick frames every 50 ms, the video stream, and take off / land / e-stop flags), then wrote our own client in Python.
+- **AI pilot:** works with any OpenAI-compatible LLM. The model controls each stick as a percentage for an exact duration and plans the whole command in one sequence, so it thinks once on the ground instead of hovering while it waits.
+- **Physics simulation:** every plan is integrated at 20 Hz using the drone's stick-to-velocity, climb and yaw-rate model, then checked against the flight envelope. A higher-fidelity simulator adds momentum, wind and gusts for stress-testing.
+- **Perception:** OpenCV for video and object tracking, plus an ONNX depth model calibrated on the spot for metric distances.
+- **Testing:** a fault-injection suite throws 18 failure scenarios at the simulator (gales, shoves, reversed cameras, 0.5 s of video lag) and checks the drone handles each one.
+
+<Image
+  src="/projects/assets/visionairy/workspace.jpg"
+  alt="Our workspace at Hack the Skies with the drone, laptops and tools"
+/>
+
+## Problems We Faced
+
+### LLMs Are Slow, Drones Are Not
+
+A model takes seconds to answer, and a drone can hit a wall in less than one. So we split the work across timescales: the LLM plans,
+the simulation checks the plan, and a fast supervisor reacts in milliseconds.
+
+### Cheap Drones Lie
+
+Axes can be reversed, trims are bad, altitude hold is weak, and the video lags. Every drone is different, which is exactly why
+VisionAiry learns its own drone instead of trusting fixed numbers. With no GPS, no rangefinder and one camera, every position and
+distance comes from video and our motion model.
+
+## What We Learned
+
+With an LLM in the loop, safety can't be a prompt. It has to be physics: simulate before you act, verify while you act, and learn after you land.
