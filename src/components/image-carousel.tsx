@@ -1,6 +1,7 @@
 "use client";
 
 import { IconZoomInFilled } from "@tabler/icons-react";
+import Image from "next/image";
 import { useState } from "react";
 
 interface ImageCarouselProps {
@@ -34,9 +35,13 @@ export function ImageCarousel({ images, height = "h-80" }: ImageCarouselProps) {
                             onClick={() => setEnlargedIndex(index)}
                             className="snap-center shrink-0 h-full flex items-center cursor-zoom-in border-0 bg-transparent p-0"
                         >
-                            <img
+                            <Image
                                 src={src}
                                 alt={`Screenshot ${index + 1}`}
+                                width={0}
+                                height={0}
+                                sizes="(max-width: 768px) 90vw, 640px"
+                                unoptimized={src.endsWith(".gif")}
                                 className="h-full w-auto rounded-xl shadow-sm select-none pointer-events-none"
                                 draggable={false}
                             />
@@ -81,9 +86,12 @@ export function ImageCarousel({ images, height = "h-80" }: ImageCarouselProps) {
                         </svg>
                     </button>
 
-                    <img
+                    <Image
                         src={images[enlargedIndex]}
                         alt={`Enlarged screenshot ${enlargedIndex + 1}`}
+                        width={1600}
+                        height={900}
+                        unoptimized={images[enlargedIndex].endsWith(".gif")}
                         className="relative z-10 max-w-full max-h-full object-contain rounded-xl"
                     />
                 </div>

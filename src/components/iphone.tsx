@@ -1,5 +1,6 @@
 import type { SVGProps } from "react";
 import { useId } from "react";
+import { optimizedSrc } from "@/lib/optimized-src";
 
 export interface IPhoneProps extends SVGProps<SVGSVGElement> {
     src?: string;
@@ -37,7 +38,7 @@ export function IPhone({ src, className, ...props }: IPhoneProps) {
             />
             {src && (
                 <image
-                    href={src}
+                    href={optimizedSrc(src, 400)}
                     x="14.08"
                     y="12.81"
                     width="171.98"

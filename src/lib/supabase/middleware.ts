@@ -4,6 +4,11 @@ import { type NextRequest, NextResponse } from "next/server";
 export async function updateSession(request: NextRequest) {
     let response = NextResponse.next({ request });
 
+    // Visitors without a Supabase session have nothing to refresh.
+    if (!request.cookies.getAll().some((c) => c.name.startsWith("sb-"))) {
+        return response;
+    }
+
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

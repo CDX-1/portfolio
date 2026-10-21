@@ -6,8 +6,6 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: [
-        // Skip static assets and image optimization.
-        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|webm)$).*)",
-    ],
+    // Only routes that read the Supabase session; everything else stays static.
+    matcher: ["/", "/portal/:path*", "/shenanigans/:path*", "/api/:path*"],
 };

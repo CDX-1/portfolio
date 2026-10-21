@@ -1,4 +1,5 @@
 import { type SVGProps, useId } from "react";
+import { optimizedSrc } from "@/lib/optimized-src";
 
 export interface MacbookProProps extends SVGProps<SVGSVGElement> {
     width?: number;
@@ -114,7 +115,7 @@ export function MacbookPro({
 
             {src && (
                 <image
-                    href={src}
+                    href={optimizedSrc(src, 960)}
                     x="74.52"
                     y="21.32"
                     width="501.22"

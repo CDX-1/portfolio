@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "@/components/hero";
 import LeaveNoteButton from "@/components/leave-note-button";
 import NotesSection from "@/components/notes/notes-section";
@@ -24,7 +25,10 @@ export default function Home() {
                     <ProjectGrid starredOnly />
                 </div>
                 <div>
-                    <NotesSection />
+                    {/* Stream notes so the Supabase round-trip doesn't block first paint. */}
+                    <Suspense fallback={<div className="min-h-[60vh]" />}>
+                        <NotesSection />
+                    </Suspense>
                 </div>
             </div>
         </div>
