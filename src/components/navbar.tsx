@@ -6,6 +6,7 @@ import {
     IconFlask2,
     IconHome,
     IconLayoutGrid,
+    IconUsersGroup,
 } from "@tabler/icons-react";
 import { MotionConfig, motion } from "motion/react";
 import Link from "next/link";
@@ -13,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { MARKER, type MarkerColor } from "./intro-list";
+import NavOrgMenu from "./nav-org-menu";
 import NavProjectsMenu, { type FeaturedProject } from "./nav-projects-menu";
 
 // Each page gets its own highlighter, same inks as the intro list.
@@ -24,6 +26,14 @@ const NAV_ITEMS: {
 }[] = [
     { name: "Home", href: "/", icon: IconHome, ink: "butter" },
     { name: "Projects", href: "/projects", icon: IconLayoutGrid, ink: "sky" },
+    // No index page: on desktop it only opens the org dropdown, on phones
+    // it goes straight to the one org.
+    {
+        name: "Org",
+        href: "/org/haven-toronto",
+        icon: IconUsersGroup,
+        ink: "butter",
+    },
     { name: "Research", href: "/research", icon: IconFlask2, ink: "sage" },
     {
         name: "Shenanigans",
@@ -39,14 +49,17 @@ const NAV_ITEMS: {
     },
 ];
 
+type MenuId = "projects" | "org";
+
 function matchIndex(pathname: string) {
     if (pathname === "/") return 0;
     if (pathname === "/projects" || pathname.startsWith("/projects/")) return 1;
-    if (pathname === "/research" || pathname.startsWith("/research/")) return 2;
+    if (pathname.startsWith("/org/")) return 2;
+    if (pathname === "/research" || pathname.startsWith("/research/")) return 3;
     if (pathname === "/shenanigans" || pathname.startsWith("/shenanigans/"))
-        return 3;
-    if (pathname === "/equipment" || pathname.startsWith("/equipment/"))
         return 4;
+    if (pathname === "/equipment" || pathname.startsWith("/equipment/"))
+        return 5;
     return -1;
 }
 
@@ -136,32 +149,36 @@ function DesktopNav({
     pathname: string;
 }) {
     const [scrolled, setScrolled] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
     const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     // A short grace period lets the cursor cross from link to panel.
-    const openMenu = useCallback(() => {
+    const openMenu = useCallback((id: MenuId) => {
         clearTimeout(closeTimer.current);
-        setMenuOpen(true);
+        setOpenMenuId(id);
     }, []);
     const scheduleClose = useCallback(() => {
         clearTimeout(closeTimer.current);
-        closeTimer.current = setTimeout(() => setMenuOpen(false), 140);
+        closeTimer.current = setTimeout(() => setOpenMenuId(null), 140);
     }, []);
     const closeMenu = useCallback(() => {
         clearTimeout(closeTimer.current);
-        setMenuOpen(false);
+        setOpenMenuId(null);
+    }, []);
+    const toggleMenu = useCallback((id: MenuId) => {
+        clearTimeout(closeTimer.current);
+        setOpenMenuId((current) => (current === id ? null : id));
     }, []);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: close on navigation
     useEffect(() => closeMenu(), [pathname, closeMenu]);
 
     useEffect(() => {
-        if (!menuOpen) return;
+        if (!openMenuId) return;
         const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeMenu();
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
-    }, [menuOpen, closeMenu]);
+    }, [openMenuId, closeMenu]);
 
     useEffect(() => () => clearTimeout(closeTimer.current), []);
 
@@ -200,17 +217,24 @@ function DesktopNav({
 
                 <NavLinks
                     activeIdx={activeIdx}
-                    menuOpen={menuOpen}
-                    onProjectsEnter={openMenu}
-                    onProjectsLeave={scheduleClose}
+                    openMenuId={openMenuId}
+                    onMenuEnter={openMenu}
+                    onMenuLeave={scheduleClose}
+                    onMenuToggle={toggleMenu}
                 />
 
                 <ResumeLink />
 
                 <NavProjectsMenu
-                    open={menuOpen}
+                    open={openMenuId === "projects"}
                     projects={featured}
-                    onEnter={openMenu}
+                    onEnter={() => openMenu("projects")}
+                    onLeave={scheduleClose}
+                    onNavigate={closeMenu}
+                />
+                <NavOrgMenu
+                    open={openMenuId === "org"}
+                    onEnter={() => openMenu("org")}
                     onLeave={scheduleClose}
                     onNavigate={closeMenu}
                 />
@@ -234,26 +258,41 @@ function ResumeLink() {
 
 function NavLinks({
     activeIdx,
-    menuOpen,
-    onProjectsEnter,
-    onProjectsLeave,
+    openMenuId,
+    onMenuEnter,
+    onMenuLeave,
+    onMenuToggle,
 }: {
     activeIdx: number;
-    menuOpen: boolean;
-    onProjectsEnter: () => void;
-    onProjectsLeave: () => void;
+    openMenuId: MenuId | null;
+    onMenuEnter: (id: MenuId) => void;
+    onMenuLeave: () => void;
+    onMenuToggle: (id: MenuId) => void;
 }) {
     return (
         <ul className="flex items-center gap-0.5 lg:gap-1.5">
-            {NAV_ITEMS.map((item, i) =>
-                item.href === "/projects" ? (
+            {NAV_ITEMS.map((item, i) => {
+                const menu: MenuId | undefined =
+                    item.href === "/projects"
+                        ? "projects"
+                        : item.name === "Org"
+                          ? "org"
+                          : undefined;
+                return menu ? (
                     <NavLink
                         key={item.name}
                         item={item}
                         active={i === activeIdx}
-                        expanded={menuOpen}
-                        onEnter={onProjectsEnter}
-                        onLeave={onProjectsLeave}
+                        menuId={menu}
+                        expanded={openMenuId === menu}
+                        onEnter={() => onMenuEnter(menu)}
+                        onLeave={onMenuLeave}
+                        // Org has no page of its own, so clicking toggles.
+                        onToggle={
+                            menu === "org"
+                                ? () => onMenuToggle(menu)
+                                : undefined
+                        }
                     />
                 ) : (
                     <NavLink
@@ -261,8 +300,8 @@ function NavLinks({
                         item={item}
                         active={i === activeIdx}
                     />
-                ),
-            )}
+                );
+            })}
         </ul>
     );
 }
@@ -272,51 +311,74 @@ function NavLinks({
 function NavLink({
     item,
     active,
+    menuId,
     expanded,
     onEnter,
     onLeave,
+    onToggle,
 }: {
     item: (typeof NAV_ITEMS)[number];
     active: boolean;
     /** Set when this link controls a dropdown. */
+    menuId?: MenuId;
     expanded?: boolean;
     onEnter?: () => void;
     onLeave?: () => void;
+    /** Render a button that toggles the dropdown instead of a link. */
+    onToggle?: () => void;
 }) {
-    const hasMenu = expanded !== undefined;
+    const className = cn(
+        "group block px-1.5 py-2 text-sm tracking-tight transition-colors duration-200 focus-visible:outline-none",
+        active
+            ? "font-medium text-foreground"
+            : "text-foreground/55 hover:text-foreground focus-visible:text-foreground",
+    );
+    const label = (
+        <span
+            className={cn(
+                "-mx-0.5 rounded-[2px] bg-left-bottom bg-no-repeat px-0.5 box-decoration-clone",
+                "transition-[background-size] duration-300 ease-out",
+                active || expanded
+                    ? "[background-size:100%_88%]"
+                    : "[background-size:0%_88%] group-hover:[background-size:100%_88%] group-focus-visible:[background-size:100%_88%]",
+            )}
+            style={{
+                backgroundImage: `linear-gradient(${MARKER[item.ink]}, ${MARKER[item.ink]})`,
+            }}
+        >
+            {item.name}
+        </span>
+    );
 
     return (
         <li onMouseEnter={onEnter} onMouseLeave={onLeave}>
-            <Link
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                aria-expanded={hasMenu ? expanded : undefined}
-                aria-controls={
-                    hasMenu && expanded ? "nav-projects-menu" : undefined
-                }
-                onFocus={onEnter}
-                className={cn(
-                    "group block px-1.5 py-2 text-sm tracking-tight transition-colors duration-200 focus-visible:outline-none",
-                    active
-                        ? "font-medium text-foreground"
-                        : "text-foreground/55 hover:text-foreground focus-visible:text-foreground",
-                )}
-            >
-                <span
-                    className={cn(
-                        "-mx-0.5 rounded-[2px] bg-left-bottom bg-no-repeat px-0.5 box-decoration-clone",
-                        "transition-[background-size] duration-300 ease-out",
-                        active || expanded
-                            ? "[background-size:100%_88%]"
-                            : "[background-size:0%_88%] group-hover:[background-size:100%_88%] group-focus-visible:[background-size:100%_88%]",
-                    )}
-                    style={{
-                        backgroundImage: `linear-gradient(${MARKER[item.ink]}, ${MARKER[item.ink]})`,
-                    }}
+            {onToggle ? (
+                <button
+                    type="button"
+                    aria-haspopup="true"
+                    aria-expanded={expanded}
+                    aria-controls={expanded ? `nav-${menuId}-menu` : undefined}
+                    // Hover already opened it for mice; keyboard presses
+                    // (detail 0) toggle.
+                    onClick={(e) => (e.detail === 0 ? onToggle() : onEnter?.())}
+                    className={cn(className, "cursor-pointer")}
                 >
-                    {item.name}
-                </span>
-            </Link>
+                    {label}
+                </button>
+            ) : (
+                <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    aria-expanded={menuId ? expanded : undefined}
+                    aria-controls={
+                        menuId && expanded ? `nav-${menuId}-menu` : undefined
+                    }
+                    onFocus={onEnter}
+                    className={className}
+                >
+                    {label}
+                </Link>
+            )}
         </li>
     );
 }
