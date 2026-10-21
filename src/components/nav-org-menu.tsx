@@ -11,7 +11,7 @@ const ORGS = [
     {
         href: "/org/haven-toronto",
         name: "Haven Toronto",
-        blurb: "Hack Club game jam · Nov 14",
+        blurb: "Point of contact · Nov 14",
         image: "/org/haven-toronto.jpg",
     },
 ];

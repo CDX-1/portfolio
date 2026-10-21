@@ -1,6 +1,7 @@
 import {
     IconArrowUpRight,
     IconCalendarEvent,
+    IconId,
     IconPizza,
     IconTrophy,
     IconUsersGroup,
@@ -31,6 +32,25 @@ const FACTS = [
     { label: "Hackers", value: "150+ high schoolers", icon: IconUsersGroup },
     { label: "Prizes", value: "Yes, plenty", icon: IconTrophy },
     { label: "Food", value: "Free, all day", icon: IconPizza },
+];
+
+const ROLE_AREAS = [
+    {
+        title: "Venues",
+        body: "Finding and locking down a space that fits 150+ hackers.",
+    },
+    {
+        title: "Sponsorships",
+        body: "Reaching out to companies to fund prizes, food, and the event itself.",
+    },
+    {
+        title: "Logistics",
+        body: "Planning the day: schedule, supplies, food, and everything in between.",
+    },
+    {
+        title: "Marketing",
+        body: "Getting the word out to high schoolers across the city.",
+    },
 ];
 
 export default function HavenTorontoPage() {
@@ -97,7 +117,44 @@ export default function HavenTorontoPage() {
                     </p>
                 </div>
 
-                <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+                <section
+                    aria-labelledby="role-heading"
+                    className="mt-14 md:mt-20"
+                >
+                    <div className="mb-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
+                        <IconId className="size-3" aria-hidden />
+                        <span>My role</span>
+                    </div>
+                    <h2
+                        id="role-heading"
+                        className="font-heading text-2xl tracking-tight md:text-3xl"
+                    >
+                        Point of contact
+                    </h2>
+                    <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/75 md:text-lg">
+                        Hack Club HQ chose me as the POC between them and the
+                        Haven Toronto organizing team. Beyond that, I work on a
+                        bit of everything it takes to get the event off the
+                        ground:
+                    </p>
+                    <dl className="mt-8 grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+                        {ROLE_AREAS.map((area) => (
+                            <div
+                                key={area.title}
+                                className="flex flex-col gap-1.5 border-t border-border/40 pt-3"
+                            >
+                                <dt className="font-medium tracking-tight text-foreground/90">
+                                    {area.title}
+                                </dt>
+                                <dd className="text-sm leading-relaxed text-foreground/55">
+                                    {area.body}
+                                </dd>
+                            </div>
+                        ))}
+                    </dl>
+                </section>
+
+                <div className="mt-14 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
                     <Link
                         href={SIGNUP_URL}
                         target="_blank"
