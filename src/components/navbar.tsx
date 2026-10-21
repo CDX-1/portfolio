@@ -20,6 +20,8 @@ import NavProjectsMenu, { type FeaturedProject } from "./nav-projects-menu";
 // Each page gets its own highlighter, same inks as the intro list.
 const NAV_ITEMS: {
     name: string;
+    /** Shorter label for the phone tab bar, where six tabs share ~360px. */
+    short?: string;
     href: string;
     icon: typeof IconHome;
     ink: MarkerColor;
@@ -37,12 +39,14 @@ const NAV_ITEMS: {
     { name: "Research", href: "/research", icon: IconFlask2, ink: "sage" },
     {
         name: "Shenanigans",
+        short: "Fun",
         href: "/shenanigans",
         icon: IconConfetti,
         ink: "rose",
     },
     {
         name: "Equipment",
+        short: "Gear",
         href: "/equipment",
         icon: IconDeviceDesktop,
         ink: "cream",
@@ -98,9 +102,10 @@ function MobileTabBar({ activeIdx }: { activeIdx: number }) {
                     const active = i === activeIdx;
                     const Icon = item.icon;
                     return (
-                        <li key={item.name} className="flex-1">
+                        <li key={item.name} className="min-w-0 flex-1">
                             <Link
                                 href={item.href}
+                                aria-label={item.short ? item.name : undefined}
                                 aria-current={active ? "page" : undefined}
                                 className={cn(
                                     "relative flex flex-col items-center gap-0.5 rounded-md py-1.5",
@@ -129,7 +134,9 @@ function MobileTabBar({ activeIdx }: { activeIdx: number }) {
                                     stroke={active ? 2 : 1.6}
                                     aria-hidden
                                 />
-                                <span className="relative">{item.name}</span>
+                                <span className="relative max-w-full truncate">
+                                    {item.short ?? item.name}
+                                </span>
                             </Link>
                         </li>
                     );
